@@ -1,0 +1,77 @@
+{
+  "name": "sctg-ai-pane",
+  "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/OfficeDev/Office-Addin-TaskPane-React.git"
+  },
+  "license": "AGPL-3.0-only",
+  "config": {
+    "app_to_debug": "outlook",
+    "app_type_to_debug": "webpack",
+    "dev_server_port": 3000
+  },
+  "scripts": {
+    "build": "webpack --mode production",
+    "build:dev": "webpack --mode development",
+    "dev-server": "webpack serve --mode development",
+    "lint": "office-addin-lint check",
+    "lint:fix": "office-addin-lint fix",
+    "prettier": "office-addin-lint prettier",
+    "signin": "office-addin-dev-settings m365-account login",
+    "signout": "office-addin-dev-settings m365-account logout",
+    "start": "office-addin-debugging start manifest.json --app outlook",
+    "stop": "office-addin-debugging stop manifest.json --app outlook",
+    "validate": "office-addin-manifest validate manifest.json",
+    "watch": "webpack --mode development --watch"
+  },
+  "dependencies": {
+    "@fluentui/react-components": "^9.54.17",
+    "@fluentui/react-icons": "^2.0.258",
+    "core-js": "^3.38.1",
+    "es6-promise": "^4.2.8",
+    "groq-sdk": "^0.7.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "regenerator-runtime": "^0.14.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.25.2",
+    "@babel/preset-typescript": "^7.24.7",
+    "@types/office-js": "^1.0.427",
+    "@types/office-runtime": "^1.0.35",
+    "@types/react": "^18.3.9",
+    "@types/react-dom": "^18.3.0",
+    "@types/webpack": "^5.28.5",
+    "acorn": "^8.12.1",
+    "babel-loader": "^9.2.1",
+    "copy-webpack-plugin": "^12.0.2",
+    "eslint-plugin-office-addins": "^3.0.3",
+    "eslint-plugin-react": "^7.36.1",
+    "file-loader": "^6.2.0",
+    "generator-office": "^2.0.3",
+    "html-loader": "^5.1.0",
+    "html-webpack-plugin": "^5.6.0",
+    "less": "^4.2.0",
+    "less-loader": "^12.2.0",
+    "office-addin-cli": "^1.6.4",
+    "office-addin-debugging": "^5.1.5",
+    "office-addin-dev-certs": "^1.13.4",
+    "office-addin-lint": "^2.3.4",
+    "office-addin-manifest": "^1.13.5",
+    "office-addin-prettier-config": "^1.2.1",
+    "os-browserify": "^0.3.0",
+    "process": "^0.11.10",
+    "source-map-loader": "^5.0.0",
+    "ts-loader": "^9.5.1",
+    "typescript": "^5.6.2",
+    "webpack": "^5.95.0",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "5.1.0"
+  },
+  "prettier": "office-addin-prettier-config",
+  "browserslist": [
+    "last 2 versions",
+    "ie 11"
+  ]
+}

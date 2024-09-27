@@ -1,0 +1,141 @@
+{
+    "$schema": "https://developer.microsoft.com/json-schemas/teams/v1.17/MicrosoftTeams.schema.json",
+    "id": "d6104121-055c-41c5-b563-6e3badd90b4e",
+    "manifestVersion": "1.17",
+    "version": "1.0.0",
+    "name": {
+        "short": "AI emailer",
+        "full": "SCTG Groq AI Add-in"
+    },
+    "description": {
+        "short": "Use AI to assist you in your email writing.",
+        "full": "Use AI to assist you in your email writing."
+    },
+    "developer": {
+        "name": "Ronan LE MEILLAT",
+        "websiteUrl": "https://www.sctg.eu.org",
+        "privacyUrl": "https://www.sctg.eu.org/privacy",
+        "termsOfUseUrl": "https://www.sctg.eu.org/servicesagreement"
+    },
+    "icons": {
+        "outline": "assets/outline.png",
+        "color": "assets/color.png"
+    },
+    "accentColor": "#230201",
+    "localizationInfo": {
+        "defaultLanguageTag": "en-us",
+        "additionalLanguages": []
+    },
+    "authorization": {
+        "permissions": {
+            "resourceSpecific": [
+                {
+                    "name": "Mailbox.ReadWrite.User",
+                    "type": "Delegated"
+                }
+            ]
+        }
+    },
+    "validDomains": [
+        "contoso.com"
+    ],
+    "extensions": [
+        {
+            "requirements": {
+                "scopes": [
+                    "mail"
+                ],
+                "capabilities": [
+                    {
+                        "name": "Mailbox",
+                        "minVersion": "1.3"
+                    }
+                ]
+            },
+            "runtimes": [
+                {
+                    "requirements": {
+                        "capabilities": [
+                            {
+                                "name": "Mailbox",
+                                "minVersion": "1.3"
+                            }
+                        ]
+                    },
+                    "id": "TaskPaneRuntime",
+                    "type": "general",
+                    "code": {
+                        "page": "https://localhost:3000/aipane.html"
+                    },
+                    "lifetime": "short",
+                    "actions": [
+                        {
+                            "id": "TaskPaneRuntimeShow",
+                            "type": "openPage",
+                            "pinnable": false,
+                            "view": "dashboard"
+                        }
+                    ]
+                }
+            ],
+            "ribbons": [
+                {
+                    "contexts": [
+                        "mailCompose"
+                    ],
+                    "tabs": [
+                        {
+                            "builtInTabId": "TabDefault",
+                            "groups": [
+                                {
+                                    "id": "msgComposeGroup",
+                                    "label": "SCTG Groq AI Add-in",
+                                    "icons": [
+                                        {
+                                            "size": 16,
+                                            "url": "https://localhost:3000/assets/icon-16.png"
+                                        },
+                                        {
+                                            "size": 32,
+                                            "url": "https://localhost:3000/assets/icon-32.png"
+                                        },
+                                        {
+                                            "size": 80,
+                                            "url": "https://localhost:3000/assets/icon-80.png"
+                                        }
+                                    ],
+                                    "controls": [
+                                        {
+                                            "id": "msgComposeOpenPaneButton",
+                                            "type": "button",
+                                            "label": "Show AI pane",
+                                            "icons": [
+                                                {
+                                                    "size": 16,
+                                                    "url": "https://localhost:3000/assets/icon-16.png"
+                                                },
+                                                {
+                                                    "size": 32,
+                                                    "url": "https://localhost:3000/assets/icon-32.png"
+                                                },
+                                                {
+                                                    "size": 80,
+                                                    "url": "https://localhost:3000/assets/icon-80.png"
+                                                }
+                                            ],
+                                            "supertip": {
+                                                "title": "Show AI pane",
+                                                "description": "Opens a AI assist pane."
+                                            },
+                                            "actionId": "TaskPaneRuntimeShow"
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

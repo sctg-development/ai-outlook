@@ -1,0 +1,13 @@
+{
+    "models": [
+        "llama-3.1-8b-instant",
+        "llama-3.2-3b-preview",
+        "llama-3.2-90b-text-preview"
+    ],
+    "prompts": [
+        " ",
+        "Since english is not my mother language could you improve my email using a formal english? This is my draft :",
+        "Peux-tu améliorer la forme et la syntaxe de l'email que je vais envoyer? Voici mon brouillon :",
+        "Could you translate this text into English ? Here is the text :"
+    ]
+}
