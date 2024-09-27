@@ -8,12 +8,11 @@ import { useState, useEffect } from "react";
 import Header from "./Header";
 import HeroList, { HeroListItem } from "./HeroList";
 import TextInsertion from "./TextInsertion";
-import { makeStyles, useId } from "@fluentui/react-components";
+import { makeStyles } from "@fluentui/react-components";
 import { BrainCircuit20Regular } from "@fluentui/react-icons";
 import { insertText } from "../aipane";
 import HeroApiKey from "./HeroApiKey";
 import HeroComboPrompts from "./HeroComboPrompts";
-import config from "../../config.json";
 import HeroModels from "./HeroModels";
 
 interface AppProps {
@@ -26,15 +25,13 @@ const useStyles = makeStyles({
   },
 });
 
-const prompts = config.prompts;
-
 const App: React.FC<AppProps> = (props: AppProps) => {
   const styles = useStyles();
   const [apiKey, setApiKey] = useState<string | null>(null);
   const [prompt, setPrompt] = useState<string | null>(null);
   const [model, setModel] = useState<string | null>(null);
   const [showApiKeyInput, setShowApiKeyInput] = useState<boolean>(false);
-  const selectId = useId();
+
   // The list items are static and won't change at runtime,
   // so this should be an ordinary const, not a part of state.
   const listItems: HeroListItem[] = [
@@ -70,7 +67,7 @@ const App: React.FC<AppProps> = (props: AppProps) => {
 
   const handleModelChange = (newValue: string) => {
     setModel(newValue);
-  }
+  };
 
   const handlePromptSubmit = (text: string) => {
     const apiKey = localStorage.getItem("apiKey");
@@ -81,20 +78,13 @@ const App: React.FC<AppProps> = (props: AppProps) => {
     <div className={styles.root}>
       <Header logo="assets/logo-filled.png" title={props.title} message="Groq-ai" />
       {showApiKeyInput ? (
-        <HeroApiKey
-          apiKey={apiKey}
-          onApiKeyChange={handleApiKeyChange}
-          onApiKeySubmit={handleApiKeySubmit}
-        />
+        <HeroApiKey apiKey={apiKey} onApiKeyChange={handleApiKeyChange} onApiKeySubmit={handleApiKeySubmit} />
       ) : (
         <>
           <HeroList message="Ask Llama" items={listItems} />
-          <HeroModels onChange={handleModelChange}/>
+          <HeroModels onChange={handleModelChange} />
           <HeroComboPrompts onChange={handlePromptChange} />
-          <TextInsertion
-            insertText={handlePromptSubmit}
-            basePrompt={""}
-          />
+          <TextInsertion insertText={handlePromptSubmit} basePrompt={""} />
         </>
       )}
     </div>
