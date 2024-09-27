@@ -1,0 +1,48 @@
+name: Build and Release
+
+on:
+  push:
+    branches:
+      - main
+  release:
+    types: [published]
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+  packages: write
+  attestations: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build project
+        run: npm run build
+
+      - name: Zip dist folder
+        run: zip -r release.zip dist
+
+      - name: Create Release with gh
+        env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+            export TAG_NAME=${{ github.event.release.tag_name }}
+            export TAG_NAME=${TAG_NAME:-"nightly"}
+            echo $TAG_NAME
+            mv release.zip release_${TAG_NAME}.zip
+            gh release create $TAG_NAME -t "$TAG_NAME" -n "$TAG_NAME" || true
+            gh release upload $TAG_NAME release_${TAG_NAME}.zip --clobber
