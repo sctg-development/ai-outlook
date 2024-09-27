@@ -72,8 +72,9 @@ const App: React.FC<AppProps> = (props: AppProps) => {
     setModel(newValue);
   }
 
-  const handlePromptSubmit = (text:string) => {
-    insertText(model, `${prompt}\n${text}`);
+  const handlePromptSubmit = (text: string) => {
+    const apiKey = localStorage.getItem("apiKey");
+    insertText(model, apiKey, `${prompt}\n${text}`);
   };
 
   return (

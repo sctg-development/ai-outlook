@@ -4,10 +4,9 @@
 =========================================================
 */
 import { Groq } from "groq-sdk";
-const GROP_API_KEY = localStorage.getItem("apiKey");
-const groq = new Groq({ apiKey: GROP_API_KEY, dangerouslyAllowBrowser: true });
 
-async function groqRequest(model: string, text: string): Promise<string> {
+async function groqRequest(model: string, apiKey: string, text: string): Promise<string> {
+  const groq = new Groq({ apiKey, dangerouslyAllowBrowser: true });
   const chatCompletion = await groq.chat.completions.create({
     messages: [
       {
@@ -26,11 +25,11 @@ async function groqRequest(model: string, text: string): Promise<string> {
   return chatCompletion.choices[0]?.message?.content || "";
 }
 
-export async function insertText(model: string, text: string) {
+export async function insertText(model: string, apiKey: string, text: string) {
   // Write text to the cursor point in the compose surface.
   try {
     console.log("Prompt text: \n" + text);
-    let aiText = await groqRequest(model, text);
+    let aiText = await groqRequest(model, apiKey, text);
     console.log(`AI response (${model}): \n${aiText}`);
     aiText = aiText.replace(/\n/g, "<br>");
     Office.context.mailbox.item?.body.setSelectedDataAsync(

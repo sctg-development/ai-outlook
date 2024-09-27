@@ -1,6 +1,6 @@
 {
   "name": "sctg-ai-pane",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "repository": {
     "type": "git",
     "url": "https://github.com/OfficeDev/Office-Addin-TaskPane-React.git"
