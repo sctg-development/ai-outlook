@@ -34,7 +34,10 @@ jobs:
         run: npm run build
 
       - name: Zip dist folder
-        run: zip -r release.zip dist
+        run: |
+            cd dist
+            zip -r ../release.zip .
+            cd ..
 
       - name: Create Release with gh
         env:
