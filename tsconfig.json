@@ -16,8 +16,8 @@
     "sourceMap": true,
     "target": "es5",
     "lib": [
-      "es7",
-      "dom"
+      "ES7",
+      "DOM"
     ],
     "pretty": true,
     "typeRoots": [
