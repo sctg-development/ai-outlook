@@ -20,16 +20,14 @@ const useStyles = makeStyles({
   textPromptAndInsertion: {
     display: "flex",
     flexDirection: "column",
-    alignItems: "center",
+    alignItems: "center", 
+    gap: "2px",
+    margin: "10px",
   },
   textAreaField: {
-    marginLeft: "1px",
-    marginTop: "30px",
-    marginBottom: "20px",
-    marginRight: "1px",
+    width: "100%",
   },
   textAreaBox: {
-    width: "100%",
     height: "27vh",
   },
 });
