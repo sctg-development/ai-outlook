@@ -13,6 +13,7 @@ This project is an add-in for Outlook web that integrates Groq AI and Meta Llama
   - [Usage](#usage)
   - [Development](#development)
   - [License](#license)
+  - [Privacy Policy](#privacy-policy)
   - [Contributing](#contributing)
   - [Support](#support)
 
@@ -80,6 +81,10 @@ To set up the development environment:
 ## License
 
 This project is licensed under the GNU Affero General Public License v3.0 (AGPLv3). For more details, see the [LICENSE](LICENSE.md) file in the project repository.
+
+## Privacy Policy
+
+Please refer to the [PRIVACY.md](PRIVACY.md) file for information on data collection, usage, and privacy practices related to the Groq Outlook Add-in.
 
 ## Contributing
 
