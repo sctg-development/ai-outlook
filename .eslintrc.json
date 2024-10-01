@@ -7,5 +7,10 @@
   ],
   "env": {
     "browser": true
+  },
+  "globals": {
+    "Office":true,
+    "module": true,
+    "require": true
   }
 }

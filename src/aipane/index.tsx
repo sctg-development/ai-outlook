@@ -8,8 +8,6 @@ import { createRoot } from "react-dom/client";
 import App from "./components/App";
 import { FluentProvider, webLightTheme } from "@fluentui/react-components";
 
-/* global Office, module, require */
-
 const title = "Contoso Task Pane Add-in";
 
 const rootElement: HTMLElement | null = document.getElementById("container");

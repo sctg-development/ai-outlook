@@ -3,7 +3,6 @@
 * © 2024 Ronan LE MEILLAT for SCTG Development
 =========================================================
 */
-/* global Office */
 
 import { Groq } from "groq-sdk";
 
