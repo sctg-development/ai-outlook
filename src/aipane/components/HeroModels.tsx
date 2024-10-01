@@ -7,12 +7,16 @@ import * as React from "react";
 import { Dropdown, Label, makeStyles, Option, useId } from "@fluentui/react-components";
 import { useState, useEffect } from "react";
 import config from "../../config.json"; // Assurez-vous que le chemin est correct
+import type { AIModel } from "../AIPrompt";
 
 interface HeroModelsProps {
   onChange: (selectedValue: string) => void;
   //readValue: () => string;
 }
 
+function getDefaultModel(): AIModel {
+   return config.models.filter((model: AIModel) => model.default)[0];
+}
 const useStyles = makeStyles({
   root: {
     // Stack the label above the field
@@ -31,11 +35,11 @@ const useStyles = makeStyles({
 const HeroModels: React.FC<HeroModelsProps> = ({ onChange }) => {
   const styles = useStyles();
   const selectId = useId("select");
-  const [selectedValue, setSelectedValue] = useState<string>(config.models[0]);
+  const [selectedValue, setSelectedValue] = useState<string>(getDefaultModel().id);
 
   const handleChange = (event: React.FormEvent<HTMLButtonElement>, option?: any) => {
     event.preventDefault();
-    const newValue = option.nextOption?.text || config.models[0];
+    const newValue = option.nextOption?.value || getDefaultModel().id;
     setSelectedValue(newValue);
     onChange(newValue);
   };
@@ -52,14 +56,14 @@ const HeroModels: React.FC<HeroModelsProps> = ({ onChange }) => {
       <Dropdown
         className={styles.combobox}
         id={selectId}
-        defaultSelectedOptions={[config.models[0]]}
-        defaultValue={config.models[0]}
+        defaultSelectedOptions={[getDefaultModel().id]}
+        defaultValue={getDefaultModel().name}
         onActiveOptionChange={handleChange}
         onChange={handleChange}
       >
-        {config.models.map((option) => (
-          <Option value={option} key={option}>
-            {option}
+        {config.models.map((option:AIModel) => (
+          <Option value={option.id} key={option.id}>
+            {option.name}
           </Option>
         ))}
       </Dropdown>

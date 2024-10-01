@@ -1,8 +1,20 @@
 {
     "models": [
-        "llama-3.1-8b-instant",
-        "llama-3.2-3b-preview",
-        "llama-3.2-90b-text-preview"
+        {
+            "id": "llama-3.1-8b-instant",
+            "name": "Llama 3.1 (8B) - Instant",
+            "default": false
+        },
+        {
+            "id": "llama-3.2-3b-preview",
+            "name": "Llama 3.2 (3B)",
+            "default": false
+        },
+        {
+            "id": "llama-3.2-90b-text-preview",
+            "name": "Llama 3.2 (90B)",
+            "default": true
+        }
     ],
     "tests": [
         {

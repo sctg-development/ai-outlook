@@ -10,3 +10,9 @@ export interface AIPrompt {
   user: string;
   summary: string;
 }
+
+export interface AIModel {
+  id: string;
+  name: string;
+  default: boolean;
+}
