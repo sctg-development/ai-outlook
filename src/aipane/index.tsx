@@ -8,8 +8,7 @@ import { createRoot } from "react-dom/client";
 import App from "./components/App";
 import { FluentProvider, webLightTheme } from "@fluentui/react-components";
 
-const title = "Contoso Task Pane Add-in";
-
+const title = "SCTG AI Emailer Add-in";
 const rootElement: HTMLElement | null = document.getElementById("container");
 const root = rootElement ? createRoot(rootElement) : undefined;
 
