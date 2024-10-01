@@ -7,6 +7,7 @@ import * as React from "react";
 import { Combobox, Label, makeStyles, Option, useId } from "@fluentui/react-components";
 import { useState, useEffect } from "react";
 import config from "../../config.json"; // Assurez-vous que le chemin est correct
+import type { AIPrompt } from "../AIPrompt";
 
 interface HeroComboPromptsProps {
   onChange: (selectedValue: string) => void;
@@ -30,11 +31,11 @@ const useStyles = makeStyles({
 const HeroComboPrompts: React.FC<HeroComboPromptsProps> = ({ onChange }) => {
   const styles = useStyles();
   const inputId = useId("input");
-  const [selectedValue, setSelectedValue] = useState<string>(config.models[0]);
+  const [selectedValue, setSelectedValue] = useState<string>(config.prompts[0].id);
 
   const handleChange = (event: React.FormEvent<HTMLButtonElement>, option?: any) => {
     event.preventDefault();
-    const newValue = option.nextOption?.text || config.models[0];
+    const newValue = option.nextOption?.value || config.prompts[0].id;
     setSelectedValue(newValue);
     onChange(newValue);
   };
@@ -54,9 +55,9 @@ const HeroComboPrompts: React.FC<HeroComboPromptsProps> = ({ onChange }) => {
         placeholder="Select a prompt"
         onActiveOptionChange={handleChange}
       >
-        {config.prompts.map((option) => (
-          <Option value={option} key={option}>
-            {option}
+        {config.prompts.map((option: AIPrompt) => (
+          <Option id={option.id} value={option.id} key={option.id}>
+            {option.system}
           </Option>
         ))}
       </Combobox>
