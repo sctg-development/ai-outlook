@@ -8,4 +8,5 @@ export interface AIPrompt {
   id: string;
   system: string;
   user: string;
+  summary: string;
 }

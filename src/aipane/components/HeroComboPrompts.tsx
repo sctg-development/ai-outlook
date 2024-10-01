@@ -57,7 +57,7 @@ const HeroComboPrompts: React.FC<HeroComboPromptsProps> = ({ onChange }) => {
       >
         {config.prompts.map((option: AIPrompt) => (
           <Option id={option.id} value={option.id} key={option.id}>
-            {option.system}
+            {option.summary}
           </Option>
         ))}
       </Combobox>
