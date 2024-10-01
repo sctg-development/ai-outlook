@@ -4,7 +4,7 @@
 =========================================================
 */
 import * as React from "react";
-import { Combobox, Label, makeStyles, Option, useId } from "@fluentui/react-components";
+import { Dropdown, Label, makeStyles, Option, useId } from "@fluentui/react-components";
 import { useState, useEffect } from "react";
 import config from "../../config.json"; // Assurez-vous que le chemin est correct
 import type { AIPrompt } from "../AIPrompt";
@@ -49,18 +49,19 @@ const HeroComboPrompts: React.FC<HeroComboPromptsProps> = ({ onChange }) => {
       <Label htmlFor={inputId} size="large">
         AI Prompt
       </Label>
-      <Combobox
+      <Dropdown
         className={styles.combobox}
         id={inputId}
-        placeholder="Select a prompt"
         onActiveOptionChange={handleChange}
+        defaultSelectedOptions={[config.prompts[0].id]}
+        defaultValue={config.prompts[0].summary}
       >
         {config.prompts.map((option: AIPrompt) => (
-          <Option id={option.id} value={option.id} key={option.id}>
+          <Option value={option.id} key={option.id}>
             {option.summary}
           </Option>
         ))}
-      </Combobox>
+      </Dropdown>
     </div>
   );
 };

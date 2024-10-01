@@ -15,7 +15,7 @@ interface HeroModelsProps {
 }
 
 function getDefaultModel(): AIModel {
-   return config.models.filter((model: AIModel) => model.default)[0];
+  return config.models.filter((model: AIModel) => model.default)[0];
 }
 const useStyles = makeStyles({
   root: {
@@ -61,7 +61,7 @@ const HeroModels: React.FC<HeroModelsProps> = ({ onChange }) => {
         onActiveOptionChange={handleChange}
         onChange={handleChange}
       >
-        {config.models.map((option:AIModel) => (
+        {config.models.map((option: AIModel) => (
           <Option value={option.id} key={option.id}>
             {option.name}
           </Option>

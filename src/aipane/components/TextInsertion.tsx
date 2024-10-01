@@ -20,7 +20,7 @@ const useStyles = makeStyles({
   textPromptAndInsertion: {
     display: "flex",
     flexDirection: "column",
-    alignItems: "center", 
+    alignItems: "center",
     gap: "2px",
     margin: "10px",
   },
