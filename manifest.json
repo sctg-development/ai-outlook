@@ -2,7 +2,7 @@
     "$schema": "https://developer.microsoft.com/json-schemas/teams/v1.17/MicrosoftTeams.schema.json",
     "id": "d6104121-055c-41c5-b563-6e3badd90b4e",
     "manifestVersion": "1.17",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "name": {
         "short": "AI emailer",
         "full": "SCTG Groq AI Add-in"
@@ -13,9 +13,9 @@
     },
     "developer": {
         "name": "Ronan LE MEILLAT",
-        "websiteUrl": "https://www.sctg.eu.org",
-        "privacyUrl": "https://www.sctg.eu.org/privacy",
-        "termsOfUseUrl": "https://www.sctg.eu.org/servicesagreement"
+        "websiteUrl": "https://github.com/sctg-development/groq-outlook",
+        "privacyUrl": "https://github.com/sctg-development/groq-outlook/blob/main/PRIVACY.md",
+        "termsOfUseUrl": "https://github.com/sctg-development/groq-outlook/blob/main/TERMOFUSE.md"
     },
     "icons": {
         "outline": "assets/outline.png",
@@ -37,7 +37,13 @@
         }
     },
     "validDomains": [
-        "contoso.com"
+        "addin.pp.ua",
+        "office.com",
+        "outlook.com",
+        "live.com",
+        "microsoft.com",
+        "microsoftonline.com",
+        "office365.com"
     ],
     "extensions": [
         {
