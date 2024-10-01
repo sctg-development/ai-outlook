@@ -3,6 +3,8 @@
 * © 2024 Ronan LE MEILLAT for SCTG Development
 =========================================================
 */
+/* global Office */
+
 import { Groq } from "groq-sdk";
 
 async function groqRequest(model: string, apiKey: string, text: string): Promise<string> {

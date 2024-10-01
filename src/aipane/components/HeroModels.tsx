@@ -49,11 +49,14 @@ const HeroModels: React.FC<HeroModelsProps> = ({ onChange }) => {
       <Label htmlFor={selectId} size="large">
         Model
       </Label>
-      <Dropdown className={styles.combobox} id={selectId}
-      defaultSelectedOptions={[config.models[0]]}
-      defaultValue={config.models[0]}
-      onActiveOptionChange={handleChange}
-      onChange={handleChange}>
+      <Dropdown
+        className={styles.combobox}
+        id={selectId}
+        defaultSelectedOptions={[config.models[0]]}
+        defaultValue={config.models[0]}
+        onActiveOptionChange={handleChange}
+        onChange={handleChange}
+      >
         {config.models.map((option) => (
           <Option value={option} key={option}>
             {option}
