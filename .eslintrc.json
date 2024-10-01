@@ -4,5 +4,8 @@
   ],
   "extends": [
     "plugin:office-addins/react"
-  ]
+  ],
+  "env": {
+    "browser": true
+  }
 }
