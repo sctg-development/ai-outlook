@@ -4,12 +4,17 @@
 =========================================================
 */
 
-import { Groq } from "groq-sdk";
+import { Groq } from "@sctg/ai-sdk";
 import config from "../config.json";
 import type { AIPrompt } from "./AIPrompt";
 
 async function groqRequest(model: string, apiKey: string, systemText: string, usertext: string): Promise<string> {
-  const groq = new Groq({ apiKey, dangerouslyAllowBrowser: true });
+  const groq = new Groq({
+    baseURL: "https://api.groq.com",
+    basePath: "/openai/v1",
+    apiKey,
+    dangerouslyAllowBrowser: true,
+  });
   const chatCompletion = await groq.chat.completions.create({
     messages: [
       {
