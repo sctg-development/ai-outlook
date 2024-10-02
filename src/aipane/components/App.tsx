@@ -76,7 +76,7 @@ const App: React.FC<AppProps> = (props: AppProps) => {
 
   return (
     <div className={styles.root}>
-      <Header logo="assets/logo-filled.png" title={props.title} message="Groq-ai" />
+      <Header logo="assets/logo-filled.png" title={props.title} message="AI emailer" />
       {showApiKeyInput ? (
         <HeroApiKey apiKey={apiKey} onApiKeyChange={handleApiKeyChange} onApiKeySubmit={handleApiKeySubmit} />
       ) : (
