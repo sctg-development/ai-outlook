@@ -6,14 +6,27 @@
 
 import { Groq } from "@sctg/ai-sdk";
 import config from "../config.json";
-import type { AIPrompt } from "./AIPrompt";
+import type { AIPrompt, AIProvider } from "./AIPrompt";
 
-async function groqRequest(model: string, apiKey: string, systemText: string, usertext: string): Promise<string> {
+async function groqRequest(
+  provider: AIProvider,
+  model: string,
+  apiKey: string,
+  systemText: string,
+  usertext: string
+): Promise<string> {
   const groq = new Groq({
-    baseURL: "https://api.groq.com",
-    basePath: "/openai/v1",
+    baseURL: provider.baseUrl,
+    basePath: provider.basePath,
+    disableCorsCheck: false,
     apiKey,
     dangerouslyAllowBrowser: true,
+    // fetch: async (url: any, init?: any): Promise<any> => {
+    //   console.log("About to make a request", url, init);
+    //   const response = await fetch(url, { mode: "no-cors", ...init });
+    //   console.log("Got response", response);
+    //   return response;
+    // },
   });
   const chatCompletion = await groq.chat.completions.create({
     messages: [
@@ -41,14 +54,14 @@ function getPrompt(id: string): AIPrompt {
   return prompts.find((prompt) => prompt.id === id) || prompts[0];
 }
 
-export async function insertText(model: string, apiKey: string, id: string, userText: string) {
+export async function insertText(provider: AIProvider, model: string, apiKey: string, id: string, userText: string) {
   const { system, user } = getPrompt(id);
   try {
     console.log(`Prompt: ${id}`);
     console.log(`System text: \n${system}`);
     console.log(`User: ${user}`);
     console.log(`User text: \n${userText}`);
-    let aiText = await groqRequest(model, apiKey, system, `${user}\n${userText}`);
+    let aiText = await groqRequest(provider, model, apiKey, system, `${user}\n${userText}`);
     console.log(`AI response (${model}): \n${aiText}`);
     aiText = aiText.replace(/\n/g, "<br>");
     Office.context.mailbox.item?.body.setSelectedDataAsync(

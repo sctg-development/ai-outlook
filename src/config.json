@@ -1,19 +1,47 @@
 {
-    "models": [
+    "providers": [
         {
-            "id": "llama-3.1-8b-instant",
-            "name": "Llama 3.1 (8B) - Instant",
-            "default": false
+            "default": true,
+            "name": "Groq",
+            "baseUrl": "https://api.groq.com",
+            "basePath": "/openai/v1",
+            "apiKey": "groqKey",
+            "models": [
+                {
+                    "id": "llama-3.1-8b-instant",
+                    "name": "Llama 3.1 (8B) - Instant",
+                    "default": false
+                },
+                {
+                    "id": "llama-3.2-3b-preview",
+                    "name": "Llama 3.2 (3B)",
+                    "default": false
+                },
+                {
+                    "id": "llama-3.2-90b-text-preview",
+                    "name": "Llama 3.2 (90B)",
+                    "default": true
+                }
+            ]
         },
         {
-            "id": "llama-3.2-3b-preview",
-            "name": "Llama 3.2 (3B)",
-            "default": false
-        },
-        {
-            "id": "llama-3.2-90b-text-preview",
-            "name": "Llama 3.2 (90B)",
-            "default": true
+            "default": false,
+            "name": "SambaNovaAI",
+            "baseUrl": "https://api.sambanova.ai",
+            "basePath": "/v1",
+            "apiKey": "sambanovaKey",
+            "models": [
+                {
+                    "id": "Meta-Llama-3.1-405B-Instruct",
+                    "name": "Llama 3.1 (405B) - Instruct",
+                    "default": false
+                },
+                {
+                    "id": "Meta-Llama-3.1-8B-Instruct",
+                    "name": "Llama 3.1 (8B) - Instant",
+                    "default": true
+                }
+            ]
         }
     ],
     "tests": [

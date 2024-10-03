@@ -6,16 +6,16 @@
 import * as React from "react";
 import { Dropdown, Label, makeStyles, Option, useId } from "@fluentui/react-components";
 import { useState, useEffect } from "react";
-import config from "../../config.json"; // Assurez-vous que le chemin est correct
-import type { AIModel } from "../AIPrompt";
+import { type AIModel, type AIProvider } from "../AIPrompt";
 
 interface HeroModelsProps {
   onChange: (selectedValue: string) => void;
+  provider: AIProvider;
   //readValue: () => string;
 }
 
-function getDefaultModel(): AIModel {
-  return config.models.filter((model: AIModel) => model.default)[0];
+function getDefaultModel(provider: AIProvider): AIModel {
+  return provider.models.filter((model: AIModel) => model.default)[0];
 }
 const useStyles = makeStyles({
   root: {
@@ -32,14 +32,14 @@ const useStyles = makeStyles({
   },
 });
 
-const HeroModels: React.FC<HeroModelsProps> = ({ onChange }) => {
+const HeroModels: React.FC<HeroModelsProps> = ({ onChange, provider }) => {
   const styles = useStyles();
   const selectId = useId("select");
-  const [selectedValue, setSelectedValue] = useState<string>(getDefaultModel().id);
+  const [selectedValue, setSelectedValue] = useState<string>(getDefaultModel(provider).id);
 
   const handleChange = (event: React.FormEvent<HTMLButtonElement>, option?: any) => {
     event.preventDefault();
-    const newValue = option.nextOption?.value || getDefaultModel().id;
+    const newValue = option.nextOption?.value || getDefaultModel(provider).id;
     setSelectedValue(newValue);
     onChange(newValue);
   };
@@ -56,12 +56,12 @@ const HeroModels: React.FC<HeroModelsProps> = ({ onChange }) => {
       <Dropdown
         className={styles.combobox}
         id={selectId}
-        defaultSelectedOptions={[getDefaultModel().id]}
-        defaultValue={getDefaultModel().name}
+        defaultSelectedOptions={[getDefaultModel(provider).id]}
+        defaultValue={getDefaultModel(provider).name}
         onActiveOptionChange={handleChange}
         onChange={handleChange}
       >
-        {config.models.map((option: AIModel) => (
+        {provider.models.map((option: AIModel) => (
           <Option value={option.id} key={option.id}>
             {option.name}
           </Option>

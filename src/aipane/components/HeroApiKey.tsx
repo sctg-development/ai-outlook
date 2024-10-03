@@ -5,8 +5,10 @@
 */
 import * as React from "react";
 import { makeStyles, useId, Button, Input, Label } from "@fluentui/react-components";
+import { AIProvider } from "../AIPrompt";
 
 interface HeroApiKeyProps {
+  provider: AIProvider;
   apiKey: string | null;
   onApiKeyChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onApiKeySubmit: () => void;
@@ -27,13 +29,13 @@ const useStyles = makeStyles({
   },
 });
 
-const HeroApiKey: React.FC<HeroApiKeyProps> = ({ apiKey, onApiKeyChange, onApiKeySubmit }) => {
+const HeroApiKey: React.FC<HeroApiKeyProps> = ({ apiKey, onApiKeyChange, onApiKeySubmit, provider }) => {
   const styles = useStyles();
   const inputId = useId("input");
   return (
     <div className={styles.root}>
       <Label htmlFor={inputId} size="large">
-        Grok API Key
+        {provider.name} API Key
       </Label>
       <Input
         className={styles.input}

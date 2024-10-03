@@ -1,6 +1,6 @@
 {
   "name": "sctg-ai-pane",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "repository": {
     "type": "git",
     "url": "https://github.com/OfficeDev/Office-Addin-TaskPane-React.git"
@@ -27,20 +27,20 @@
   },
   "dependencies": {
     "@fluentui/react-components": "^9.54.17",
-    "@fluentui/react-icons": "^2.0.259",
+    "@fluentui/react-icons": "^2.0.260",
     "core-js": "^3.38.1",
     "es6-promise": "^4.2.8",
-    "@sctg/ai-sdk": "^0.7.0",
+    "@sctg/ai-sdk": "^0.7.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "regenerator-runtime": "^0.14.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.25.2",
-    "@babel/preset-typescript": "^7.24.7",
+    "@babel/core": "^7.25.7",
+    "@babel/preset-typescript": "^7.25.7",
     "@types/office-js": "^1.0.433",
     "@types/office-runtime": "^1.0.35",
-    "@types/react": "^18.3.10",
+    "@types/react": "^18.3.11",
     "@types/react-dom": "^18.3.0",
     "@types/webpack": "^5.28.5",
     "acorn": "^8.12.1",

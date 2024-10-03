@@ -14,6 +14,7 @@ import { insertText } from "../aipane";
 import HeroApiKey from "./HeroApiKey";
 import HeroComboPrompts from "./HeroComboPrompts";
 import HeroModels from "./HeroModels";
+import { getDefaultProvider } from "../AIPrompt";
 
 interface AppProps {
   title: string;
@@ -26,6 +27,7 @@ const useStyles = makeStyles({
 });
 
 const App: React.FC<AppProps> = (props: AppProps) => {
+  const provider = getDefaultProvider();
   const styles = useStyles();
   const [apiKey, setApiKey] = useState<string | null>(null);
   const [prompt, setPrompt] = useState<string | null>(null);
@@ -42,7 +44,7 @@ const App: React.FC<AppProps> = (props: AppProps) => {
   ];
 
   useEffect(() => {
-    const storedApiKey = localStorage.getItem("apiKey");
+    const storedApiKey = localStorage.getItem(provider.apiKey);
     if (!storedApiKey) {
       setShowApiKeyInput(true);
     } else {
@@ -60,7 +62,7 @@ const App: React.FC<AppProps> = (props: AppProps) => {
 
   const handleApiKeySubmit = () => {
     if (apiKey) {
-      localStorage.setItem("apiKey", apiKey);
+      localStorage.setItem(provider.apiKey, apiKey);
       setShowApiKeyInput(false);
     }
   };
@@ -70,19 +72,24 @@ const App: React.FC<AppProps> = (props: AppProps) => {
   };
 
   const handlePromptSubmit = (userText: string) => {
-    const apiKey = localStorage.getItem("apiKey");
-    insertText(model, apiKey, prompt, `${userText}`);
+    const apiKey = localStorage.getItem(provider.apiKey);
+    insertText(provider, model, apiKey, prompt, `${userText}`);
   };
 
   return (
     <div className={styles.root}>
       <Header logo="assets/logo-filled.png" title={props.title} message="AI emailer" />
       {showApiKeyInput ? (
-        <HeroApiKey apiKey={apiKey} onApiKeyChange={handleApiKeyChange} onApiKeySubmit={handleApiKeySubmit} />
+        <HeroApiKey
+          apiKey={apiKey}
+          onApiKeyChange={handleApiKeyChange}
+          onApiKeySubmit={handleApiKeySubmit}
+          provider={provider}
+        />
       ) : (
         <>
           <HeroList message="Ask Llama" items={listItems} />
-          <HeroModels onChange={handleModelChange} />
+          <HeroModels onChange={handleModelChange} provider={provider} />
           <HeroComboPrompts onChange={handlePromptChange} />
           <TextInsertion insertText={handlePromptSubmit} basePrompt={""} />
         </>
