@@ -1,10 +1,10 @@
-# Groq Outlook Add-in
+# AI Outlook Add-in
 
-This project is an add-in for Outlook web that integrates Groq AI and Meta Llama model capabilities into your email experience. It allows users to leverage the power of Groq's AI in their daily email interactions.
+This project is an add-in for Outlook web that integrates Groq AI or Sambanova AI and Meta Llama model capabilities into your email experience. It allows users to leverage the power of Groq's AI in their daily email interactions.
 
 ## Table of Contents
 
-- [Groq Outlook Add-in](#groq-outlook-add-in)
+- [AI Outlook Add-in](#ai-outlook-add-in)
   - [Table of Contents](#table-of-contents)
   - [Overview](#overview)
   - [Features](#features)
@@ -19,9 +19,9 @@ This project is an add-in for Outlook web that integrates Groq AI and Meta Llama
 
 ## Overview
 
-The Groq Outlook Add-in enhances your email workflow by providing AI-powered assistance directly within your Outlook web interface. By leveraging the Groq AI API, this add-in offers intelligent features to help you compose, analyze, and manage your emails more efficiently.
+The AI Outlook Add-in enhances your email workflow by providing AI-powered assistance directly within your Outlook web interface. By leveraging the OpenAI v1 API, this add-in offers intelligent features to help you compose, analyze, and manage your emails more efficiently.
 
-**Project Repository:** [https://github.com/sctg-development/groq-outlook](https://github.com/sctg-development/groq-outlook)
+**Project Repository:** [https://github.com/sctg-development/ai-outlook](https://github.com/sctg-development/ai-outlook)
 
 **Deployed Add-in:** [https://outlook.addin.pp.ua/](https://outlook.addin.pp.ua/manifest.json)
 
@@ -32,19 +32,20 @@ The Groq Outlook Add-in enhances your email workflow by providing AI-powered ass
 - Prompt easy configurable in src/config.json
 - Model configuration in src/config.json
 - Language translation integration
+- Compatible with Groq AI and Sambanova AI ([via AI-Proxy-Cloudflare](https://github.com/sctg-development/ai-proxy-cloudflare))
 
 ## Prerequisites
 
-Before you can use the Groq Outlook Add-in, you'll need:
+Before you can use the AI Outlook Add-in, you'll need:
 
 1. Access to your company's Microsoft 365 admin console
 2. A Groq AI developer API key (obtain one from [Groq's developer portal](https://console.groq.com))
 
 ## Installation
 
-To install the Groq Outlook Add-in, follow these steps:
+To install the AI Outlook Add-in, follow these steps:
 
-1. Download the latest release (nightly) ZIP file from the [project's GitHub releases section](https://github.com/sctg-development/groq-outlook/releases).
+1. Download the latest release (nightly) ZIP file from the [project's GitHub releases section](https://github.com/sctg-development/ai-outlook/releases).
 2. Log in to your company's Microsoft 365 admin console.
 3. Navigate to Settings > Integrated applications.
 4. Click on "Load customized applications" (or a similar option for adding custom add-ins).
@@ -59,7 +60,7 @@ After installation:
 
 1. Open Outlook on the web and sign in to your account.
 2. Open an email or start composing a new message.
-3. Look for the Groq Outlook Add-in called **AI emailer** icon in the Outlook ribbon.
+3. Look for the AI Outlook Add-in called **AI emailer** icon in the Outlook ribbon.
 4. Click on the icon to open the add-in pane.
 5. Enter your Groq AI developer API key when prompted (this is a one-time setup).
 6. Use the add-in features as needed in your email workflow:
