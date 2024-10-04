@@ -6,6 +6,7 @@
 import * as React from "react";
 import { useState, useEffect } from "react";
 import Header from "./Header";
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import HeroList, { HeroListItem } from "./HeroList";
 import TextInsertion from "./TextInsertion";
 import { makeStyles } from "@fluentui/react-components";
@@ -15,6 +16,7 @@ import HeroApiKey from "./HeroApiKey";
 import HeroComboPrompts from "./HeroComboPrompts";
 import HeroModels from "./HeroModels";
 import { AIModel, AIProvider, getDefaultProvider, getModel } from "../AIPrompt";
+import HeroProviders from "./HeroProviders";
 
 interface AppProps {
   title: string;
@@ -36,6 +38,7 @@ const App: React.FC<AppProps> = (props: AppProps) => {
 
   // The list items are static and won't change at runtime,
   // so this should be an ordinary const, not a part of state.
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const listItems: HeroListItem[] = [
     {
       icon: <BrainCircuit20Regular />,
@@ -79,6 +82,13 @@ const App: React.FC<AppProps> = (props: AppProps) => {
     insertText(provider, model, apiKey, prompt, `${userText}`);
   };
 
+  const handleProviderChange = (provider: AIProvider) => {
+    setProvider(provider);
+    if (!localStorage.getItem(provider.apiKey)) {
+      setShowApiKeyInput(true);
+    }
+  };
+
   return (
     <div className={styles.root}>
       <Header logo="assets/logo-filled.png" title={props.title} message="AI emailer" />
@@ -91,7 +101,8 @@ const App: React.FC<AppProps> = (props: AppProps) => {
         />
       ) : (
         <>
-          <HeroList message="Ask Llama" items={listItems} />
+          {/* <HeroList message="Ask Llama" items={listItems} /> */}
+          <HeroProviders onChange={handleProviderChange} />
           <HeroModels onChange={handleModelChange} provider={provider} />
           <HeroComboPrompts onChange={handlePromptChange} />
           <TextInsertion insertText={handlePromptSubmit} basePrompt={""} />

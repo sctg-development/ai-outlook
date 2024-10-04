@@ -6,12 +6,11 @@
 import * as React from "react";
 import { Dropdown, Label, makeStyles, Option, useId } from "@fluentui/react-components";
 import { useState, useEffect } from "react";
-import { getDefaultModel, type AIModel, type AIProvider } from "../AIPrompt";
+import { getDefaultProvider, getProvider, type AIProvider } from "../AIPrompt";
+import config from "../../config.json";
 
-interface HeroModelsProps {
-  onChange: (selectedValue: string) => void;
-  provider: AIProvider;
-  //readValue: () => string;
+interface HeroProvidersProps {
+  onChange: (provider: AIProvider) => void;
 }
 
 const useStyles = makeStyles({
@@ -29,37 +28,37 @@ const useStyles = makeStyles({
   },
 });
 
-const HeroModels: React.FC<HeroModelsProps> = ({ onChange, provider }) => {
+const HeroProviders: React.FC<HeroProvidersProps> = ({ onChange }) => {
   const styles = useStyles();
   const selectId = useId("select");
-  const [selectedValue, setSelectedValue] = useState<string>(getDefaultModel(provider).id);
+  const [selectedValue, setSelectedValue] = useState<string>(getDefaultProvider().name);
 
   const handleChange = (event: React.FormEvent<HTMLButtonElement>, option?: any) => {
     event.preventDefault();
-    const newValue = option.nextOption?.value || getDefaultModel(provider).id;
+    const newValue = option.nextOption?.value || getDefaultProvider().name;
     setSelectedValue(newValue);
-    onChange(newValue);
+    onChange(getProvider(newValue));
   };
 
   useEffect(() => {
-    onChange(selectedValue);
+    onChange(getProvider(selectedValue));
   }, [selectedValue]);
 
   return (
     <div className={styles.root}>
       <Label htmlFor={selectId} size="large">
-        Model
+        Provider
       </Label>
       <Dropdown
         className={styles.combobox}
         id={selectId}
-        defaultSelectedOptions={[getDefaultModel(provider).id]}
-        defaultValue={getDefaultModel(provider).name}
+        defaultSelectedOptions={[getDefaultProvider().name]}
+        defaultValue={getDefaultProvider().name}
         onActiveOptionChange={handleChange}
         onChange={handleChange}
       >
-        {provider.models.map((option: AIModel) => (
-          <Option value={option.id} key={option.id}>
+        {config.providers.map((option: AIProvider) => (
+          <Option value={option.name} key={option.name}>
             {option.name}
           </Option>
         ))}
@@ -68,4 +67,4 @@ const HeroModels: React.FC<HeroModelsProps> = ({ onChange, provider }) => {
   );
 };
 
-export default HeroModels;
+export default HeroProviders;

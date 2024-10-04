@@ -121,3 +121,12 @@ export function getProvider(providerName: string): AIProvider {
 export function getModel(provider: AIProvider, modelId: string): AIModel {
   return provider.models.filter((model: AIModel) => model.id === modelId)[0];
 }
+
+/**
+ * Retrieves the AI model from config.json for the given provider.
+ * @param {AIProvider} provider - The AI provider containing the model.
+ * @returns {AIModel} The AI model with the specified ID.
+ */
+export function getDefaultModel(provider: AIProvider): AIModel {
+  return provider.models.filter((model: AIModel) => model.default)[0];
+}

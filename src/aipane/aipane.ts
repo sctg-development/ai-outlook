@@ -69,7 +69,7 @@ export async function insertText(provider: AIProvider, model: AIModel, apiKey: s
     console.log(`User: ${user}`);
     console.log(`User text: \n${userText}`);
     let aiText = await groqRequest(provider, model, apiKey, system, `${user}\n${userText}`);
-    console.log(`AI response (${model}): \n${aiText}`);
+    console.log(`AI provider: ${provider.name} AI model: ${model.name}: \n${aiText}`);
     aiText = aiText.replace(/\n/g, "<br>");
     Office.context.mailbox.item?.body.setSelectedDataAsync(
       aiText,
