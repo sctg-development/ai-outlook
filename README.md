@@ -32,7 +32,7 @@ The AI Outlook Add-in enhances your email workflow by providing AI-powered assis
 - Prompt easy configurable in src/config.json
 - Model configuration in src/config.json
 - Language translation integration
-- Compatible with Groq AI and Sambanova AI ([via AI-Proxy-Cloudflare](https://github.com/sctg-development/ai-proxy-cloudflare))
+- Compatible with Groq AI and Sambanova AI ([via AI-Proxy-Cloudflare due to CORS](https://github.com/sctg-development/ai-proxy-cloudflare))
 
 ## Prerequisites
 

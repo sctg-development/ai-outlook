@@ -14,7 +14,7 @@ import { insertText } from "../aipane";
 import HeroApiKey from "./HeroApiKey";
 import HeroComboPrompts from "./HeroComboPrompts";
 import HeroModels from "./HeroModels";
-import { AIModel, getDefaultProvider } from "../AIPrompt";
+import { AIModel, getDefaultProvider, getModel } from "../AIPrompt";
 
 interface AppProps {
   title: string;
@@ -68,7 +68,7 @@ const App: React.FC<AppProps> = (props: AppProps) => {
   };
 
   const handleModelChange = (newValue: string) => {
-    setModel(provider.models.find((model) => model.id === newValue) || null);
+    setModel(getModel(provider, newValue) || null);
   };
 
   const handlePromptSubmit = (userText: string) => {
