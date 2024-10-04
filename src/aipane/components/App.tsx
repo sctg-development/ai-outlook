@@ -14,7 +14,7 @@ import { insertText } from "../aipane";
 import HeroApiKey from "./HeroApiKey";
 import HeroComboPrompts from "./HeroComboPrompts";
 import HeroModels from "./HeroModels";
-import { AIModel, getDefaultProvider, getModel } from "../AIPrompt";
+import { AIModel, AIProvider, getDefaultProvider, getModel } from "../AIPrompt";
 
 interface AppProps {
   title: string;
@@ -27,7 +27,7 @@ const useStyles = makeStyles({
 });
 
 const App: React.FC<AppProps> = (props: AppProps) => {
-  const provider = getDefaultProvider();
+  const [provider, setProvider] = useState<AIProvider | null>(getDefaultProvider());
   const styles = useStyles();
   const [apiKey, setApiKey] = useState<string | null>(null);
   const [prompt, setPrompt] = useState<string | null>(null);
@@ -44,6 +44,9 @@ const App: React.FC<AppProps> = (props: AppProps) => {
   ];
 
   useEffect(() => {
+    if (!provider) {
+      setProvider(getDefaultProvider());
+    }
     const storedApiKey = localStorage.getItem(provider.apiKey);
     if (!storedApiKey) {
       setShowApiKeyInput(true);
