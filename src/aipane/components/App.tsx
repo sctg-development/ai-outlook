@@ -44,14 +44,14 @@ const App: React.FC<AppProps> = (props: AppProps) => {
   ];
 
   useEffect(() => {
-    if (!provider) {
-      setProvider(getDefaultProvider());
-    }
     const storedApiKey = localStorage.getItem(provider.apiKey);
     if (!storedApiKey) {
       setShowApiKeyInput(true);
     } else {
       setApiKey(storedApiKey);
+    }
+    if (!provider) {
+      setProvider(getDefaultProvider());
     }
   }, []);
 
