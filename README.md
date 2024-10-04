@@ -89,7 +89,7 @@ Please refer to the [PRIVACY.md](PRIVACY.md) file for information on data collec
 
 ## Contributing
 
-We welcome contributions to the Groq Outlook Add-in! If you'd like to contribute, please follow these steps:
+We welcome contributions to the AI Outlook Add-in! If you'd like to contribute, please follow these steps:
 
 1. Fork the repository
 2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
@@ -99,8 +99,8 @@ We welcome contributions to the Groq Outlook Add-in! If you'd like to contribute
 
 ## Support
 
-If you encounter any issues or have questions about the Groq Outlook Add-in, please [open an issue](https://github.com/sctg-development/groq-outlook/issues) on our GitHub repository.
+If you encounter any issues or have questions about the AI Outlook Add-in, please [open an issue](https://github.com/sctg-development/ai-outlook/issues) on our GitHub repository.
 
 ---
 
-This project is not affiliated with or endorsed by Microsoft, Meta or Groq. It is an independent add-in developed to enhance the Outlook web experience using Groq's AI capabilities and Meta Llama models.
+This project is not affiliated with or endorsed by Microsoft, Meta, SambaNova or Groq. It is an independent add-in developed to enhance the Outlook web experience using Groq's AI capabilities and Meta Llama models.

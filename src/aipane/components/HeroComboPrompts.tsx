@@ -6,9 +6,8 @@
 import * as React from "react";
 import { Dropdown, Label, makeStyles, Option, useId } from "@fluentui/react-components";
 import { useState, useEffect } from "react";
-import config from "../../config.json"; // Assurez-vous que le chemin est correct
 import type { AIPrompt } from "../AIPrompt";
-
+import config from "../../config.json";
 interface HeroComboPromptsProps {
   onChange: (selectedValue: string) => void;
 }
@@ -28,6 +27,8 @@ const useStyles = makeStyles({
   },
 });
 
+const prompts = config.prompts;
+
 const HeroComboPrompts: React.FC<HeroComboPromptsProps> = ({ onChange }) => {
   const styles = useStyles();
   const inputId = useId("input");
@@ -41,6 +42,10 @@ const HeroComboPrompts: React.FC<HeroComboPromptsProps> = ({ onChange }) => {
   };
 
   useEffect(() => {
+    // prompts.forEach((prompt: AIPrompt) => {
+    //   console.log(prompt.summary);
+    // });
+
     onChange(selectedValue);
   }, [selectedValue]);
 
@@ -56,9 +61,9 @@ const HeroComboPrompts: React.FC<HeroComboPromptsProps> = ({ onChange }) => {
         defaultSelectedOptions={[config.prompts[0].id]}
         defaultValue={config.prompts[0].summary}
       >
-        {config.prompts.map((option: AIPrompt) => (
-          <Option value={option.id} key={option.id}>
-            {option.summary}
+        {prompts.map((prompt: AIPrompt) => (
+          <Option value={prompt.id} key={prompt.id}>
+            {prompt.summary || prompt.system}
           </Option>
         ))}
       </Dropdown>
