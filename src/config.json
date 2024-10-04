@@ -1,4 +1,7 @@
 {
+    "aiproxy": {
+        "host": "ai-proxy.inet.pp.ua"
+    },
     "providers": [
         {
             "default": true,
@@ -6,21 +9,25 @@
             "baseUrl": "https://api.groq.com",
             "basePath": "/openai/v1",
             "apiKey": "groqKey",
+            "aiproxied": false,
             "models": [
                 {
                     "id": "llama-3.1-8b-instant",
                     "name": "Llama 3.1 (8B) - Instant",
-                    "default": false
+                    "default": false,
+                    "max_tokens": 7999
                 },
                 {
                     "id": "llama-3.2-3b-preview",
                     "name": "Llama 3.2 (3B)",
-                    "default": false
+                    "default": false,
+                    "max_tokens": 7999
                 },
                 {
                     "id": "llama-3.2-90b-text-preview",
                     "name": "Llama 3.2 (90B)",
-                    "default": true
+                    "default": true,
+                    "max_tokens": 7999
                 }
             ]
         },
@@ -29,17 +36,20 @@
             "name": "SambaNovaAI",
             "baseUrl": "https://api.sambanova.ai",
             "basePath": "/v1",
+            "aiproxied": true,
             "apiKey": "sambanovaKey",
             "models": [
                 {
                     "id": "Meta-Llama-3.1-405B-Instruct",
                     "name": "Llama 3.1 (405B) - Instruct",
-                    "default": false
+                    "default": false,
+                    "max_tokens": 512
                 },
                 {
                     "id": "Meta-Llama-3.1-8B-Instruct",
                     "name": "Llama 3.1 (8B) - Instant",
-                    "default": true
+                    "default": true,
+                    "max_tokens": 512
                 }
             ]
         }

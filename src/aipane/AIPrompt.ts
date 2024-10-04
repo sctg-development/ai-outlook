@@ -16,6 +16,7 @@ export interface AIModel {
   id: string;
   name: string;
   default: boolean;
+  max_tokens: number;
 }
 
 export interface AIProvider {
@@ -25,6 +26,7 @@ export interface AIProvider {
   basePath: string;
   apiKey: string;
   models: AIModel[];
+  aiproxied: boolean;
 }
 
 export function getDefaultProvider(): AIProvider {

@@ -28,9 +28,9 @@
   "dependencies": {
     "@fluentui/react-components": "^9.54.17",
     "@fluentui/react-icons": "^2.0.260",
-    "core-js": "^3.38.1",
+    "@sctg/ai-sdk": "0.0.3",
     "es6-promise": "^4.2.8",
-    "@sctg/ai-sdk": "^0.7.1",
+    "core-js": "^3.38.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "regenerator-runtime": "^0.14.1"

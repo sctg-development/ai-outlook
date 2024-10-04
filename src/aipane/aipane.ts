@@ -6,21 +6,23 @@
 
 import { Groq } from "@sctg/ai-sdk";
 import config from "../config.json";
-import type { AIPrompt, AIProvider } from "./AIPrompt";
+import type { AIModel, AIPrompt, AIProvider } from "./AIPrompt";
 
 async function groqRequest(
   provider: AIProvider,
-  model: string,
+  model: AIModel,
   apiKey: string,
   systemText: string,
   usertext: string
 ): Promise<string> {
+  const proxyUrl = config.aiproxy.host;
   const groq = new Groq({
     baseURL: provider.baseUrl,
     basePath: provider.basePath,
     disableCorsCheck: false,
     apiKey,
     dangerouslyAllowBrowser: true,
+    proxy: provider.aiproxied ? proxyUrl : undefined,
     // fetch: async (url: any, init?: any): Promise<any> => {
     //   console.log("About to make a request", url, init);
     //   const response = await fetch(url, { mode: "no-cors", ...init });
@@ -39,22 +41,27 @@ async function groqRequest(
         content: usertext,
       },
     ],
-    model: model,
+    model: model.id,
     temperature: 1,
-    max_tokens: 7999,
+    max_tokens: model.max_tokens,
     top_p: 1,
-    stream: false,
+    stream: true,
     stop: null,
   });
 
-  return chatCompletion.choices[0]?.message?.content || "";
+  //return chatCompletion.choices[0]?.message?.content || "";
+  let response = "";
+  for await (const chunk of chatCompletion) {
+    response += chunk.choices[0]?.delta?.content || "";
+  }
+  return response;
 }
 function getPrompt(id: string): AIPrompt {
   const prompts: AIPrompt[] = config.prompts;
   return prompts.find((prompt) => prompt.id === id) || prompts[0];
 }
 
-export async function insertText(provider: AIProvider, model: string, apiKey: string, id: string, userText: string) {
+export async function insertText(provider: AIProvider, model: AIModel, apiKey: string, id: string, userText: string) {
   const { system, user } = getPrompt(id);
   try {
     console.log(`Prompt: ${id}`);

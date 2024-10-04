@@ -14,7 +14,7 @@ import { insertText } from "../aipane";
 import HeroApiKey from "./HeroApiKey";
 import HeroComboPrompts from "./HeroComboPrompts";
 import HeroModels from "./HeroModels";
-import { getDefaultProvider } from "../AIPrompt";
+import { AIModel, getDefaultProvider } from "../AIPrompt";
 
 interface AppProps {
   title: string;
@@ -31,7 +31,7 @@ const App: React.FC<AppProps> = (props: AppProps) => {
   const styles = useStyles();
   const [apiKey, setApiKey] = useState<string | null>(null);
   const [prompt, setPrompt] = useState<string | null>(null);
-  const [model, setModel] = useState<string | null>(null);
+  const [model, setModel] = useState<AIModel | null>(null);
   const [showApiKeyInput, setShowApiKeyInput] = useState<boolean>(false);
 
   // The list items are static and won't change at runtime,
@@ -68,7 +68,7 @@ const App: React.FC<AppProps> = (props: AppProps) => {
   };
 
   const handleModelChange = (newValue: string) => {
-    setModel(newValue);
+    setModel(provider.models.find((model) => model.id === newValue) || null);
   };
 
   const handlePromptSubmit = (userText: string) => {
