@@ -43,13 +43,13 @@
                     "id": "Meta-Llama-3.1-405B-Instruct",
                     "name": "Llama 3.1 (405B) - Instruct",
                     "default": false,
-                    "max_tokens": 512
+                    "max_tokens": 4096
                 },
                 {
                     "id": "Meta-Llama-3.1-8B-Instruct",
                     "name": "Llama 3.1 (8B) - Instant",
                     "default": true,
-                    "max_tokens": 512
+                    "max_tokens": 8192
                 }
             ]
         }
