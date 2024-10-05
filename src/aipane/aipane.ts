@@ -7,6 +7,20 @@
 import { Groq } from "@sctg/ai-sdk";
 import config from "../config.json";
 import type { AIModel, AIPrompt, AIProvider } from "./AIPrompt";
+import { SentencePieceProcessor, cleanText, llama_3_1_tokeniser_b64 } from "@sctg/sentencepiece-js";
+import { Buffer } from "buffer";
+
+// eslint-disable-next-line no-undef
+globalThis.Buffer = Buffer;
+
+const TOKEN_MARGIN = 20;
+async function countTokens(text: string): Promise<number> {
+  let cleaned = cleanText(text);
+  let spp = new SentencePieceProcessor();
+  await spp.loadFromB64StringModel(llama_3_1_tokeniser_b64);
+  let ids = spp.encodeIds(cleaned);
+  return ids.length;
+}
 
 async function groqRequest(
   provider: AIProvider,
@@ -23,13 +37,9 @@ async function groqRequest(
     apiKey,
     dangerouslyAllowBrowser: true,
     proxy: provider.aiproxied ? proxyUrl : undefined,
-    // fetch: async (url: any, init?: any): Promise<any> => {
-    //   console.log("About to make a request", url, init);
-    //   const response = await fetch(url, { mode: "no-cors", ...init });
-    //   console.log("Got response", response);
-    //   return response;
-    // },
   });
+  const tokenCount = await countTokens(systemText + usertext);
+  console.log(`Token count: ${tokenCount}`);
   const chatCompletion = await groq.chat.completions.create({
     messages: [
       {
@@ -43,7 +53,7 @@ async function groqRequest(
     ],
     model: model.id,
     temperature: 1,
-    //max_tokens: model.max_tokens,
+    max_tokens: model.max_tokens - tokenCount - TOKEN_MARGIN,
     top_p: 1,
     stream: true,
     stop: null,
