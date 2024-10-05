@@ -30,6 +30,12 @@ module.exports = async (env, options) => {
     output: {
       clean: true,
     },
+    optimization: {
+      splitChunks: {
+        maxSize: 250000,
+        chunks: 'all'
+      }
+    },
     resolve: {
       extensions: [".ts", ".tsx", ".html", ".js"],
       fallback: { url: false, fs: false, module: false },
