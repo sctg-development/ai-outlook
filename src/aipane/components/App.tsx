@@ -18,26 +18,73 @@ import HeroModels from "./HeroModels";
 import { AIModel, AIProvider, getDefaultProvider, getModel } from "../AIPrompt";
 import HeroProviders from "./HeroProviders";
 
+/**
+ * @interface AppProps
+ * @description Properties for the App component.
+ */
 interface AppProps {
+  /**
+   * @description The title of the application.
+   */
   title: string;
 }
 
+/**
+ * @function useStyles
+ * @description Creates a hook for using styles in the component.
+ * @returns {Object} The styles object.
+ */
 const useStyles = makeStyles({
   root: {
     minHeight: "100vh",
   },
 });
 
-const App: React.FC<AppProps> = (props: AppProps) => {
+/**
+ * @function App
+ * @description The main application component.
+ * @param {AppProps} props
+ * @returns { React.JSX.Element}
+ */
+const App: React.FC<AppProps> = (props: AppProps): React.JSX.Element => {
+  /**
+   * @state provider
+   * @description The current AI provider.
+   */
   const [provider, setProvider] = useState<AIProvider | null>(getDefaultProvider());
-  const styles = useStyles();
-  const [apiKey, setApiKey] = useState<string | null>(null);
-  const [prompt, setPrompt] = useState<string | null>(null);
-  const [model, setModel] = useState<AIModel | null>(null);
-  const [showApiKeyInput, setShowApiKeyInput] = useState<boolean>(false);
 
-  // The list items are static and won't change at runtime,
-  // so this should be an ordinary const, not a part of state.
+  const styles = useStyles();
+
+  /**
+   * @state apiKey
+   * @description The API key for the current provider.
+   */
+  const [apiKey, setApiKey] = useState<string | null>(null);
+
+  /**
+   * @state prompt
+   * @description The current prompt.
+   */
+  const [prompt, setPrompt] = useState<string | null>(null);
+
+  /**
+   * @state model
+   * @description The current AI model.
+   */
+  const [model, setModel] = useState<AIModel | null>(null);
+
+  /**
+   * @state showApiKeyInput
+   * @description Whether to show the API key input field.
+   */
+  const [showApiKeyInput, setShowApiKeyInput] = useState(false);
+
+  /**
+   * @constant listItems
+   * @description The list items are static and won't change at runtime,
+   * so this should be an ordinary const, not a part of state.
+   * @type {HeroListItem[]}
+   */
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const listItems: HeroListItem[] = [
     {
@@ -46,7 +93,14 @@ const App: React.FC<AppProps> = (props: AppProps) => {
     },
   ];
 
+  /**
+   * @function useEffect
+   * @description Handles the component's lifecycle.
+   */
   useEffect(() => {
+    /**
+     * @description Retrieves the stored API key for the current provider.
+     */
     const storedApiKey = localStorage.getItem(provider.apiKey);
     if (!storedApiKey) {
       setShowApiKeyInput(true);
@@ -58,14 +112,28 @@ const App: React.FC<AppProps> = (props: AppProps) => {
     }
   }, []);
 
+  /**
+   * @function handleApiKeyChange
+   * @description Handles changes to the API key input field.
+   * @param {React.ChangeEvent<HTMLInputElement>} event
+   */
   const handleApiKeyChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setApiKey(event.target.value);
   };
 
+  /**
+   * @function handlePromptChange
+   * @description Handles changes to the prompt input field.
+   * @param {string} prompt
+   */
   const handlePromptChange = (prompt: string) => {
     setPrompt(prompt);
   };
 
+  /**
+   * @function handleApiKeySubmit
+   * @description Handles submission of the API key.
+   */
   const handleApiKeySubmit = () => {
     if (apiKey) {
       localStorage.setItem(provider.apiKey, apiKey);
@@ -73,15 +141,30 @@ const App: React.FC<AppProps> = (props: AppProps) => {
     }
   };
 
-  const handleModelChange = (newValue: string) => {
-    setModel(getModel(provider, newValue) || null);
+  /**
+   * @function handleModelChange
+   * @description Handles changes to the AI model selection.
+   * @param {string} model
+   */
+  const handleModelChange = (model: string) => {
+    setModel(getModel(provider, model) || null);
   };
 
+  /**
+   * @function handlePromptSubmit
+   * @description Handles submission of the prompt.
+   * @param {string} userText
+   */
   const handlePromptSubmit = (userText: string) => {
     const apiKey = localStorage.getItem(provider.apiKey);
     insertText(provider, model, apiKey, prompt, `${userText}`);
   };
 
+  /**
+   * @function handleProviderChange
+   * @description Handles changes to the provider selection.
+   * @param {AIProvider} provider
+   */
   const handleProviderChange = (provider: AIProvider) => {
     setProvider(provider);
     if (!localStorage.getItem(provider.apiKey)) {
