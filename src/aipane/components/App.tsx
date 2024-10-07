@@ -1,8 +1,11 @@
-/*
-=========================================================
-* © 2024 Ronan LE MEILLAT for SCTG Development
-=========================================================
-*/
+/**
+ * @file App.tsx
+ * @description The main application component.
+ * @author Ronan LE MEILLAT
+ * @copyright 2024 Ronan LE MEILLAT for SCTG Development
+ * @license AGPLv3
+ */
+
 import * as React from "react";
 import { useState, useEffect } from "react";
 import Header from "./Header";
@@ -11,11 +14,11 @@ import HeroList, { HeroListItem } from "./HeroList";
 import TextInsertion from "./TextInsertion";
 import { makeStyles } from "@fluentui/react-components";
 import { BrainCircuit20Regular } from "@fluentui/react-icons";
-import { insertText } from "../aipane";
+import { insertAIAnswer } from "../aipane";
 import HeroApiKey from "./HeroApiKey";
 import HeroComboPrompts from "./HeroComboPrompts";
 import HeroModels from "./HeroModels";
-import { AIModel, AIProvider, getDefaultProvider, getModel } from "../AIPrompt";
+import { AIAnswer, AIModel, AIProvider, getDefaultProvider, getModel } from "../AIPrompt";
 import HeroProviders from "./HeroProviders";
 
 /**
@@ -44,7 +47,7 @@ const useStyles = makeStyles({
  * @function App
  * @description The main application component.
  * @param {AppProps} props
- * @returns { React.JSX.Element}
+ * @returns { React.JSX.Element} The application component.
  */
 const App: React.FC<AppProps> = (props: AppProps): React.JSX.Element => {
   /**
@@ -155,9 +158,9 @@ const App: React.FC<AppProps> = (props: AppProps): React.JSX.Element => {
    * @description Handles submission of the prompt.
    * @param {string} userText
    */
-  const handlePromptSubmit = (userText: string) => {
+  const handlePromptSubmit = (userText: string): Promise<AIAnswer> => {
     const apiKey = localStorage.getItem(provider.apiKey);
-    insertText(provider, model, apiKey, prompt, `${userText}`);
+    return insertAIAnswer(provider, model, apiKey, prompt, `${userText}`);
   };
 
   /**
@@ -188,7 +191,7 @@ const App: React.FC<AppProps> = (props: AppProps): React.JSX.Element => {
           <HeroProviders onChange={handleProviderChange} />
           <HeroModels onChange={handleModelChange} provider={provider} />
           <HeroComboPrompts onChange={handlePromptChange} />
-          <TextInsertion insertText={handlePromptSubmit} basePrompt={""} />
+          <TextInsertion insertAIAnswer={handlePromptSubmit} basePrompt={""} />
         </>
       )}
     </div>

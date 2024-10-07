@@ -5,6 +5,19 @@
 */
 
 import config from "../config.json";
+
+export interface AIAnswer {
+  /**
+   * The AI-generated response.
+   */
+  response: string;
+
+  /**
+   * The error message, if any.
+   */
+  error: any | null;
+}
+
 export interface AIPrompt {
   /**
    * Unique identifier for the prompt.

@@ -1,16 +1,36 @@
-/*
-=========================================================
-* © 2024 Ronan LE MEILLAT for SCTG Development
-=========================================================
-*/
+/**
+ * @file TextInsertion.tsx
+ * @description The main application component.
+ * @author Ronan LE MEILLAT
+ * @copyright 2024 Ronan LE MEILLAT for SCTG Development
+ * @license AGPLv3
+ */
+
 import * as React from "react";
-import { useState } from "react";
-import { Button, Field, Textarea, tokens, makeStyles } from "@fluentui/react-components";
+import { useRef, useState } from "react";
+import { Button, Field, Text, Textarea, tokens, makeStyles } from "@fluentui/react-components";
+import { AIAnswer } from "../AIPrompt";
+
+/**
+ * Props for the TextInsertion component.
+ */
 interface TextInsertionProps {
-  insertText: (text: string) => void;
+  /**
+   * Function to insert AI-generated answer.
+   * @param {string} text - The text to be processed by the AI.
+   * @returns {Promise<AIAnswer>} - The AI-generated answer.
+   */
+  insertAIAnswer: (text: string) => Promise<AIAnswer>;
+
+  /**
+   * Optional base prompt text.
+   */
   basePrompt?: string;
 }
 
+/**
+ * Styles for the TextInsertion component.
+ */
 const useStyles = makeStyles({
   instructions: {
     fontWeight: tokens.fontWeightSemibold,
@@ -30,16 +50,37 @@ const useStyles = makeStyles({
   textAreaBox: {
     height: "27vh",
   },
+  text: {
+    width: "100%",
+    whiteSpace: "pre-wrap",
+    overflowWrap: "break-word",
+  },
 });
 
-const TextInsertion: React.FC<TextInsertionProps> = (props: TextInsertionProps) => {
+/**
+ * TextInsertion component allows users to input text and get AI-generated answers.
+ * @param {TextInsertionProps} props - The props for the component.
+ * @returns {React.JSX.Element} - The rendered component.
+ */
+const TextInsertion: React.FC<TextInsertionProps> = (props: TextInsertionProps): React.JSX.Element => {
+  const textRef = useRef<HTMLTextAreaElement>(null);
   const [text, setText] = useState<string>(props.basePrompt || "");
 
+  /**
+   * Handles the insertion of AI-generated text.
+   */
   const handleTextInsertion = async () => {
-    await props.insertText(text);
+    const answer = await props.insertAIAnswer(text);
+    if (answer.error && textRef.current) {
+      textRef.current.innerHTML = `Error: ${answer.error}<br/>Answer: ${answer.response}`;
+    }
   };
 
-  const handleTextChange = async (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+  /**
+   * Handles changes in the textarea input.
+   * @param {React.ChangeEvent<HTMLTextAreaElement>} event - The change event.
+   */
+  const handleTextChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setText(event.target.value);
   };
 
@@ -48,18 +89,15 @@ const TextInsertion: React.FC<TextInsertionProps> = (props: TextInsertionProps) 
   return (
     <div className={styles.textPromptAndInsertion}>
       <Field className={styles.textAreaField} size="large" label="Enter your message.">
-        <Textarea
-          className={styles.textAreaBox}
-          //size="large"
-          resize="vertical"
-          value={text}
-          onChange={handleTextChange}
-        />
+        <Textarea className={styles.textAreaBox} resize="vertical" value={text} onChange={handleTextChange} />
       </Field>
       <Field className={styles.instructions}>Click to ask AI.</Field>
-      <Button appearance="primary" disabled={false} size="large" onClick={handleTextInsertion}>
+      <Button appearance="primary" size="large" onClick={handleTextInsertion}>
         Insert answer
       </Button>
+      <Text ref={textRef} size={200} className={styles.text}>
+        &nbsp;
+      </Text>
     </div>
   );
 };
