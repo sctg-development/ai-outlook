@@ -11,7 +11,8 @@ import config from "../config.json";
 import type { AIAnswer, AIModel, AIPrompt, AIProvider } from "./AIPrompt";
 import { SentencePieceProcessor, cleanText, llama_3_1_tokeniser_b64 } from "@sctg/sentencepiece-js";
 
-const TOKEN_MARGIN = 20; // Safety margin for token count
+const TOKEN_MARGIN: number = 20; // Safety margin for token count
+const ERROR_MESSAGE: string = "Error: Unable to insert AI answer.";
 
 /**
  * Counts the number of tokens in a given text using the SentencePieceProcessor.
@@ -20,24 +21,24 @@ const TOKEN_MARGIN = 20; // Safety margin for token count
  */
 async function countTokens(text: string): Promise<number> {
   // Remove invalid characters and normalise whitespace
-  let cleaned = cleanText(text);
+  const cleaned: string = cleanText(text);
   // Create a new SentencePieceProcessor
-  let spp = new SentencePieceProcessor();
+  const spp: SentencePieceProcessor = new SentencePieceProcessor();
   // Load the tokeniser model from a base64 string
   // llama_3_1_tokeniser_b64 is a pre-trained model for the Llama 3.1 tokeniser and encoded in base64
   await spp.loadFromB64StringModel(llama_3_1_tokeniser_b64);
   // Encode the cleaned text into token IDs
-  let ids = spp.encodeIds(cleaned);
+  const ids: number[] = spp.encodeIds(cleaned);
   return ids.length; // Return the number of tokens
 }
 
 /**
- * Makes an AI request to the Groq API.
+ * Makes an AI request to the @sctg/ai-sdk API.
  * @param {AIProvider} provider - The AI provider configuration.
  * @param {AIModel} model - The AI model configuration.
  * @param {string} apiKey - The API key for authentication.
  * @param {string} systemText - The system prompt text.
- * @param {string} usertext - The user input text.
+ * @param {string} userText - The user input text.
  * @returns {Promise<string>} - The AI-generated response.
  */
 async function aiRequest(
@@ -45,10 +46,10 @@ async function aiRequest(
   model: AIModel,
   apiKey: string,
   systemText: string,
-  usertext: string
+  userText: string
 ): Promise<string> {
-  const proxyUrl = config.aiproxy.host;
-  const ai = new AI({
+  const proxyUrl: string = config.aiproxy.host;
+  const ai: AI = new AI({
     baseURL: provider.baseUrl,
     basePath: provider.basePath,
     disableCorsCheck: false,
@@ -58,7 +59,7 @@ async function aiRequest(
   });
 
   // Count the number of tokens in the combined system and user text
-  const tokenCount = await countTokens(systemText + usertext);
+  const tokenCount: number = await countTokens(systemText + userText);
   console.log(`Token count: ${tokenCount}`);
 
   // Create a chat completion request
@@ -70,7 +71,7 @@ async function aiRequest(
       },
       {
         role: "user",
-        content: usertext,
+        content: userText,
       },
     ],
     model: model.id,
@@ -82,7 +83,7 @@ async function aiRequest(
   });
 
   // Collect the response from the stream
-  let response = "";
+  let response: string = "";
   for await (const chunk of chatCompletion) {
     response += chunk.choices[0]?.delta?.content || "";
   }
@@ -116,7 +117,7 @@ export async function insertAIAnswer(
   userText: string
 ): Promise<AIAnswer> {
   const { system, user } = getPrompt(id);
-  let error = "Error: Unable to insert AI answer.";
+  let error: string | null = ERROR_MESSAGE;
   try {
     console.log(`Prompt: ${id}`);
     console.log(`System text: \n${system}`);
@@ -124,7 +125,7 @@ export async function insertAIAnswer(
     console.log(`User text: \n${userText}`);
 
     // Make the AI request and get the response
-    let aiText = await aiRequest(provider, model, apiKey, system, `${user}\n${userText}`);
+    let aiText: string = await aiRequest(provider, model, apiKey, system, `${user}\n${userText}`);
     console.log(`AI provider: ${provider.name} AI model: ${model.name}: \n${aiText}`);
 
     // Replace newlines with HTML line breaks
@@ -138,14 +139,14 @@ export async function insertAIAnswer(
         { coercionType: Office.CoercionType.Html },
         (asyncResult: Office.AsyncResult<void>) => {
           if (asyncResult.status === Office.AsyncResultStatus.Failed) {
-            throw asyncResult.error.message;
+            throw new Error(asyncResult.error.message);
           }
         }
       );
     }
     return { response: aiText, error };
-  } catch (error) {
-    console.log("Error: " + error);
+  } catch (err) {
+    console.error("Error: " + err);
     return { response: "", error };
   }
 }
