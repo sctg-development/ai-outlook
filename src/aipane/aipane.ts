@@ -7,19 +7,19 @@
 import { Groq } from "@sctg/ai-sdk";
 import config from "../config.json";
 import type { AIModel, AIPrompt, AIProvider } from "./AIPrompt";
+
 import { SentencePieceProcessor, cleanText, llama_3_1_tokeniser_b64 } from "@sctg/sentencepiece-js";
-import { Buffer } from "buffer";
-
-// eslint-disable-next-line no-undef
-globalThis.Buffer = Buffer;
-
-const TOKEN_MARGIN = 20;
+const TOKEN_MARGIN = 20; // Safety margin for token count
 async function countTokens(text: string): Promise<number> {
+  // Remove invalid characters and normalise whitespace
   let cleaned = cleanText(text);
+  // Create a new SentencePieceProcessor
   let spp = new SentencePieceProcessor();
+  // Load the tokeniser model from a base64 string
   await spp.loadFromB64StringModel(llama_3_1_tokeniser_b64);
+  // Encode the cleaned text into token IDs
   let ids = spp.encodeIds(cleaned);
-  return ids.length;
+  return ids.length; // Return the number of tokens
 }
 
 async function groqRequest(
