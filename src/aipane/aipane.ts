@@ -152,6 +152,14 @@ export async function insertAIAnswer(
   }
 }
 
+/**
+ * Retrieves a list of AI models for the given provider and filter.
+ * This function creates an AI instance and uses it to list the models.
+ * @param {AIProvider} provider - The AI provider configuration.
+ * @param {string} apiKey - The API key for authentication.
+ * @param {string} filter - The filter for the model list.
+ * @returns {Promise<AIModel[]>} - The list of AI models.
+ */
 export async function getAIModels(provider: AIProvider, apiKey: string, filter: string): Promise<AIModel[]> {
   interface ExtendedModel extends Model {
     context_window?: number;

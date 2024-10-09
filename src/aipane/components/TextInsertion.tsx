@@ -10,6 +10,9 @@ import * as React from "react";
 import { useRef, useState } from "react";
 import { Button, Field, Text, Textarea, tokens, makeStyles } from "@fluentui/react-components";
 import { AIAnswer } from "../AIPrompt";
+import Markdown from "react-markdown";
+import rehypeHighlight from "rehype-highlight";
+import "highlight.js/styles/github.css";
 
 /**
  * Props for the TextInsertion component.
@@ -65,6 +68,7 @@ const useStyles = makeStyles({
 const TextInsertion: React.FC<TextInsertionProps> = (props: TextInsertionProps): React.JSX.Element => {
   const textRef = useRef<HTMLTextAreaElement>(null);
   const [text, setText] = useState<string>(props.basePrompt || "");
+  const [answer, setAnswer] = useState<string>(null);
 
   /**
    * Handles the insertion of AI-generated text.
@@ -72,7 +76,8 @@ const TextInsertion: React.FC<TextInsertionProps> = (props: TextInsertionProps):
   const handleTextInsertion = async () => {
     const answer = await props.insertAIAnswer(text);
     if (answer.error && textRef.current) {
-      textRef.current.innerHTML = `Error: ${answer.error}<br/>Answer: ${answer.response}`;
+      //textRef.current.innerHTML = `Error: ${answer.error}<br/>Answer: ${answer.response}`;
+      setAnswer(`${answer.error}  \nAnswer:  \n${answer.response.replace(/<br\/>/g, "\n").replace(/<br>/g, "\n")}`);
     }
   };
 
@@ -95,6 +100,7 @@ const TextInsertion: React.FC<TextInsertionProps> = (props: TextInsertionProps):
       <Button appearance="primary" size="large" onClick={handleTextInsertion}>
         Insert answer
       </Button>
+      <Markdown rehypePlugins={[rehypeHighlight]}>{answer}</Markdown>
       <Text ref={textRef} size={200} className={styles.text}>
         &nbsp;
       </Text>
