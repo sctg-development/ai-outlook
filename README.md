@@ -34,6 +34,11 @@ The AI Outlook Add-in enhances your email workflow by providing AI-powered assis
 - Language translation integration
 - Compatible with Groq AI and Sambanova AI ([via AI-Proxy-Cloudflare due to CORS](https://github.com/sctg-development/ai-proxy-cloudflare))
 
+## Screeshot
+
+<img width="1086" alt="Capture d’écran 2024-10-09 à 12 33 19" src="https://github.com/user-attachments/assets/3802ebe4-cf2e-4ee2-ba41-45dc27d94ddc">
+
+
 ## Prerequisites
 
 Before you can use the AI Outlook Add-in, you'll need:
