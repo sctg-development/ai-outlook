@@ -98,7 +98,7 @@ async function aiRequest(
  */
 function getPrompt(id: string): AIPrompt {
   const prompts: AIPrompt[] = config.prompts;
-  return prompts.find((prompt) => prompt.id === id) || prompts[0];
+  return prompts.find((prompt) => prompt.id === id && prompt.standalone !== isOutlookClient()) || prompts[0];
 }
 
 /**
@@ -133,7 +133,7 @@ export async function insertAIAnswer(
     aiText = aiText.replace(/\n/g, "<br>");
 
     // Insert the AI-generated text into the email body
-    if (Office.context.mailbox) {
+    if (isOutlookClient()) {
       error = null;
       Office.context.mailbox.item?.body.setSelectedDataAsync(
         aiText,
@@ -184,4 +184,12 @@ export async function getAIModels(provider: AIProvider, apiKey: string, filter: 
   });
   returnedModels[0].default = true;
   return returnedModels;
+}
+
+/**
+ * Detects if the current app runs in the Outlook client.
+ * @returns {boolean} - True if the app runs in the Outlook client, false otherwise.
+ */
+export function isOutlookClient(): boolean {
+  return typeof Office.context.mailbox !== "undefined";
 }

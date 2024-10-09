@@ -38,6 +38,11 @@ export interface AIPrompt {
    * Summary of the prompt.
    */
   summary: string;
+
+  /**
+   * Indicates if this prompt is available only in standalone mode.
+   */
+  standalone: boolean;
 }
 
 /**
