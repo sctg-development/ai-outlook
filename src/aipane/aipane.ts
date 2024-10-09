@@ -10,7 +10,8 @@ import { AI } from "@sctg/ai-sdk";
 import config from "../config.json" with { type: "json" };
 import type { AIAnswer, AIModel, AIPrompt, AIProvider } from "./AIPrompt.js";
 import { SentencePieceProcessor, cleanText, llama_3_1_tokeniser_b64 } from "@sctg/sentencepiece-js";
-import { Model, ModelListResponse } from "@sctg/ai-sdk/resources/models.js";
+import { Model } from "@sctg/ai-sdk/resources/models.js";
+import DOMPurify from "dompurify";
 
 const TOKEN_MARGIN: number = 20; // Safety margin for token count
 const ERROR_MESSAGE: string = "Error: Unable to insert AI answer.";
@@ -98,7 +99,13 @@ async function aiRequest(
  */
 function getPrompt(id: string): AIPrompt {
   const prompts: AIPrompt[] = config.prompts;
-  return prompts.find((prompt) => prompt.id === id && prompt.standalone !== isOutlookClient()) || prompts[0];
+  const prompt: AIPrompt | undefined = prompts.find(
+    (prompt) => prompt.id === id && prompt.standalone !== isOutlookClient()
+  );
+  if (!prompt) {
+    throw new Error("Prompt not found");
+  }
+  return prompt;
 }
 
 /**
@@ -119,6 +126,12 @@ export async function insertAIAnswer(
 ): Promise<AIAnswer> {
   const { system, user } = getPrompt(id);
   let error: string | null = ERROR_MESSAGE;
+
+  // Validate and sanitize inputs
+  if (!system || !user || !userText) {
+    throw new Error("Invalid input");
+  }
+
   try {
     console.log(`Prompt: ${id}`);
     console.log(`System text: \n${system}`);
@@ -132,11 +145,14 @@ export async function insertAIAnswer(
     // Replace newlines with HTML line breaks
     aiText = aiText.replace(/\n/g, "<br>");
 
+    // Sanitize and escape the AI-generated text
+    const sanitizedAiText = DOMPurify.sanitize(aiText);
+
     // Insert the AI-generated text into the email body
     if (isOutlookClient()) {
       error = null;
       Office.context.mailbox.item?.body.setSelectedDataAsync(
-        aiText,
+        sanitizedAiText,
         { coercionType: Office.CoercionType.Html },
         (asyncResult: Office.AsyncResult<void>) => {
           if (asyncResult.status === Office.AsyncResultStatus.Failed) {
@@ -145,7 +161,7 @@ export async function insertAIAnswer(
         }
       );
     }
-    return { response: aiText, error };
+    return { response: sanitizedAiText, error };
   } catch (err) {
     console.error("Error: " + err);
     return { response: "", error };
@@ -166,32 +182,39 @@ export async function getAIModels(provider: AIProvider, apiKey: string, filter: 
     active?: boolean;
   }
 
-  const proxyUrl: string = config.aiproxy.host;
-  const ai: AI = new AI({
-    baseURL: provider.baseUrl,
-    basePath: provider.basePath,
-    disableCorsCheck: false,
-    apiKey,
-    dangerouslyAllowBrowser: true,
-    proxy: provider.aiproxied ? proxyUrl : undefined,
-  });
-
-  const returnedModels: AIModel[] = [];
-  const models: ModelListResponse = await ai.models.list();
-  const filteredModels: ExtendedModel[] = models.data.filter(
-    (model: ExtendedModel) => model.id.includes(filter) && model.active
-  );
-  const orderedModels: ExtendedModel[] = filteredModels.sort((a, b) => b.created - a.created);
-  orderedModels.forEach((model) => {
-    returnedModels.push({
-      id: model.id,
-      name: model.id,
-      default: false,
-      max_tokens: model.context_window || 2048,
+  try {
+    const proxyUrl = config.aiproxy.host;
+    const ai = new AI({
+      baseURL: provider.baseUrl,
+      basePath: provider.basePath,
+      disableCorsCheck: false,
+      apiKey,
+      dangerouslyAllowBrowser: true,
+      proxy: provider.aiproxied ? proxyUrl : undefined,
     });
-  });
-  returnedModels[0].default = true;
-  return returnedModels;
+
+    const models = await ai.models.list();
+    const filteredModels = models.data.filter(
+      (model: ExtendedModel) => model.id.includes(filter) && model.active
+    ) as ExtendedModel[];
+    const orderedModels: ExtendedModel[] = filteredModels.sort((a, b) => b.created - a.created);
+
+    const returnedModels: AIModel[] = [];
+    orderedModels.forEach((model) => {
+      returnedModels.push({
+        id: model.id,
+        name: model.id,
+        default: false,
+        max_tokens: model.context_window || 2048,
+      });
+    });
+    returnedModels[0].default = true;
+
+    return returnedModels;
+  } catch (error) {
+    console.error("Error retrieving AI models:", error);
+    throw error;
+  }
 }
 
 /**

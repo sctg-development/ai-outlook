@@ -7,8 +7,8 @@
  */
 
 import * as React from "react";
-import { useRef, useState } from "react";
-import { Button, Field, Text, Textarea, tokens, makeStyles } from "@fluentui/react-components";
+import { useState } from "react";
+import { Button, Field, Textarea, tokens, makeStyles, Skeleton, SkeletonItem } from "@fluentui/react-components";
 import { AIAnswer } from "../AIPrompt";
 import Markdown from "react-markdown";
 import rehypeHighlight from "rehype-highlight";
@@ -53,10 +53,19 @@ const useStyles = makeStyles({
   textAreaBox: {
     height: "27vh",
   },
-  text: {
-    width: "100%",
-    whiteSpace: "pre-wrap",
-    overflowWrap: "break-word",
+  skeleton: {
+    display: "inherit",
+    width: "50vw",
+  },
+  skeletonOff: {
+    display: "none",
+  },
+  skeletonItem: {
+    margin: "0.5em",
+  },
+  markdown: {
+    display: "block",
+    maxWidth: "1024px",
   },
 });
 
@@ -66,16 +75,18 @@ const useStyles = makeStyles({
  * @returns {React.JSX.Element} - The rendered component.
  */
 const TextInsertion: React.FC<TextInsertionProps> = (props: TextInsertionProps): React.JSX.Element => {
-  const textRef = useRef<HTMLTextAreaElement>(null);
   const [text, setText] = useState<string>(props.basePrompt || "");
+  const [skeletonVisibility, setSkeletonVisibility] = useState<boolean>(false);
   const [answer, setAnswer] = useState<string>(null);
 
   /**
    * Handles the insertion of AI-generated text.
    */
   const handleTextInsertion = async () => {
+    setSkeletonVisibility(true);
     const answer = await props.insertAIAnswer(text);
-    if (answer.error && textRef.current) {
+    setSkeletonVisibility(false);
+    if (answer.error) {
       //textRef.current.innerHTML = `Error: ${answer.error}<br/>Answer: ${answer.response}`;
       setAnswer(`${answer.error}  \nAnswer:  \n${answer.response.replace(/<br\/>/g, "\n").replace(/<br>/g, "\n")}`);
     }
@@ -100,10 +111,17 @@ const TextInsertion: React.FC<TextInsertionProps> = (props: TextInsertionProps):
       <Button appearance="primary" size="large" onClick={handleTextInsertion}>
         Insert answer
       </Button>
-      <Markdown rehypePlugins={[rehypeHighlight]}>{answer}</Markdown>
-      <Text ref={textRef} size={200} className={styles.text}>
+      <div>
+        <Skeleton aria-label="Loading Content" className={skeletonVisibility ? styles.skeleton : styles.skeletonOff}>
+          <SkeletonItem className={styles.skeletonItem} />
+          <SkeletonItem className={styles.skeletonItem} />
+          <SkeletonItem className={styles.skeletonItem} />
+        </Skeleton>
+        <Markdown className={styles.markdown} rehypePlugins={[rehypeHighlight]}>
+          {answer}
+        </Markdown>
         &nbsp;
-      </Text>
+      </div>
     </div>
   );
 };
