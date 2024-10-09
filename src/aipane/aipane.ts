@@ -100,7 +100,7 @@ async function aiRequest(
 function getPrompt(id: string): AIPrompt {
   const prompts: AIPrompt[] = config.prompts;
   const prompt: AIPrompt | undefined = prompts.find(
-    (prompt) => prompt.id === id && prompt.standalone !== isOutlookClient()
+    (prompt) => prompt.id === id && (!prompt.standalone || !isOutlookClient())
   );
   if (!prompt) {
     throw new Error("Prompt not found");
