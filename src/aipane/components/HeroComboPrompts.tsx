@@ -7,7 +7,7 @@ import * as React from "react";
 import { Dropdown, Label, makeStyles, Option, useId } from "@fluentui/react-components";
 import { useState, useEffect } from "react";
 import type { AIPrompt } from "../AIPrompt";
-import config from "../../config.json";
+import config from "../../config.json" with { type: "json" };
 interface HeroComboPromptsProps {
   onChange: (selectedValue: string) => void;
 }

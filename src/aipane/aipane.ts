@@ -7,9 +7,10 @@
  */
 
 import { AI } from "@sctg/ai-sdk";
-import config from "../config.json";
-import type { AIAnswer, AIModel, AIPrompt, AIProvider } from "./AIPrompt";
+import config from "../config.json" with { type: "json" };
+import type { AIAnswer, AIModel, AIPrompt, AIProvider } from "./AIPrompt.js";
 import { SentencePieceProcessor, cleanText, llama_3_1_tokeniser_b64 } from "@sctg/sentencepiece-js";
+import { Model, ModelListResponse } from "@sctg/ai-sdk/resources/models.js";
 
 const TOKEN_MARGIN: number = 20; // Safety margin for token count
 const ERROR_MESSAGE: string = "Error: Unable to insert AI answer.";
@@ -149,4 +150,38 @@ export async function insertAIAnswer(
     console.error("Error: " + err);
     return { response: "", error };
   }
+}
+
+export async function getAIModels(provider: AIProvider, apiKey: string, filter: string): Promise<AIModel[]> {
+  interface ExtendedModel extends Model {
+    context_window?: number;
+    active?: boolean;
+  }
+
+  const proxyUrl: string = config.aiproxy.host;
+  const ai: AI = new AI({
+    baseURL: provider.baseUrl,
+    basePath: provider.basePath,
+    disableCorsCheck: false,
+    apiKey,
+    dangerouslyAllowBrowser: true,
+    proxy: provider.aiproxied ? proxyUrl : undefined,
+  });
+
+  const returnedModels: AIModel[] = [];
+  const models: ModelListResponse = await ai.models.list();
+  const filteredModels: ExtendedModel[] = models.data.filter(
+    (model: ExtendedModel) => model.id.includes(filter) && model.active
+  );
+  const orderedModels: ExtendedModel[] = filteredModels.sort((a, b) => b.created - a.created);
+  orderedModels.forEach((model) => {
+    returnedModels.push({
+      id: model.id,
+      name: model.id,
+      default: false,
+      max_tokens: model.context_window || 2048,
+    });
+  });
+  returnedModels[0].default = true;
+  return returnedModels;
 }

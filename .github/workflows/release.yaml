@@ -31,7 +31,9 @@ jobs:
         run: npm install
 
       - name: Build project
-        run: npm run build
+        run: |
+          GROQ_API_KEY=${{ secrets.GROQ_API_KEY }} npm run getGroqModels
+          npm run build
 
       - name: Zip dist folder
         run: |

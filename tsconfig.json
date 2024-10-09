@@ -6,15 +6,15 @@
     "experimentalDecorators": true,
     "forceConsistentCasingInFileNames": true,
     "jsx": "react",
-    "module": "CommonJS",
-    "moduleResolution": "node",
+    "target": "ES6",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
     "noImplicitReturns": true,
     "noUnusedParameters": true,
     "outDir": "dist",
     "removeComments": false,
     "resolveJsonModule":true,
     "sourceMap": true,
-    "target": "es5",
     "lib": [
       "ES7",
       "DOM"
@@ -30,6 +30,7 @@
   "compileOnSave": false,
   "buildOnSave": false,
   "ts-node": { 
-    "files": true 
+    "files": true ,
+    "esm": true
   }
 }

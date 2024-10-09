@@ -4,7 +4,7 @@
 =========================================================
 */
 
-import config from "../config.json";
+import config from "../config.json" with { type: "json" };
 
 export interface AIAnswer {
   /**
