@@ -36,7 +36,10 @@ The AI Outlook Add-in enhances your email workflow by providing AI-powered assis
 
 ## Screenshot
 
+<img width="936" alt="Capture d’écran 2024-10-10 à 18 25 10" src="https://github.com/user-attachments/assets/07041511-626f-465e-ba12-3d6bd54b3b2c">
 <img width="1086" alt="Capture d’écran 2024-10-09 à 12 33 19" src="https://github.com/user-attachments/assets/3802ebe4-cf2e-4ee2-ba41-45dc27d94ddc">
+<img width="979" alt="Capture d’écran 2024-10-10 à 18 25 47" src="https://github.com/user-attachments/assets/1c905169-3897-452d-ac13-c8b35520948c">
+
 
 
 ## Prerequisites
