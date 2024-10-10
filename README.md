@@ -1,6 +1,6 @@
 # AI Outlook Add-in
 
-This project is an add-in for Outlook web that integrates Groq AI or Sambanova AI and Meta Llama model capabilities into your email experience. It allows users to leverage the power of Groq's AI in their daily email interactions.
+This project is an add-in for Microsoft Outlook web that integrates Groq AI or Sambanova AI and Meta Llama model capabilities into your email experience. It allows users to leverage the power of Groq's AI in their daily email interactions.
 
 ## Table of Contents
 
