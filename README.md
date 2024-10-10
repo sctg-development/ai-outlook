@@ -8,10 +8,12 @@ This project is an add-in for Outlook web that integrates Groq AI or Sambanova A
   - [Table of Contents](#table-of-contents)
   - [Overview](#overview)
   - [Features](#features)
+  - [Screenshot](#screenshot)
   - [Prerequisites](#prerequisites)
   - [Installation](#installation)
   - [Usage](#usage)
   - [Development](#development)
+  - [Customization](#customization)
   - [License](#license)
   - [Privacy Policy](#privacy-policy)
   - [Contributing](#contributing)
@@ -48,6 +50,7 @@ Before you can use the AI Outlook Add-in, you'll need:
 
 1. Access to your company's Microsoft 365 admin console
 2. A Groq AI developer API key (obtain one from [Groq's developer portal](https://console.groq.com))
+3. For SambaNova AI, obtain an API key from [SambaNova's developer portal](https://console.sambanova.ai) you also need a proxy for bypassing the lack of CORS headers in the sambanova API. You can use our [AI-Proxy-Cloudflare](https://github.com/sctg-development/ai-proxy-cloudflare) for this purpose.
 
 ## Installation
 
@@ -86,6 +89,11 @@ To set up the development environment:
 2. Install dependencies: `npm install`
 3. Sign in Office 365: `npm run signin`
 4. Start the development server: `npm start`
+
+## Customization
+
+You can customize the AI Outlook Add-in by modifying the `src/config.json` file.  
+You'll also need to update the `manifest.json` file to reflect your deployment settings.  
 
 ## License
 
