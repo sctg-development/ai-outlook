@@ -11,7 +11,7 @@ This project is an add-in for Microsoft Outlook web that integrates Groq AI or S
 
 ## Help Wanted
 
-Give us a if you like the project. We are looking for contributors to help us improve the project. If you are interested, please check the [Contributing](#contributing) section.
+Give us a **star** if you like the project. We are looking for contributors to help us improve the project. If you are interested, please check the [Contributing](#contributing) section.
 
 ## Table of Contents
 
