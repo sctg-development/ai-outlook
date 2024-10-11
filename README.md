@@ -2,9 +2,22 @@
 
 This project is an add-in for Microsoft Outlook web that integrates Groq AI or Sambanova AI and Meta Llama model capabilities into your email experience. It allows users to leverage the power of Groq's AI in their daily email interactions.
 
+## Status
+  
+  ![GitHub release](https://img.shields.io/github/v/release/sctg-development/ai-outlook)
+  ![GitHub last commit](https://img.shields.io/github/last-commit/sctg-development/ai-outlook)
+  ![GitHub issues](https://img.shields.io/github/issues/sctg-development/ai-outlook)
+  ![GitHub stars](https://img.shields.io/github/stars/sctg-development/ai-outlook)
+
+## Help Wanted
+
+Give us a if you like the project. We are looking for contributors to help us improve the project. If you are interested, please check the [Contributing](#contributing) section.
+
 ## Table of Contents
 
 - [AI Outlook Add-in](#ai-outlook-add-in)
+  - [Status](#status)
+  - [Help Wanted](#help-wanted)
   - [Table of Contents](#table-of-contents)
   - [Overview](#overview)
   - [Features](#features)
