@@ -142,17 +142,16 @@ export async function insertAIAnswer(
     let aiText: string = await aiRequest(provider, model, apiKey, system, `${user}\n${userText}`);
     console.log(`AI provider: ${provider.name} AI model: ${model.name}: \n${aiText}`);
 
-    // Replace newlines with HTML line breaks
-    aiText = aiText.replace(/\n/g, "<br>");
-
-    // Sanitize and escape the AI-generated text
-    const sanitizedAiText = DOMPurify.sanitize(aiText);
-
     // Insert the AI-generated text into the email body
     if (isOutlookClient()) {
+      // Replace newlines with HTML line breaks
+      aiText = aiText.replace(/\n/g, "<br>");
+
+      // Sanitize and escape the AI-generated text
+      aiText = DOMPurify.sanitize(aiText);
       error = null;
       Office.context.mailbox.item?.body.setSelectedDataAsync(
-        sanitizedAiText,
+        aiText,
         { coercionType: Office.CoercionType.Html },
         (asyncResult: Office.AsyncResult<void>) => {
           if (asyncResult.status === Office.AsyncResultStatus.Failed) {
@@ -161,7 +160,7 @@ export async function insertAIAnswer(
         }
       );
     }
-    return { response: sanitizedAiText, error };
+    return { response: aiText, error };
   } catch (err) {
     console.error("Error: " + err);
     return { response: "", error };

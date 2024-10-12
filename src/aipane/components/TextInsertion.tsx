@@ -13,6 +13,7 @@ import { AIAnswer } from "../AIPrompt";
 import Markdown from "react-markdown";
 import rehypeHighlight from "rehype-highlight";
 import "highlight.js/styles/github.css";
+import { isOutlookClient } from "../aipane";
 
 /**
  * Props for the TextInsertion component.
@@ -87,8 +88,11 @@ const TextInsertion: React.FC<TextInsertionProps> = (props: TextInsertionProps):
     const answer = await props.insertAIAnswer(text);
     setSkeletonVisibility(false);
     if (answer.error) {
-      //textRef.current.innerHTML = `Error: ${answer.error}<br/>Answer: ${answer.response}`;
-      setAnswer(`${answer.error}  \nAnswer:  \n${answer.response.replace(/<br\/>/g, "\n").replace(/<br>/g, "\n")}`);
+      let error =
+        !isOutlookClient() && answer.error.includes("Unable to insert AI answer")
+          ? ""
+          : `${answer.error}  \nAnswer:  \n`;
+      setAnswer(`${error}${answer.response}`);
     }
   };
 

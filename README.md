@@ -31,6 +31,7 @@ Give us a **star** if you like the project. We are looking for contributors to h
   - [Privacy Policy](#privacy-policy)
   - [Contributing](#contributing)
   - [Support](#support)
+  - [Thanks](#thanks)
 
 ## Overview
 
@@ -133,3 +134,9 @@ If you encounter any issues or have questions about the AI Outlook Add-in, pleas
 ---
 
 This project is not affiliated with or endorsed by Microsoft, Meta, SambaNova or Groq. It is an independent add-in developed to enhance the Outlook web experience using Groq's AI capabilities and Meta Llama models.
+
+## Thanks
+
+Thank you to Groq for giving us access for free to their AI API. We are grateful for their support and collaboration.
+
+[![Powered by Groq for fast inference.](https://groq.com/wp-content/uploads/2024/03/PBG-mark1-color.svg)](https://groq.com)
