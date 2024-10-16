@@ -118,7 +118,7 @@ export function getSelectedText(): Promise<string> {
       reject("Not in Outlook client");
     }
     Office.context.mailbox.item?.getSelectedDataAsync(
-      Office.CoercionType.Html,
+      Office.CoercionType.Text,
       (asyncResult: Office.AsyncResult<any>) => {
         if (asyncResult.status === Office.AsyncResultStatus.Failed) {
           reject(asyncResult.error);
