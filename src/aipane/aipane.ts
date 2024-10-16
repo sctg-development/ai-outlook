@@ -133,6 +133,10 @@ export async function insertAIAnswer(
   }
 
   try {
+    const debug = localStorage.getItem("DEBUG");
+    if (debug) {
+      debugger;
+    }
     console.log(`Prompt: ${id}`);
     console.log(`System text: \n${system}`);
     console.log(`User: ${user}`);
