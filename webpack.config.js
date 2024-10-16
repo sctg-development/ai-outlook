@@ -8,10 +8,21 @@
 import devCerts from "office-addin-dev-certs";
 import CopyWebpackPlugin from "copy-webpack-plugin";
 import HtmlWebpackPlugin from "html-webpack-plugin";
+import WebpackShellPluginNext from "webpack-shell-plugin-next";
 import webpack from "webpack";
+import fs from "fs";
+import path from "path";
+import { simpleGit } from "simple-git";
 
 const urlDev = "https://localhost:3000/";
 const urlProd = "https://outlook.addin.pp.ua/"; // CHANGE THIS TO YOUR PRODUCTION DEPLOYMENT LOCATION
+
+async function generateVersionFile() {
+  const git = simpleGit();
+  const commit = await git.revparse(["HEAD"]);
+  const versionInfo = { commit };
+  fs.writeFileSync(path.resolve(".", "src/version.json"), JSON.stringify(versionInfo, null, 2));
+}
 
 async function getHttpsOptions() {
   const httpsOptions = await devCerts.getHttpsServerOptions();
@@ -103,6 +114,13 @@ export default async (env, options) => {
       }),
       new webpack.ProvidePlugin({
         Promise: ["es6-promise", "Promise"],
+      }),
+      new WebpackShellPluginNext({
+        onBuildStart: {
+          scripts: [generateVersionFile],
+          blocking: true,
+          parallel: false,
+        },
       }),
     ],
     devServer: {

@@ -20,6 +20,7 @@ import HeroComboPrompts from "./HeroComboPrompts";
 import HeroModels from "./HeroModels";
 import { AIAnswer, AIModel, AIProvider, getDefaultProvider, getModel } from "../AIPrompt";
 import HeroProviders from "./HeroProviders";
+import versionCfg from "../../version.json";
 
 /**
  * @interface AppProps
@@ -174,6 +175,8 @@ const App: React.FC<AppProps> = (props: AppProps): React.JSX.Element => {
       setShowApiKeyInput(true);
     }
   };
+
+  console.log("Version: ", versionCfg.commit);
 
   return (
     <div className={styles.root}>

@@ -80,7 +80,7 @@ const useStyles = makeStyles({
  * @returns {React.JSX.Element} - The rendered component.
  */
 const TextInsertion: React.FC<TextInsertionProps> = (props: TextInsertionProps): React.JSX.Element => {
-  const [text, setText] = useState<string>(props.basePrompt || "");
+  const [userText, setUserText] = useState<string>(props.basePrompt || "");
   const [skeletonVisibility, setSkeletonVisibility] = useState<boolean>(false);
   const [answer, setAnswer] = useState<string>(null);
 
@@ -88,8 +88,16 @@ const TextInsertion: React.FC<TextInsertionProps> = (props: TextInsertionProps):
    * Handles the insertion of AI-generated text.
    */
   const handleTextInsertion = async () => {
+    requestAI(userText);
+  };
+
+  /**
+   * Requests AI to generate an answer.
+   * @param {string} querytext - The text to be processed by the AI.
+   */
+  const requestAI = async (querytext: string) => {
     setSkeletonVisibility(true);
-    const answer = await props.insertAIAnswer(text);
+    const answer = await props.insertAIAnswer(querytext);
     setSkeletonVisibility(false);
     if (answer.error) {
       let error =
@@ -105,7 +113,7 @@ const TextInsertion: React.FC<TextInsertionProps> = (props: TextInsertionProps):
    * @param {React.ChangeEvent<HTMLTextAreaElement>} event - The change event.
    */
   const handleTextChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setText(event.target.value);
+    setUserText(event.target.value);
   };
 
   /**
@@ -114,7 +122,7 @@ const TextInsertion: React.FC<TextInsertionProps> = (props: TextInsertionProps):
   const handleTextFromOutlook = async () => {
     if (isOutlookClient()) {
       const selectedText = await getSelectedText();
-      setText(selectedText);
+      requestAI(selectedText);
     }
   };
 
@@ -123,7 +131,7 @@ const TextInsertion: React.FC<TextInsertionProps> = (props: TextInsertionProps):
   return (
     <div className={styles.textPromptAndInsertion}>
       <Field className={styles.textAreaField} size="large" label="Enter your message.">
-        <Textarea className={styles.textAreaBox} resize="vertical" value={text} onChange={handleTextChange} />
+        <Textarea className={styles.textAreaBox} resize="vertical" value={userText} onChange={handleTextChange} />
       </Field>
       <Field className={styles.instructions}>Click to ask AI.</Field>
       <Button

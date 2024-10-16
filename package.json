@@ -73,6 +73,7 @@
     "office-addin-prettier-config": "^1.2.1",
     "os-browserify": "^0.3.0",
     "process": "^0.11.10",
+    "simple-git": "^3.27.0",
     "source-map-loader": "^5.0.0",
     "style-loader": "^4.0.0",
     "ts-loader": "^9.5.1",
@@ -80,7 +81,8 @@
     "typescript": "^5.6.3",
     "webpack": "^5.95.0",
     "webpack-cli": "^5.1.4",
-    "webpack-dev-server": "5.1.0"
+    "webpack-dev-server": "5.1.0",
+    "webpack-shell-plugin-next": "^2.3.2"
   },
   "prettier": "office-addin-prettier-config",
   "browserslist": [
