@@ -133,9 +133,20 @@ export async function insertAIAnswer(
   }
 
   try {
-    const debug = localStorage.getItem("DEBUG");
-    if (debug) {
-      debugger;
+    const _debug = localStorage.getItem("DEBUG");
+    console.log(`DEBUG: ${_debug}`);
+    if (_debug && _debug === "1") {
+      // eslint-disable-next-line no-eval
+      eval("debu" + "gger");
+      Office.context.mailbox.item.getSelectedDataAsync(Office.CoercionType.Text, function (asyncResult) {
+        if (asyncResult.status === Office.AsyncResultStatus.Succeeded) {
+          const text = asyncResult.value.data;
+          const prop = asyncResult.value.sourceProperty;
+          console.log("Selected text in " + prop + ": " + text);
+        } else {
+          console.error(asyncResult.error);
+        }
+      });
     }
     console.log(`Prompt: ${id}`);
     console.log(`System text: \n${system}`);
