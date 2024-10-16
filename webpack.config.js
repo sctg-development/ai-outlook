@@ -39,6 +39,7 @@ export default async (env, options) => {
       taskpane: ["./src/aipane/index.tsx", "./src/aipane/aipane.html"],
     },
     output: {
+      filename: "sctg_ai_outlook_[contenthash].js",
       clean: true,
     },
     optimization: {
