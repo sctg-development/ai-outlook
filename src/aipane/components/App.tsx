@@ -176,7 +176,9 @@ const App: React.FC<AppProps> = (props: AppProps): React.JSX.Element => {
     }
   };
 
-  console.log("Version: ", versionCfg.commit);
+  // Show the version number in the console
+  // eslint-disable-next-line no-console
+  console.log(`Version: ${versionCfg.commit} Date: ${versionCfg.date}`);
 
   return (
     <div className={styles.root}>

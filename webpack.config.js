@@ -20,7 +20,8 @@ const urlProd = "https://outlook.addin.pp.ua/"; // CHANGE THIS TO YOUR PRODUCTIO
 async function generateVersionFile() {
   const git = simpleGit();
   const commit = await git.revparse(["HEAD"]);
-  const versionInfo = { commit };
+  const commitDate = await git.show(["-s", "--format=%ci", commit]);
+  const versionInfo = { commit, date: commitDate.replaceAll("\n", "") };
   fs.writeFileSync(path.resolve(".", "src/version.json"), JSON.stringify(versionInfo, null, 2));
 }
 
