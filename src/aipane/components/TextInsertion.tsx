@@ -13,7 +13,7 @@ import { AIAnswer } from "../AIPrompt";
 import Markdown from "react-markdown";
 import rehypeHighlight from "rehype-highlight";
 import "highlight.js/styles/github.css";
-import { getSelectedText, isOutlookClient } from "../aipane.js";
+import { getSelectedText, isOutlookClient } from "../aipane";
 
 /**
  * Props for the TextInsertion component.
