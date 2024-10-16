@@ -13,7 +13,7 @@ import { AIAnswer } from "../AIPrompt";
 import Markdown from "react-markdown";
 import rehypeHighlight from "rehype-highlight";
 import "highlight.js/styles/github.css";
-import { isOutlookClient } from "../aipane";
+import { getSelectedText, isOutlookClient } from "../aipane.js";
 
 /**
  * Props for the TextInsertion component.
@@ -61,6 +61,10 @@ const useStyles = makeStyles({
   skeletonOff: {
     display: "none",
   },
+  buttonInsert: {},
+  buttonInsertOff: {
+    display: "none",
+  },
   skeletonItem: {
     margin: "0.5em",
   },
@@ -104,6 +108,16 @@ const TextInsertion: React.FC<TextInsertionProps> = (props: TextInsertionProps):
     setText(event.target.value);
   };
 
+  /**
+   * Handles the insertion of selected text.
+   */
+  const handleTextFromOutlook = async () => {
+    if (isOutlookClient()) {
+      const selectedText = await getSelectedText();
+      setText(selectedText);
+    }
+  };
+
   const styles = useStyles();
 
   return (
@@ -112,6 +126,14 @@ const TextInsertion: React.FC<TextInsertionProps> = (props: TextInsertionProps):
         <Textarea className={styles.textAreaBox} resize="vertical" value={text} onChange={handleTextChange} />
       </Field>
       <Field className={styles.instructions}>Click to ask AI.</Field>
+      <Button
+        appearance="primary"
+        size="large"
+        onClick={handleTextFromOutlook}
+        className={isOutlookClient() ? styles.buttonInsert : styles.buttonInsertOff}
+      >
+        Use selected text
+      </Button>
       <Button appearance="primary" size="large" onClick={handleTextInsertion}>
         Insert answer
       </Button>

@@ -109,6 +109,25 @@ function getPrompt(id: string): AIPrompt {
 }
 
 /**
+ * Retrieves the text selected in the email body.
+ * @returns Promise<string> - The selected text.
+ */
+export function getSelectedText(): Promise<string> {
+  return new Promise((resolve, reject) => {
+    if (!isOutlookClient()) {
+      reject("Not in Outlook client");
+    }
+    Office.context.mailbox.item?.body.getAsync(Office.CoercionType.Html, (asyncResult: Office.AsyncResult<string>) => {
+      if (asyncResult.status === Office.AsyncResultStatus.Failed) {
+        reject(asyncResult.error.message);
+      } else {
+        resolve(asyncResult.value);
+      }
+    });
+  });
+}
+
+/**
  * Inserts the AI-generated answer into the email body.
  * @param {AIProvider} provider - The AI provider configuration.
  * @param {AIModel} model - The AI model configuration.
@@ -138,15 +157,6 @@ export async function insertAIAnswer(
     if (_debug && _debug === "1") {
       // eslint-disable-next-line no-eval
       eval("debu" + "gger");
-      Office.context.mailbox.item.getSelectedDataAsync(Office.CoercionType.Text, function (asyncResult) {
-        if (asyncResult.status === Office.AsyncResultStatus.Succeeded) {
-          const text = asyncResult.value.data;
-          const prop = asyncResult.value.sourceProperty;
-          console.log("Selected text in " + prop + ": " + text);
-        } else {
-          console.error(asyncResult.error);
-        }
-      });
     }
     console.log(`Prompt: ${id}`);
     console.log(`System text: \n${system}`);
