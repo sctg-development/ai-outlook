@@ -117,13 +117,19 @@ export function getSelectedText(): Promise<string> {
     if (!isOutlookClient()) {
       reject("Not in Outlook client");
     }
-    Office.context.mailbox.item?.body.getAsync(Office.CoercionType.Html, (asyncResult: Office.AsyncResult<string>) => {
-      if (asyncResult.status === Office.AsyncResultStatus.Failed) {
-        reject(asyncResult.error.message);
-      } else {
-        resolve(asyncResult.value);
+    Office.context.mailbox.item?.getSelectedDataAsync(
+      Office.CoercionType.Html,
+      (asyncResult: Office.AsyncResult<any>) => {
+        if (asyncResult.status === Office.AsyncResultStatus.Failed) {
+          reject(asyncResult.error);
+        } else {
+          const text = asyncResult.value.data;
+          const prop = asyncResult.value.sourceProperty;
+          console.log("Selected text in " + prop + ": " + text);
+          resolve(text);
+        }
       }
-    });
+    );
   });
 }
 
