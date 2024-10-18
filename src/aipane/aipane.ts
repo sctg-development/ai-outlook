@@ -103,6 +103,7 @@ function getPrompt(id: string): AIPrompt {
     (prompt) => prompt.id === id && (!prompt.standalone || !isOutlookClient())
   );
   if (!prompt) {
+    console.error("getPrompt: Prompt not found");
     throw new Error("Prompt not found");
   }
   return prompt;
@@ -154,7 +155,8 @@ export async function insertAIAnswer(
 
   // Validate and sanitize inputs
   if (!system || !user || !userText) {
-    throw new Error("Invalid input");
+    console.error("insertAIAnswer: Invalid input");
+    throw new Error("insertAIAnswer: Invalid input");
   }
 
   try {
@@ -186,6 +188,7 @@ export async function insertAIAnswer(
         { coercionType: Office.CoercionType.Html },
         (asyncResult: Office.AsyncResult<void>) => {
           if (asyncResult.status === Office.AsyncResultStatus.Failed) {
+            console.error("insertAIAnswer: Error inserting AI answer:", asyncResult.error);
             throw new Error(asyncResult.error.message);
           }
         }
