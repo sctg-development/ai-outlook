@@ -196,7 +196,7 @@ const App: React.FC<AppProps> = (props: AppProps): React.JSX.Element => {
           <HeroProviders onChange={handleProviderChange} />
           <HeroModels onChange={handleModelChange} provider={provider} />
           <HeroComboPrompts onChange={handlePromptChange} />
-          <TextInsertion insertAIAnswer={handlePromptSubmit} basePrompt={""} />
+          <TextInsertion getAIAnswer={handlePromptSubmit} basePrompt={""} />
         </>
       )}
     </div>

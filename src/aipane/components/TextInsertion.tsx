@@ -24,7 +24,7 @@ interface TextInsertionProps {
    * @param {string} text - The text to be processed by the AI.
    * @returns {Promise<AIAnswer>} - The AI-generated answer.
    */
-  insertAIAnswer: (text: string) => Promise<AIAnswer>;
+  getAIAnswer: (text: string) => Promise<AIAnswer>;
 
   /**
    * Optional base prompt text.
@@ -97,7 +97,7 @@ const TextInsertion: React.FC<TextInsertionProps> = (props: TextInsertionProps):
    */
   const requestAI = async (querytext: string) => {
     setSkeletonVisibility(true);
-    const answer = await props.insertAIAnswer(querytext);
+    const answer = await props.getAIAnswer(querytext);
     setSkeletonVisibility(false);
     if (answer.error) {
       let error =
