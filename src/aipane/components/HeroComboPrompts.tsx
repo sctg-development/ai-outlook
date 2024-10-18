@@ -42,10 +42,6 @@ const HeroComboPrompts: React.FC<HeroComboPromptsProps> = ({ onChange }) => {
   };
 
   useEffect(() => {
-    // prompts.forEach((prompt: AIPrompt) => {
-    //   console.log(prompt.summary);
-    // });
-
     onChange(selectedValue);
   }, [selectedValue]);
 
@@ -59,11 +55,11 @@ const HeroComboPrompts: React.FC<HeroComboPromptsProps> = ({ onChange }) => {
         id={inputId}
         onActiveOptionChange={handleChange}
         defaultSelectedOptions={[config.prompts[0].id]}
-        defaultValue={config.prompts[0].summary}
+        defaultValue={(prompts[0].summary || prompts[0].system) + " " + prompts[0].user}
       >
         {prompts.map((prompt: AIPrompt) => (
           <Option value={prompt.id} key={prompt.id}>
-            {prompt.summary || prompt.system}
+            {(prompt.summary || prompt.system) + " " + prompt.user}
           </Option>
         ))}
       </Dropdown>
