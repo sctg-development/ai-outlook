@@ -19,21 +19,22 @@ function normalizeModelName(name: string): string {
     ")";
   return retString.trim();
 }
-
-const groqModels = getAIModels(groqProvider, apiKey, "llama");
-groqModels.then((models) => {
-  models = models.map((model) => {
-    model.name = normalizeModelName(model.name);
-    return model;
+if (apiKey !== "") {
+  const groqModels = getAIModels(groqProvider, apiKey, "llama");
+  groqModels.then((models) => {
+    models = models.map((model) => {
+      model.name = normalizeModelName(model.name);
+      return model;
+    });
+    const newConfig = { ...config };
+    // replace the models for the Groq provider
+    newConfig.providers = newConfig.providers.map((provider: AIProvider) => {
+      if (provider.name === "Groq") {
+        provider.models = models;
+      }
+      return provider;
+    });
+    //console.log(JSON.stringify(newConfig, null, 2));
+    writeFileSync("./src/config.json", JSON.stringify(newConfig, null, 2));
   });
-  const newConfig = { ...config };
-  // replace the models for the Groq provider
-  newConfig.providers = newConfig.providers.map((provider: AIProvider) => {
-    if (provider.name === "Groq") {
-      provider.models = models;
-    }
-    return provider;
-  });
-  //console.log(JSON.stringify(newConfig, null, 2));
-  writeFileSync("./src/config.json", JSON.stringify(newConfig, null, 2));
-});
+}
