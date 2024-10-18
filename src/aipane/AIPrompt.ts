@@ -148,3 +148,16 @@ export function getModel(provider: AIProvider, modelId: string): AIModel {
 export function getDefaultModel(provider: AIProvider): AIModel {
   return provider.models.filter((model: AIModel) => model.default)[0];
 }
+
+/**
+ * Retrieves the prompts from the configuration.
+ * return all prompts if the application is in standalone mode.
+ * @param {boolean} standalone - Indicates if the application is in standalone mode.
+ */
+export function getPrompts(standalone: boolean): AIPrompt[] {
+  if (!standalone) {
+    return config.prompts.filter((prompt: AIPrompt) => prompt.standalone === standalone);
+  } else {
+    return config.prompts;
+  }
+}
