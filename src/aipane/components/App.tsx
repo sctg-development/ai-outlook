@@ -14,7 +14,7 @@ import HeroList, { HeroListItem } from "./HeroList";
 import TextInsertion from "./TextInsertion";
 import { makeStyles } from "@fluentui/react-components";
 import { BrainCircuit20Regular } from "@fluentui/react-icons";
-import { insertAIAnswer } from "../aipane";
+import { insertAIAnswer, isOutlookClient } from "../aipane";
 import HeroApiKey from "./HeroApiKey";
 import HeroComboPrompts from "./HeroComboPrompts";
 import HeroModels from "./HeroModels";
@@ -176,9 +176,9 @@ const App: React.FC<AppProps> = (props: AppProps): React.JSX.Element => {
     }
   };
 
-  // Show the version number in the console
+  // Show the version number, the build date and the target use in the console
   // eslint-disable-next-line no-console
-  console.log(`Version: ${versionCfg.commit} Date: ${versionCfg.date}`);
+  console.log(`Version: ${versionCfg.commit} Date: ${versionCfg.date} Runs on Outlook: ${isOutlookClient()}`);
 
   return (
     <div className={styles.root}>
