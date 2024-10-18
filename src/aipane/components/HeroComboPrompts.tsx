@@ -8,6 +8,7 @@ import { Dropdown, Label, makeStyles, Option, useId } from "@fluentui/react-comp
 import { useState, useEffect } from "react";
 import type { AIPrompt } from "../AIPrompt";
 import config from "../../config.json" with { type: "json" };
+import { isOutlookClient } from "../aipane";
 interface HeroComboPromptsProps {
   onChange: (selectedValue: string) => void;
 }
@@ -27,7 +28,9 @@ const useStyles = makeStyles({
   },
 });
 
-const prompts = config.prompts;
+// Filter out standalone prompts if the client is Outlook
+// Standalone prompts should be used in standalone mode only
+const prompts = isOutlookClient ? config.prompts.filter((prompt: AIPrompt) => !prompt.standalone) : config.prompts;
 
 const HeroComboPrompts: React.FC<HeroComboPromptsProps> = ({ onChange }) => {
   const styles = useStyles();
