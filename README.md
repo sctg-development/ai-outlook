@@ -28,7 +28,8 @@ Give us a **star** if you like the project. We are looking for contributors to h
   - [Features](#features)
   - [Screenshot](#screenshot)
   - [Prerequisites](#prerequisites)
-  - [Installation](#installation)
+  - [Installation on Microsoft 365](#installation-on-microsoft-365)
+  - [Installation on Outlook Web](#installation-on-outlook-web)
   - [Usage](#usage)
   - [Development](#development)
   - [Customization](#customization)
@@ -61,8 +62,6 @@ The AI Outlook Add-in enhances your email workflow by providing AI-powered assis
 <img width="1086" alt="Capture d’écran 2024-10-09 à 12 33 19" src="https://github.com/user-attachments/assets/3802ebe4-cf2e-4ee2-ba41-45dc27d94ddc">
 <img width="979" alt="Capture d’écran 2024-10-10 à 18 25 47" src="https://github.com/user-attachments/assets/1c905169-3897-452d-ac13-c8b35520948c">
 
-
-
 ## Prerequisites
 
 Before you can use the AI Outlook Add-in, you'll need:
@@ -71,7 +70,7 @@ Before you can use the AI Outlook Add-in, you'll need:
 2. A Groq AI developer API key (obtain one from [Groq's developer portal](https://console.groq.com))
 3. For SambaNova AI, obtain an API key from [SambaNova's developer portal](https://console.sambanova.ai) you also need a proxy for bypassing the lack of CORS headers in the sambanova API. You can use our [AI-Proxy-Cloudflare](https://github.com/sctg-development/ai-proxy-cloudflare) for this purpose.
 
-## Installation
+## Installation on Microsoft 365
 
 To install the AI Outlook Add-in, follow these steps:
 
@@ -83,6 +82,19 @@ To install the AI Outlook Add-in, follow these steps:
 6. Follow any additional prompts to complete the installation process.
 
 Note: The exact steps may vary slightly depending on your organization's Microsoft 365 configuration. If you encounter any issues, please contact your IT administrator for assistance.
+
+## Installation on Outlook Web
+
+To install the AI Outlook Add-in on Outlook web, follow these steps:
+
+1. Open Outlook on the web and sign in to your account.
+2. Download the latest [manifest.xml](https://outlook.addin.pp.ua/manifest.xml) or build yours.  
+3. Navigate to Settings > Integrated applications.
+4. Click on "Load customized applications" (or a similar option for adding custom add-ins).
+5. Upload the XML file you downloaded in step 2.
+6. Follow any additional prompts to complete the installation process.
+
+Note: The icon may not appear in the ribbon immediately after installation. If you don't see it, try refreshing the page or restarting your browser.
 
 ## Usage
 

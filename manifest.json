@@ -5,7 +5,7 @@
     "version": "1.0.1",
     "name": {
         "short": "AI emailer",
-        "full": "SCTG Groq AI Add-in"
+        "full": "SCTG Outlook AI Add-in"
     },
     "description": {
         "short": "Use AI to assist you in your email writing.",
@@ -95,7 +95,7 @@
                             "groups": [
                                 {
                                     "id": "msgComposeGroup",
-                                    "label": "SCTG Groq AI Add-in",
+                                    "label": "SCTG Outlook AI Add-in",
                                     "icons": [
                                         {
                                             "size": 16,
