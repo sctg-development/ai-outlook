@@ -29,7 +29,7 @@ Give us a **star** if you like the project. We are looking for contributors to h
   - [Screenshot](#screenshot)
   - [Prerequisites](#prerequisites)
   - [Installation on Microsoft 365](#installation-on-microsoft-365)
-  - [Installation on Outlook Web](#installation-on-outlook-web)
+  - [Installation on Outlook Web (manifest.json not supported)](#installation-on-outlook-web-manifestjson-not-supported)
   - [Usage](#usage)
   - [Development](#development)
   - [Customization](#customization)
@@ -83,9 +83,9 @@ To install the AI Outlook Add-in, follow these steps:
 
 Note: The exact steps may vary slightly depending on your organization's Microsoft 365 configuration. If you encounter any issues, please contact your IT administrator for assistance.
 
-## Installation on Outlook Web
+## Installation on Outlook Web (manifest.json not supported)
 
-To install the AI Outlook Add-in on Outlook web, follow these steps:
+To install the AI Outlook Add-in on Outlook web if you cannot use a zip or xml file, follow these steps:
 
 1. Open Outlook on the web and sign in to your account.
 2. Download the latest [manifest.xml](https://outlook.addin.pp.ua/manifest.xml) or build yours.  
