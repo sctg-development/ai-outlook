@@ -9,8 +9,8 @@
     <DefaultLocale>en-US</DefaultLocale>
     <DisplayName DefaultValue="AI emailer"/>
     <Description DefaultValue="SCTG Groq AI Add-in"/>
-    <IconUrl DefaultValue="https://outlook.addin.pp.ua/assets/icon-32.png"/>
-    <HighResolutionIconUrl DefaultValue="https://outlook.addin.pp.ua/assets/icon-80.png"/>
+    <IconUrl DefaultValue="https://localhost:3000/assets/icon-32.png"/>
+    <HighResolutionIconUrl DefaultValue="https://localhost:3000/assets/icon-80.png"/>
     <SupportUrl DefaultValue="https://github.com/sctg-development/groq-outlook"/>
     <AppDomains>
         <AppDomain>https://addin.pp.ua</AppDomain>
@@ -32,7 +32,7 @@
     <FormSettings>
         <Form xsi:type="ItemRead">
             <DesktopSettings>
-                <SourceLocation DefaultValue="https://outlook.addin.pp.ua/aipane.html"/>
+                <SourceLocation DefaultValue="https://localhost:3000/aipane.html"/>
                 <RequestedHeight>250</RequestedHeight>
             </DesktopSettings>
         </Form>
@@ -81,12 +81,12 @@
         </Hosts>
         <Resources>
             <bt:Images>
-                <bt:Image id="Icon.16x16" DefaultValue="https://outlook.addin.pp.ua/assets/icon-16.png"/>
-                <bt:Image id="Icon.32x32" DefaultValue="https://outlook.addin.pp.ua/assets/icon-32.png"/>
-                <bt:Image id="Icon.80x80" DefaultValue="https://outlook.addin.pp.ua/assets/icon-80.png"/>
+                <bt:Image id="Icon.16x16" DefaultValue="https://localhost:3000/assets/icon-16.png"/>
+                <bt:Image id="Icon.32x32" DefaultValue="https://localhost:3000/assets/icon-32.png"/>
+                <bt:Image id="Icon.80x80" DefaultValue="https://localhost:3000/assets/icon-80.png"/>
             </bt:Images>
             <bt:Urls>
-                <bt:Url id="Taskpane.Url" DefaultValue="https://outlook.addin.pp.ua/taskpane.html"/>
+                <bt:Url id="Taskpane.Url" DefaultValue="https://localhost:3000/taskpane.html"/>
             </bt:Urls>
         </Resources>
     </VersionOverrides>
