@@ -46,6 +46,7 @@ The AI Outlook Add-in enhances your email workflow by providing AI-powered assis
 **Project Repository:** [https://github.com/sctg-development/ai-outlook](https://github.com/sctg-development/ai-outlook)
 
 **Deployed Add-in:** [https://outlook.addin.pp.ua/](https://outlook.addin.pp.ua/manifest.json)
+**Deployed Add-in (GitHub Pages):** [https://sctg-development.github.io/ai-outlook](https://sctg-development.github.io/ai-outlook)
 
 ## Features
 
@@ -75,6 +76,8 @@ Before you can use the AI Outlook Add-in, you'll need:
 To install the AI Outlook Add-in, follow these steps:
 
 1. Download the latest release (nightly) ZIP file from the [project's GitHub releases section](https://github.com/sctg-development/ai-outlook/releases).
+   1. Note release_*.zip use Cloudflare Pages for hosting the add-in.
+   2. Note release_github_pages_*.zip use GitHub Pages for hosting the add-in.
 2. Log in to your company's Microsoft 365 admin console.
 3. Navigate to Settings > Integrated applications.
 4. Click on "Load customized applications" (or a similar option for adding custom add-ins).
