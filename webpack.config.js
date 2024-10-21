@@ -15,7 +15,6 @@ import path from "path";
 import { simpleGit } from "simple-git";
 
 const urlDev = "https://localhost:3000/";
-const urlProd = "https://outlook.addin.pp.ua/"; // CHANGE THIS TO YOUR PRODUCTION DEPLOYMENT LOCATION
 
 async function generateVersionFile() {
   const git = simpleGit();
@@ -32,6 +31,9 @@ async function getHttpsOptions() {
 
 export default async (env, options) => {
   const dev = options.mode === "development";
+  const urlProd =
+    env.website === "GITHUB_PAGES" ? "https://sctg-development.github.io/ai-outlook/" : "https://outlook.addin.pp.ua/"; // CHANGE THIS TO YOUR PRODUCTION DEPLOYMENT LOCATION
+
   const config = {
     devtool: "source-map",
     entry: {
