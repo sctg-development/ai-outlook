@@ -254,12 +254,12 @@ export async function getAIModels(provider: AIProvider, apiKey: string, filter: 
 }
 
 let officeLoaded = false;
-
-Office.onReady((info) => {
-  console.log(`Office SDK ready running ${info.host ? "in" + info.host : "outside office"}`);
-  officeLoaded = true;
-});
-
+if (typeof Office !== "undefined") {
+  Office.onReady((info) => {
+    console.log(`Office SDK ready running ${info.host ? "in" + info.host : "outside office"}`);
+    officeLoaded = true;
+  });
+}
 /**
  * Wait for the Office.js library to load.
  * limit the waiting time to 2 seconds
