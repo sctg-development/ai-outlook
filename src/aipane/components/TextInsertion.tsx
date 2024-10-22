@@ -101,7 +101,7 @@ const TextInsertion: React.FC<TextInsertionProps> = (props: TextInsertionProps):
     setSkeletonVisibility(false);
     if (answer.error) {
       let error =
-        !isOutlookClient() && answer.error.includes("Unable to insert AI answer")
+        !(await isOutlookClient()) && answer.error.includes("Unable to insert AI answer")
           ? ""
           : `${answer.error}  \nAnswer:  \n`;
       setAnswer(`${error}${answer.response}`);
@@ -120,7 +120,7 @@ const TextInsertion: React.FC<TextInsertionProps> = (props: TextInsertionProps):
    * Handles the insertion of selected text.
    */
   const handleTextFromOutlook = async () => {
-    if (isOutlookClient()) {
+    if (await isOutlookClient()) {
       const selectedText = await getSelectedText();
       requestAI(selectedText);
     }

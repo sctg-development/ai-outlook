@@ -178,7 +178,9 @@ const App: React.FC<AppProps> = (props: AppProps): React.JSX.Element => {
 
   // Show the version number, the build date and the target use in the console
   // eslint-disable-next-line no-console
-  console.log(`Version: ${versionCfg.commit} Date: ${versionCfg.date} Runs on Outlook: ${isOutlookClient()}`);
+  isOutlookClient().then((isOutlook) =>
+    console.log(`Version: ${versionCfg.commit} Date: ${versionCfg.date} Runs on Outlook: ${isOutlook}`)
+  );
 
   return (
     <div className={styles.root}>

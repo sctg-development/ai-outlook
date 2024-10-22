@@ -115,22 +115,25 @@ function getPrompt(id: string): AIPrompt {
  */
 export function getSelectedText(): Promise<string> {
   return new Promise((resolve, reject) => {
-    if (!isOutlookClient()) {
-      reject("Not in Outlook client");
-    }
-    Office.context.mailbox.item?.getSelectedDataAsync(
-      Office.CoercionType.Text,
-      (asyncResult: Office.AsyncResult<any>) => {
-        if (asyncResult.status === Office.AsyncResultStatus.Failed) {
-          reject(asyncResult.error);
-        } else {
-          const text = asyncResult.value.data;
-          const prop = asyncResult.value.sourceProperty;
-          console.log("Selected text in " + prop + ": " + text);
-          resolve(text);
-        }
-      }
-    );
+    isOutlookClient()
+      .then(() => {
+        Office.context.mailbox.item?.getSelectedDataAsync(
+          Office.CoercionType.Text,
+          (asyncResult: Office.AsyncResult<any>) => {
+            if (asyncResult.status === Office.AsyncResultStatus.Failed) {
+              reject(asyncResult.error);
+            } else {
+              const text = asyncResult.value.data;
+              const prop = asyncResult.value.sourceProperty;
+              console.log("Selected text in " + prop + ": " + text);
+              resolve(text);
+            }
+          }
+        );
+      })
+      .catch((error) => {
+        reject(error);
+      });
   });
 }
 
@@ -176,7 +179,7 @@ export async function insertAIAnswer(
     console.log(`AI provider: ${provider.name} AI model: ${model.name}: \n${aiText}`);
 
     // Insert the AI-generated text into the email body
-    if (isOutlookClient()) {
+    if (await isOutlookClient()) {
       // Replace newlines with HTML line breaks
       aiText = aiText.replace(/\n/g, "<br>");
 
@@ -250,10 +253,35 @@ export async function getAIModels(provider: AIProvider, apiKey: string, filter: 
   }
 }
 
+let officeLoaded = false;
+
+Office.onReady((info) => {
+  console.log(`Office SDK ready running ${info.host ? "in" + info.host : "outside office"}`);
+  officeLoaded = true;
+});
+
+/**
+ * Wait for the Office.js library to load.
+ * limit the waiting time to 2 seconds
+ * @returns {Promise<boolean>} - A promise that resolves to true when the Office.js library is loaded or to false after 2 seconds.
+ */
+export async function waitForOffice(): Promise<boolean> {
+  return new Promise((resolve) => {
+    if (officeLoaded) {
+      resolve(true);
+    } else {
+      setTimeout(() => {
+        resolve(false);
+      }, 2000);
+    }
+  });
+}
+
 /**
  * Detects if the current app runs in the Outlook client.
  * @returns {boolean} - True if the app runs in the Outlook client, false otherwise.
  */
-export function isOutlookClient(): boolean {
-  return typeof Office.context.mailbox !== "undefined";
+export async function isOutlookClient(): Promise<boolean> {
+  const isOutlookLoaded = await waitForOffice();
+  return typeof Office.context.mailbox !== "undefined" && isOutlookLoaded;
 }
