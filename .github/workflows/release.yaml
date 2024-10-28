@@ -50,8 +50,12 @@ jobs:
             export TAG_NAME=${TAG_NAME:-"nightly"}
             echo $TAG_NAME
             mv release.zip release_${TAG_NAME}.zip
+            cp dist/manifest.json manifest_${TAG_NAME}.json
+            cp dist/manifest.xml manifest_${TAG_NAME}.xml
             gh release create $TAG_NAME -t "$TAG_NAME" -n "$TAG_NAME" || true
             gh release upload $TAG_NAME release_${TAG_NAME}.zip --clobber
+            gh release upload $TAG_NAME manifest_${TAG_NAME}.json --clobber
+            gh release upload $TAG_NAME manifest_${TAG_NAME}.xml --clobber
       
       - name: Build project for GitHub Pages
         run: |
