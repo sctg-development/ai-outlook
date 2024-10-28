@@ -8,7 +8,7 @@
 
 import { AI } from "@sctg/ai-sdk";
 import config from "../config.json" with { type: "json" };
-import type { AIAnswer, AIModel, AIPrompt, AIProvider } from "./AIPrompt.js";
+import { getPrompt, type AIAnswer, type AIModel, type AIProvider } from "./AIPrompt.js";
 import { SentencePieceProcessor, cleanText, llama_3_1_tokeniser_b64 } from "@sctg/sentencepiece-js";
 import { Model } from "@sctg/ai-sdk/resources/models.js";
 import DOMPurify from "dompurify";
@@ -90,23 +90,6 @@ async function aiRequest(
     response += chunk.choices[0]?.delta?.content || "";
   }
   return response;
-}
-
-/**
- * Retrieves the prompt configuration by its ID.
- * @param {string} id - The ID of the prompt.
- * @returns {AIPrompt} - The prompt configuration.
- */
-function getPrompt(id: string): AIPrompt {
-  const prompts: AIPrompt[] = config.prompts;
-  const prompt: AIPrompt | undefined = prompts.find(
-    (prompt) => prompt.id === id && (!prompt.standalone || !isOutlookClient())
-  );
-  if (!prompt) {
-    console.error("getPrompt: Prompt not found");
-    throw new Error("Prompt not found");
-  }
-  return prompt;
 }
 
 /**

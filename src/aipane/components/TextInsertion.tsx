@@ -128,6 +128,11 @@ const TextInsertion: React.FC<TextInsertionProps> = (props: TextInsertionProps):
 
   const styles = useStyles();
 
+  let isOutlook: boolean = true;
+  isOutlookClient().then((isOutlookClient: boolean) => {
+    isOutlook = isOutlookClient;
+  });
+
   return (
     <div className={styles.textPromptAndInsertion}>
       <Field className={styles.textAreaField} size="large" label="Enter your message.">
@@ -138,12 +143,12 @@ const TextInsertion: React.FC<TextInsertionProps> = (props: TextInsertionProps):
         appearance="primary"
         size="large"
         onClick={handleTextFromOutlook}
-        className={isOutlookClient() ? styles.buttonInsert : styles.buttonInsertOff}
+        className={isOutlook ? styles.buttonInsert : styles.buttonInsertOff}
       >
         Use selected text
       </Button>
       <Button appearance="primary" size="large" onClick={handleTextInsertion}>
-        Insert answer
+        {isOutlook ? "Insert answer" : "Ask AI"}
       </Button>
       <div>
         <Skeleton aria-label="Loading Content" className={skeletonVisibility ? styles.skeleton : styles.skeletonOff}>
