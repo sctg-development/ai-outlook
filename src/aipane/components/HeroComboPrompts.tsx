@@ -30,7 +30,10 @@ const useStyles = makeStyles({
 
 // Filter out standalone prompts if the client is Outlook
 // Standalone prompts should be used in standalone mode only
-const prompts = getPrompts(!isOutlookClient());
+let prompts: AIPrompt[] = [];
+isOutlookClient().then((isOutlook: boolean) => {
+  prompts = getPrompts(!isOutlook);
+});
 
 const HeroComboPrompts: React.FC<HeroComboPromptsProps> = ({ onChange }) => {
   const styles = useStyles();

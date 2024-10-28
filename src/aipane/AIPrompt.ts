@@ -152,7 +152,7 @@ export function getDefaultModel(provider: AIProvider): AIModel {
 /**
  * Retrieves the prompts from the configuration.
  * return all prompts if the application is in standalone mode.
- * @param {boolean} standalone - Indicates if the application is in standalone mode.
+ * @param {boolean} standalone - Indicates if the application is in standalone mode (true if running outside Outlook).
  */
 export function getPrompts(standalone: boolean): AIPrompt[] {
   if (!standalone) {
