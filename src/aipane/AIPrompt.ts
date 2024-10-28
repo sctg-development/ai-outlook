@@ -5,7 +5,6 @@
 */
 
 import config from "../config.json" with { type: "json" };
-import { isOutlookClient } from "./aipane";
 
 export interface AIAnswer {
   /**
@@ -161,21 +160,4 @@ export function getPrompts(standalone: boolean): AIPrompt[] {
   } else {
     return config.prompts;
   }
-}
-
-/**
- * Retrieves the prompt configuration by its ID.
- * @param {string} id - The ID of the prompt.
- * @returns {AIPrompt} - The prompt configuration.
- */
-export function getPrompt(id: string): AIPrompt {
-  const prompts: AIPrompt[] = config.prompts;
-  const prompt: AIPrompt | undefined = prompts.find(
-    (prompt) => prompt.id === id && (!prompt.standalone || !isOutlookClient())
-  );
-  if (!prompt) {
-    console.error("getPrompt: Prompt not found");
-    throw new Error("Prompt not found");
-  }
-  return prompt;
 }
