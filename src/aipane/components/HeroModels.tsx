@@ -34,16 +34,19 @@ const HeroModels: React.FC<HeroModelsProps> = ({ onChange, provider }) => {
   const selectId = useId("select");
   const [selectedValue, setSelectedValue] = useState<string>(getDefaultModel(provider).id);
 
-  const handleChange = (event: React.FormEvent<HTMLButtonElement>, option?: any) => {
-    event.preventDefault();
-    const newValue = option.nextOption?.value || getDefaultModel(provider).id;
-    setSelectedValue(newValue);
-    onChange(newValue);
-  };
+  const handleChange = React.useCallback(
+    (event: React.FormEvent<HTMLButtonElement>, option?: any) => {
+      event.preventDefault();
+      const newValue = option?.nextOption.value || getDefaultModel(provider).id;
+      setSelectedValue(newValue);
+      onChange(newValue);
+    },
+    [onChange, provider]
+  );
 
   useEffect(() => {
     onChange(selectedValue);
-  }, [selectedValue]);
+  }, [selectedValue, onChange]);
 
   return (
     <div className={styles.root}>

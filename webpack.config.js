@@ -13,6 +13,7 @@ import webpack from "webpack";
 import fs from "fs";
 import path from "path";
 import { simpleGit } from "simple-git";
+import { format } from "prettier";
 
 const urlDev = "https://localhost:3000/";
 
@@ -21,7 +22,12 @@ async function generateVersionFile() {
   const commit = await git.revparse(["HEAD"]);
   const commitDate = await git.show(["-s", "--format=%ci", commit]);
   const versionInfo = { commit, date: commitDate.replaceAll("\n", "") };
-  fs.writeFileSync(path.resolve(".", "src/version.json"), JSON.stringify(versionInfo, null, 2));
+  const versionInfoText = `export const versionInfo = ${JSON.stringify(versionInfo, null, 2)};`;
+  const versionInfoTypeScript = await format(versionInfoText, {
+    parser: "typescript",
+    plugins: ["eslint-plugin-office-addins"],
+  });
+  fs.writeFileSync(path.resolve(".", "src/version.ts"), versionInfoTypeScript);
 }
 
 async function getHttpsOptions() {

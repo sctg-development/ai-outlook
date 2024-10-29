@@ -6,6 +6,7 @@
       "request": "launch",
       "type": "msedge",
       "url": "https://localhost:3000/aipane.html",
+      "runtimeExecutable": "canary",
       "webRoot": "${workspaceFolder}"
     },
     {

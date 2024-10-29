@@ -52,8 +52,8 @@ The AI Outlook Add-in enhances your email workflow by providing AI-powered assis
 
 - AI-powered email composition suggestions
 - Automated email summarization
-- Prompt easy configurable in src/config.json
-- Model configuration in src/config.json
+- Prompt easy configurable in src/config.ts
+- Model configuration in src/config.ts
 - Language translation integration
 - Compatible with Groq AI and Sambanova AI ([via AI-Proxy-Cloudflare due to CORS](https://github.com/sctg-development/ai-proxy-cloudflare))
 
@@ -126,7 +126,7 @@ To set up the development environment:
 
 ## Customization
 
-You can customize the AI Outlook Add-in by modifying the `src/config.json` file.  
+You can customize the AI Outlook Add-in by modifying the `src/config.ts` file.  
 You'll also need to update the `manifest.json` file to reflect your deployment settings.  
 
 ## License

@@ -4,7 +4,19 @@
 =========================================================
 */
 
-import config from "../config.json" with { type: "json" };
+import { config } from "./config";
+
+export interface AIConfig {
+  aiproxy?: {
+    host: string;
+  };
+  providers: AIProvider[];
+  tests?: {
+    user: string;
+    prompt: string;
+  }[];
+  prompts: AIPrompt[];
+}
 
 export interface AIAnswer {
   /**
@@ -141,7 +153,7 @@ export function getModel(provider: AIProvider, modelId: string): AIModel {
 }
 
 /**
- * Retrieves the AI model from config.json for the given provider.
+ * Retrieves the AI model from config.ts for the given provider.
  * @param {AIProvider} provider - The AI provider containing the model.
  * @returns {AIModel} The AI model with the specified ID.
  */

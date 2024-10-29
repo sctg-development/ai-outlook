@@ -1,7 +1,8 @@
 import { getAIModels } from "../src/aipane/aipane.js";
 import { AIProvider } from "../src/aipane/AIPrompt.js";
-import config from "../src/config.json" with { type: "json" };
+import { config } from "../src/aipane/config.js";
 import { writeFileSync } from "fs";
+import { format } from "prettier";
 
 const groqProvider = config.providers.find((provider: AIProvider) => provider.name === "Groq");
 // eslint-disable-next-line no-undef
@@ -35,6 +36,10 @@ if (apiKey !== "") {
       return provider;
     });
     //console.log(JSON.stringify(newConfig, null, 2));
-    writeFileSync("./src/config.json", JSON.stringify(newConfig, null, 2));
+    const jsonText = JSON.stringify(newConfig, null, 2);
+    const configTs = `import { AIConfig } from "./AIPrompt";\nexport const config: AIConfig = ${jsonText};`;
+    format(configTs, { parser: "typescript", plugins: ["eslint-plugin-office-addins"] }).then((formatted) => {
+      writeFileSync("./src/aipane/config.ts", formatted);
+    });
   });
 }

@@ -7,7 +7,7 @@ import * as React from "react";
 import { Dropdown, Label, makeStyles, Option, useId } from "@fluentui/react-components";
 import { useState, useEffect } from "react";
 import { getDefaultProvider, getProvider, type AIProvider } from "../AIPrompt";
-import config from "../../config.json" with { type: "json" };
+import { config } from "../config";
 
 interface HeroProvidersProps {
   onChange: (provider: AIProvider) => void;
@@ -32,17 +32,25 @@ const HeroProviders: React.FC<HeroProvidersProps> = ({ onChange }) => {
   const styles = useStyles();
   const selectId = useId("select");
   const [selectedValue, setSelectedValue] = useState<string>(getDefaultProvider().name);
+  const [providers, setProviders] = useState<AIProvider[]>([]);
 
-  const handleChange = (event: React.FormEvent<HTMLButtonElement>, option?: any) => {
-    event.preventDefault();
-    const newValue = option.nextOption?.value || getDefaultProvider().name;
-    setSelectedValue(newValue);
-    onChange(getProvider(newValue));
-  };
+  useEffect(() => {
+    setProviders(config.providers);
+  }, []);
+
+  const handleChange = React.useCallback(
+    (event: React.FormEvent<HTMLButtonElement>, option?: any) => {
+      event.preventDefault();
+      const newValue = option?.nextOption.value || getDefaultProvider().name;
+      setSelectedValue(newValue);
+      onChange(getProvider(newValue));
+    },
+    [onChange]
+  );
 
   useEffect(() => {
     onChange(getProvider(selectedValue));
-  }, [selectedValue]);
+  }, [selectedValue, onChange]);
 
   return (
     <div className={styles.root}>
@@ -57,7 +65,7 @@ const HeroProviders: React.FC<HeroProvidersProps> = ({ onChange }) => {
         onActiveOptionChange={handleChange}
         onChange={handleChange}
       >
-        {config.providers.map((option: AIProvider) => (
+        {providers.map((option: AIProvider) => (
           <Option value={option.name} key={option.name}>
             {option.name}
           </Option>

@@ -20,7 +20,7 @@ import HeroComboPrompts from "./HeroComboPrompts";
 import HeroModels from "./HeroModels";
 import { AIAnswer, AIModel, AIProvider, getDefaultProvider, getModel } from "../AIPrompt";
 import HeroProviders from "./HeroProviders";
-import versionCfg from "../../version.json";
+import { versionInfo } from "../../version";
 
 /**
  * @interface AppProps
@@ -179,7 +179,7 @@ const App: React.FC<AppProps> = (props: AppProps): React.JSX.Element => {
   // Show the version number, the build date and the target use in the console
   // eslint-disable-next-line no-console
   isOutlookClient().then((isOutlook) =>
-    console.log(`Version: ${versionCfg.commit} Date: ${versionCfg.date} Runs on Outlook: ${isOutlook}`)
+    console.log(`Version: ${versionInfo.commit} Date: ${versionInfo.date} Runs on Outlook: ${isOutlook}`)
   );
 
   return (

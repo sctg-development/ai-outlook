@@ -7,7 +7,7 @@
  */
 
 import { AI } from "@sctg/ai-sdk";
-import config from "../config.json" with { type: "json" };
+import { config } from "./config";
 import type { AIAnswer, AIModel, AIPrompt, AIProvider } from "./AIPrompt.js";
 import { SentencePieceProcessor, cleanText, llama_3_1_tokeniser_b64 } from "@sctg/sentencepiece-js";
 import { Model } from "@sctg/ai-sdk/resources/models.js";
@@ -97,11 +97,10 @@ async function aiRequest(
  * @param {string} id - The ID of the prompt.
  * @returns {AIPrompt} - The prompt configuration.
  */
-function getPrompt(id: string): AIPrompt {
+async function getPrompt(id: string): Promise<AIPrompt> {
   const prompts: AIPrompt[] = config.prompts;
-  const prompt: AIPrompt | undefined = prompts.find(
-    (prompt) => prompt.id === id && (!prompt.standalone || !isOutlookClient())
-  );
+  const isOutlook = await isOutlookClient();
+  const prompt: AIPrompt | undefined = prompts.find((prompt) => prompt.id === id && (!prompt.standalone || !isOutlook));
   if (!prompt) {
     console.error("getPrompt: Prompt not found");
     throw new Error("Prompt not found");
@@ -153,7 +152,7 @@ export async function insertAIAnswer(
   id: string,
   userText: string
 ): Promise<AIAnswer> {
-  const { system, user } = getPrompt(id);
+  const { system, user } = await getPrompt(id);
   let error: string | null = ERROR_MESSAGE;
 
   // Validate and sanitize inputs

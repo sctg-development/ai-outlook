@@ -7,7 +7,7 @@ import * as React from "react";
 import { Dropdown, Label, makeStyles, Option, useId } from "@fluentui/react-components";
 import { useState, useEffect } from "react";
 import { getPrompts, type AIPrompt } from "../AIPrompt";
-import config from "../../config.json" with { type: "json" };
+import { config } from "../config";
 import { isOutlookClient } from "../aipane";
 interface HeroComboPromptsProps {
   onChange: (selectedValue: string) => void;
@@ -28,28 +28,35 @@ const useStyles = makeStyles({
   },
 });
 
-// Filter out standalone prompts if the client is Outlook
-// Standalone prompts should be used in standalone mode only
-let prompts: AIPrompt[] = [];
-isOutlookClient().then((isOutlook: boolean) => {
-  prompts = getPrompts(!isOutlook);
-});
-
 const HeroComboPrompts: React.FC<HeroComboPromptsProps> = ({ onChange }) => {
   const styles = useStyles();
   const inputId = useId("input");
   const [selectedValue, setSelectedValue] = useState<string>(config.prompts[0].id);
+  const [prompts, setPrompts] = useState<AIPrompt[]>([]);
 
-  const handleChange = (event: React.FormEvent<HTMLButtonElement>, option?: any) => {
-    event.preventDefault();
-    const newValue = option.nextOption?.value || config.prompts[0].id;
-    setSelectedValue(newValue);
-    onChange(newValue);
-  };
+  // Filter out standalone prompts if the client is Outlook
+  // Standalone prompts should be used in standalone mode only
+  useEffect(() => {
+    const loadPrompts = async () => {
+      const isOutlook = await isOutlookClient();
+      setPrompts(getPrompts(!isOutlook));
+    };
+    loadPrompts();
+  }, []);
+
+  const handleChange = React.useCallback(
+    (event: React.FormEvent<HTMLButtonElement>, option?: any) => {
+      event.preventDefault();
+      const newValue = option?.nextOption.value || config.prompts[0].id;
+      setSelectedValue(newValue);
+      onChange(newValue);
+    },
+    [onChange]
+  );
 
   useEffect(() => {
     onChange(selectedValue);
-  }, [selectedValue]);
+  }, [selectedValue, onChange]);
 
   return (
     <div className={styles.root}>
@@ -61,7 +68,7 @@ const HeroComboPrompts: React.FC<HeroComboPromptsProps> = ({ onChange }) => {
         id={inputId}
         onActiveOptionChange={handleChange}
         defaultSelectedOptions={[config.prompts[0].id]}
-        defaultValue={(prompts[0].summary || prompts[0].system) + " " + prompts[0].user}
+        defaultValue={(config.prompts[0].summary || config.prompts[0].system) + " " + config.prompts[0].user}
       >
         {prompts.map((prompt: AIPrompt) => (
           <Option value={prompt.id} key={prompt.id}>

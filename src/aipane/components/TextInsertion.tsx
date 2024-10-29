@@ -7,7 +7,7 @@
  */
 
 import * as React from "react";
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Button, Field, Textarea, tokens, makeStyles, Skeleton, SkeletonItem } from "@fluentui/react-components";
 import { AIAnswer } from "../AIPrompt";
 import Markdown from "react-markdown";
@@ -83,38 +83,44 @@ const TextInsertion: React.FC<TextInsertionProps> = (props: TextInsertionProps):
   const [userText, setUserText] = useState<string>(props.basePrompt || "");
   const [skeletonVisibility, setSkeletonVisibility] = useState<boolean>(false);
   const [answer, setAnswer] = useState<string>(null);
-
-  /**
-   * Handles the insertion of AI-generated text.
-   */
-  const handleTextInsertion = async () => {
-    requestAI(userText);
-  };
+  const [isOutlook, setIsOutlook] = useState<boolean>(false);
 
   /**
    * Requests AI to generate an answer.
    * @param {string} querytext - The text to be processed by the AI.
    */
-  const requestAI = async (querytext: string) => {
-    setSkeletonVisibility(true);
-    const answer = await props.getAIAnswer(querytext);
-    setSkeletonVisibility(false);
-    if (answer.error) {
-      let error =
-        !(await isOutlookClient()) && answer.error.includes("Unable to insert AI answer")
-          ? ""
-          : `${answer.error}  \nAnswer:  \n`;
-      setAnswer(`${error}${answer.response}`);
-    }
-  };
+  const requestAI = useCallback(
+    async (querytext: string) => {
+      setSkeletonVisibility(true);
+      const answer = await props.getAIAnswer(querytext);
+      setSkeletonVisibility(false);
+      if (answer.error) {
+        let error =
+          !(await isOutlookClient()) && answer.error.includes("Unable to insert AI answer")
+            ? ""
+            : `${answer.error}  \nAnswer:  \n`;
+        setAnswer(`${error}${answer.response}`);
+      } else {
+        setAnswer(answer.response);
+      }
+    },
+    [props]
+  );
+
+  /**
+   * Handles the insertion of AI-generated text.
+   */
+  const handleTextInsertion = useCallback(async () => {
+    await requestAI(userText);
+  }, [userText, requestAI]);
 
   /**
    * Handles changes in the textarea input.
    * @param {React.ChangeEvent<HTMLTextAreaElement>} event - The change event.
    */
-  const handleTextChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const handleTextChange = useCallback((event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setUserText(event.target.value);
-  };
+  }, []);
 
   /**
    * Handles the insertion of selected text.
@@ -122,11 +128,17 @@ const TextInsertion: React.FC<TextInsertionProps> = (props: TextInsertionProps):
   const handleTextFromOutlook = async () => {
     if (await isOutlookClient()) {
       const selectedText = await getSelectedText();
-      requestAI(selectedText);
+      await requestAI(selectedText);
     }
   };
 
   const styles = useStyles();
+
+  useEffect(() => {
+    isOutlookClient().then((_isOutlook: boolean) => {
+      setIsOutlook(_isOutlook);
+    });
+  }, []);
 
   return (
     <div className={styles.textPromptAndInsertion}>
@@ -138,12 +150,12 @@ const TextInsertion: React.FC<TextInsertionProps> = (props: TextInsertionProps):
         appearance="primary"
         size="large"
         onClick={handleTextFromOutlook}
-        className={isOutlookClient() ? styles.buttonInsert : styles.buttonInsertOff}
+        className={isOutlook ? styles.buttonInsert : styles.buttonInsertOff}
       >
         Use selected text
       </Button>
       <Button appearance="primary" size="large" onClick={handleTextInsertion}>
-        Insert answer
+        {isOutlook ? "Insert answer" : "Ask AI"}
       </Button>
       <div>
         <Skeleton aria-label="Loading Content" className={skeletonVisibility ? styles.skeleton : styles.skeletonOff}>
