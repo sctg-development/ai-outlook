@@ -72,6 +72,10 @@ const useStyles = makeStyles({
     display: "block",
     maxWidth: "1024px",
   },
+  downloadLink: {
+    display: "block",
+    marginTop: "0.5em",
+  },
 });
 
 /**
@@ -166,7 +170,15 @@ const TextInsertion: React.FC<TextInsertionProps> = (props: TextInsertionProps):
         <Markdown className={styles.markdown} rehypePlugins={[rehypeHighlight]}>
           {answer}
         </Markdown>
-        &nbsp;
+        {!isOutlook && answer && answer.length ? (
+          <a
+            href={`data:text/plain;charset=utf-8,${encodeURIComponent(answer)}`}
+            download="answer.md"
+            className={styles.downloadLink}
+          >
+            Download Raw Answer
+          </a>
+        ) : null}
       </div>
     </div>
   );
