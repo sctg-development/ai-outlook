@@ -33,6 +33,7 @@ export interface AIAnswer {
 export interface AIPrompt {
   /**
    * Unique identifier for the prompt.
+   * Generated with `uuidgen | tr '[:upper:]' '[:lower:]'`
    */
   id: string;
 
