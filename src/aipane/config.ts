@@ -49,22 +49,28 @@ export const config: AIConfig = {
           max_tokens: 8192,
         },
         {
-          id: "llama3-groq-8b-8192-tool-use-preview",
-          name: "Llama3 Groq (8b 8192 Tool Use)",
-          default: false,
-          max_tokens: 8192,
-        },
-        {
           id: "llama-3.1-70b-versatile",
           name: "Llama 3.1 (70b Versatile)",
           default: false,
           max_tokens: 32768,
         },
         {
+          id: "llama3-70b-8192",
+          name: "Llama3 70b (8192)",
+          default: false,
+          max_tokens: 8192,
+        },
+        {
           id: "llama-3.1-8b-instant",
           name: "Llama 3.1 (8b Instant)",
           default: false,
           max_tokens: 131072,
+        },
+        {
+          id: "llama3-groq-8b-8192-tool-use-preview",
+          name: "Llama3 Groq (8b 8192 Tool Use)",
+          default: false,
+          max_tokens: 8192,
         },
         {
           id: "llama3-groq-70b-8192-tool-use-preview",
@@ -81,12 +87,6 @@ export const config: AIConfig = {
         {
           id: "llama3-8b-8192",
           name: "Llama3 8b (8192)",
-          default: false,
-          max_tokens: 8192,
-        },
-        {
-          id: "llama3-70b-8192",
-          name: "Llama3 70b (8192)",
           default: false,
           max_tokens: 8192,
         },
@@ -244,7 +244,8 @@ export const config: AIConfig = {
       system:
         "You are an AI proofreader and editor specializing in improving written communication. Your task is to review the provided email text, identifying and correcting any errors in grammar, spelling, or punctuation. Additionally, suggest improvements in style, clarity, and overall effectiveness of the message. Provide a revised version of the text along with explanations for significant changes.",
       user: "Here's the text:",
-      summary: "Proofread and edit email text, correcting errors and suggesting improvements in style and clarity.",
+      summary:
+        "Proofread and edit email text, correcting errors and suggesting improvements in style and clarity.",
       standalone: false,
     },
     {
@@ -331,7 +332,8 @@ export const config: AIConfig = {
       id: "4505d1e5-bd00-48a9-9694-c2d8a0428113",
       system:
         "As a specialist in markup languages, you possess a unique expertise in converting content from one markup language to another. You are proficient in handling various formats and ensuring the accuracy and consistency of the conversion process.",
-      summary: "Convert content between markup languages with accuracy and consistency.",
+      summary:
+        "Convert content between markup languages with accuracy and consistency.",
       standalone: true,
       user: " ",
     },
@@ -339,7 +341,8 @@ export const config: AIConfig = {
       id: "f6eb06d9-9b96-4834-841c-64149bdc7fb2",
       system:
         "As an expert in data analysis, you have a deep understanding of statistical methods and data visualization techniques. You excel in transforming complex data into actionable insights that drive informed decision-making.",
-      summary: "Transform complex data into actionable insights for informed decision-making.",
+      summary:
+        "Transform complex data into actionable insights for informed decision-making.",
       standalone: true,
       user: " ",
     },
@@ -347,17 +350,19 @@ export const config: AIConfig = {
       id: "d6e4ad34-c81d-470d-9a20-fd1e7f6d4de5",
       system:
         "As a seasoned technical writer with a background in open-source software development, your role is to craft high-quality README.md files for open-source projects. You'll distill complex technical information into clear, concise, and user-friendly documentation that streamlines the onboarding process for developers and users alike.",
-      summary: "Create clear, concise, and informative documentation for open-source projects.",
+      summary:
+        "Create clear, concise, and informative documentation for open-source projects.",
       standalone: true,
       user: "This is the source code :",
     },
     {
       id: "9adb30f9-0673-432d-a6fb-93d97e5e8c3d",
-      system: "Optimize the initial user prompt to enhance Llama 3's inference capabilities, ensuring clear and concise input that maximizes the model's performance and knowledge extraction.",
-      summary: "Enhance Llama 3's inference capabilities with clear and concise input.",
+      system:
+        "Optimize the initial user prompt to enhance Llama 3's inference capabilities, ensuring clear and concise input that maximizes the model's performance and knowledge extraction.",
+      summary:
+        "Enhance Llama 3's inference capabilities with clear and concise input.",
       standalone: true,
       user: " ",
     },
   ],
 };
-//Optimize the initial user prompt to enhance Llama 3's inference capabilities, ensuring clear and concise input that maximizes the model's performance and knowledge extraction.
