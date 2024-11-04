@@ -114,6 +114,22 @@ export const config: AIConfig = {
         },
       ],
     },
+    {
+      default: false,
+      name: "Nvidia NMI",
+      baseUrl: "https://integrate.api.nvidia.com",
+      basePath: "/v1",
+      apiKey: "nvidiaKey",
+      aiproxied: true,
+      models: [
+        {
+          id: "meta/llama-3.1-405b-instruct",
+          name: "Llama 3.1 (405 Instruct)",
+          default: true,
+          max_tokens: 8192,
+        },
+      ],
+    },
   ],
   tests: [
     {
