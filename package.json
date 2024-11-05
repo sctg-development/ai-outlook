@@ -41,6 +41,7 @@
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-markdown": "^9.0.1",
+    "react-router-dom": "^6.27.0",
     "regenerator-runtime": "^0.14.1",
     "rehype-highlight": "^7.0.1"
   },
