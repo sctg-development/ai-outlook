@@ -10,7 +10,7 @@ export const config: AIConfig = {
       baseUrl: "https://api.groq.com",
       basePath: "/openai/v1",
       apiKey: "groqKey",
-      aiproxied: false,
+      aiproxied: true,
       models: [
         {
           id: "llama-3.2-90b-text-preview",
