@@ -5,7 +5,7 @@
     xmlns:mailappor="http://schemas.microsoft.com/office/mailappversionoverrides/1.0"
     xsi:type="MailApp">
     <Id>d6104121-055c-41c5-b563-6e3badd90b4e</Id>
-    <Version>1.0.1</Version>
+    <Version>1.0.2</Version>
     <ProviderName>Ronan LE MEILLAT</ProviderName>
     <DefaultLocale>en-US</DefaultLocale>
     <DisplayName DefaultValue="AI emailer" />

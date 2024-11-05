@@ -17,16 +17,22 @@ const root = rootElement ? createRoot(rootElement) : undefined;
 // restore the original history functions
 window.history.pushState = globalThis.backupHistoryFunctions.pushState;
 window.history.replaceState = globalThis.backupHistoryFunctions.replaceState;
-const router = createBrowserRouter([
+const BASE_PATH = process.env.website === "GITHUB_PAGES" ? "/ai-outlook" : "/";
+const router = createBrowserRouter(
+  [
+    {
+      path: "/",
+      element: <AIPane title={title} />,
+    },
+    {
+      path: "clean",
+      element: <Clean />,
+    },
+  ],
   {
-    path: "/",
-    element: <AIPane title={title} />,
-  },
-  {
-    path: "clean",
-    element: <Clean />,
-  },
-]);
+    basename: BASE_PATH,
+  }
+);
 
 /* Render application after Office initializes */
 Office.onReady(() => {
