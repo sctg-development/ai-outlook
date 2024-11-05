@@ -133,9 +133,7 @@ export default async (env, options) => {
         },
       }),
       new webpack.DefinePlugin({
-        "process.env": {
-          website: env.website,
-        },
+        WEBSITE_ENV: JSON.stringify(env.website),
       }),
     ],
     devServer: {

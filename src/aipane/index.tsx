@@ -17,7 +17,8 @@ const root = rootElement ? createRoot(rootElement) : undefined;
 // restore the original history functions
 window.history.pushState = globalThis.backupHistoryFunctions.pushState;
 window.history.replaceState = globalThis.backupHistoryFunctions.replaceState;
-const BASE_PATH = process.env.website === "GITHUB_PAGES" ? "/ai-outlook" : "/";
+// eslint-disable-next-line no-undef
+const BASE_PATH = WEBSITE_ENV === "GITHUB_PAGES" ? "/ai-outlook" : "/";
 const router = createBrowserRouter(
   [
     {
