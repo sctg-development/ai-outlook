@@ -5,7 +5,7 @@
       "name": "Launch Edge",
       "request": "launch",
       "type": "msedge",
-      "url": "https://localhost:3000/aipane.html",
+      "url": "https://localhost:3000/",
       "runtimeExecutable": "canary",
       "webRoot": "${workspaceFolder}"
     },
@@ -30,7 +30,7 @@
       "name": "Outlook Desktop (Edge Legacy)",
       "type": "office-addin",
       "request": "attach",
-      "url": "https://localhost:3000/aipane.html?_host_Info=Outlook$Win32$16.01$en-US$$$$0",
+      "url": "https://localhost:3000/?_host_Info=Outlook$Win32$16.01$en-US$$$$0",
       "port": 9222,
       "timeout": 600000,
       "webRoot": "${workspaceRoot}",

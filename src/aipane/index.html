@@ -12,6 +12,13 @@
     <title>SCTG AI Emailer Add-in</title>
 
     <!-- Office JavaScript API -->
+    <script type="text/javascript">
+        // Backup history functions to prevent Office.js from breaking the add-in
+        globalThis.backupHistoryFunctions = {
+            pushState: window.history.pushState,
+            replaceState: window.history.replaceState,
+        };
+    </script>
     <script type="text/javascript" src="https://appsforoffice.microsoft.com/lib/1.1/hosted/office.js"></script>
 </head>
 
@@ -26,7 +33,7 @@
         React container div. 
     -->
     <div id="tridentmessage" style="display: none; padding: 10;">
-        This add-in will not run in your version of Office. Please upgrade either to perpetual Office 2021 (or later) 
+        This add-in will not run in your version of Office. Please upgrade either to perpetual Office 2021 (or later)
         or to a Microsoft 365 account.
     </div>
     <script>

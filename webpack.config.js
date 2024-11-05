@@ -45,7 +45,7 @@ export default async (env, options) => {
     entry: {
       polyfill: ["core-js/stable", "regenerator-runtime/runtime"],
       vendor: ["react", "react-dom", "core-js", "@fluentui/react-components", "@fluentui/react-icons"],
-      taskpane: ["./src/aipane/index.tsx", "./src/aipane/aipane.html"],
+      taskpane: ["./src/aipane/index.tsx", "./src/aipane/index.html"],
     },
     output: {
       filename: "sctg_ai_outlook_[contenthash].js",
@@ -118,8 +118,8 @@ export default async (env, options) => {
         ],
       }),
       new HtmlWebpackPlugin({
-        filename: "aipane.html",
-        template: "./src/aipane/aipane.html",
+        filename: "index.html",
+        template: "./src/aipane/index.html",
         chunks: ["polyfill", "vendor", "taskpane"],
       }),
       new webpack.ProvidePlugin({
@@ -143,6 +143,7 @@ export default async (env, options) => {
         options: env.WEBPACK_BUILD || options.https !== undefined ? options.https : await getHttpsOptions(),
       },
       port: process.env.npm_package_config_dev_server_port || 3000,
+      historyApiFallback: true,
     },
   };
 

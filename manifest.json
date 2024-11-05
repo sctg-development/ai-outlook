@@ -71,7 +71,7 @@
                     "id": "TaskPaneRuntime",
                     "type": "general",
                     "code": {
-                        "page": "https://localhost:3000/aipane.html"
+                        "page": "https://localhost:3000/"
                     },
                     "lifetime": "short",
                     "actions": [

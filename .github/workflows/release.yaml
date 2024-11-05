@@ -34,7 +34,7 @@ jobs:
         run: |
           GROQ_API_KEY=${{ secrets.GROQ_API_KEY }} npm run getGroqModels
           npm run build
-          cp dist/aipane.html dist/index.html
+          # cp dist/aipane.html dist/index.html
 
       - name: Zip dist folder
         run: |
@@ -61,7 +61,7 @@ jobs:
         run: |
           GROQ_API_KEY=${{ secrets.GROQ_API_KEY }} npm run getGroqModels
           npm run build:github-pages
-          cp dist/aipane.html dist/index.html
+          # cp dist/aipane.html dist/index.html
 
       - name: Zip dist folder
         run: |

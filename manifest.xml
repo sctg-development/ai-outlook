@@ -35,7 +35,7 @@
     <FormSettings>
         <Form xsi:type="ItemRead">
             <DesktopSettings>
-                <SourceLocation DefaultValue="https://localhost:3000/aipane.html" />
+                <SourceLocation DefaultValue="https://localhost:3000/" />
                 <RequestedHeight>250</RequestedHeight>
             </DesktopSettings>
         </Form>
@@ -89,7 +89,7 @@
                 <bt:Image id="Icon.80x80" DefaultValue="https://localhost:3000/assets/icon-80.png" />
             </bt:Images>
             <bt:Urls>
-                <bt:Url id="Taskpane.Url" DefaultValue="https://localhost:3000/aipane.html" />
+                <bt:Url id="Taskpane.Url" DefaultValue="https://localhost:3000/" />
             </bt:Urls>
             <bt:ShortStrings>
                 <bt:String id="CommandsGroup.Label" DefaultValue="Commands" />

@@ -1,5 +1,5 @@
 /**
- * @file App.tsx
+ * @file Aipane.tsx
  * @description The main application component.
  * @author Ronan LE MEILLAT
  * @copyright 2024 Ronan LE MEILLAT for SCTG Development
@@ -26,7 +26,7 @@ import { versionInfo } from "../../version";
  * @interface AppProps
  * @description Properties for the App component.
  */
-interface AppProps {
+interface AipaneProps {
   /**
    * @description The title of the application.
    */
@@ -47,10 +47,10 @@ const useStyles = makeStyles({
 /**
  * @function App
  * @description The main application component.
- * @param {AppProps} props
+ * @param {AipaneProps} props
  * @returns { React.JSX.Element} The application component.
  */
-const Aipane: React.FC<AppProps> = (props: AppProps): React.JSX.Element => {
+const Aipane: React.FC<AipaneProps> = (props: AipaneProps): React.JSX.Element => {
   /**
    * @state provider
    * @description The current AI provider.
