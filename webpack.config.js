@@ -132,6 +132,11 @@ export default async (env, options) => {
           parallel: false,
         },
       }),
+      new webpack.DefinePlugin({
+        "process.env": {
+          website: env.website,
+        },
+      }),
     ],
     devServer: {
       hot: true,
