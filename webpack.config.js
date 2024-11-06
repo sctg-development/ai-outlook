@@ -122,6 +122,11 @@ export default async (env, options) => {
         template: "./src/aipane/index.html",
         chunks: ["polyfill", "vendor", "taskpane"],
       }),
+      new HtmlWebpackPlugin({
+        filename: "aipane.html",
+        template: "./src/aipane/index.html",
+        chunks: ["polyfill", "vendor", "taskpane"],
+      }),
       new webpack.ProvidePlugin({
         Promise: ["es6-promise", "Promise"],
       }),
