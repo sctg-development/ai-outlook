@@ -47,6 +47,7 @@ const useStyles = makeStyles({
     cursor: "pointer",
     color: "blue",
     fontSize: "0.5em",
+    margin: "0.5em",
   },
 });
 
