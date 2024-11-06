@@ -45,7 +45,7 @@ const useStyles = makeStyles({
 });
 
 /**
- * @function App
+ * @function Aipane
  * @description The main application component.
  * @param {AipaneProps} props
  * @returns { React.JSX.Element} The application component.

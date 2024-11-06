@@ -7,9 +7,11 @@ import * as React from "react";
 import { createRoot } from "react-dom/client";
 import { FluentProvider, webLightTheme } from "@fluentui/react-components";
 import AIPane from "./components/Aipane";
-import Clean from "./components/Clean";
+import Settings from "./components/Settings";
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+
+declare const globalThis: any;
 
 const title = "SCTG AI Emailer Add-in";
 const rootElement: HTMLElement | null = document.getElementById("container");
@@ -17,6 +19,7 @@ const root = rootElement ? createRoot(rootElement) : undefined;
 // restore the original history functions
 window.history.pushState = globalThis.backupHistoryFunctions.pushState;
 window.history.replaceState = globalThis.backupHistoryFunctions.replaceState;
+
 // eslint-disable-next-line no-undef
 const BASE_PATH = WEBSITE_ENV === "GITHUB_PAGES" ? "/ai-outlook" : "/";
 const router = createBrowserRouter(
@@ -26,8 +29,12 @@ const router = createBrowserRouter(
       element: <AIPane title={title} />,
     },
     {
-      path: "clean",
-      element: <Clean />,
+      path: "/aipane",
+      element: <AIPane title={title} />,
+    },
+    {
+      path: "settings",
+      element: <Settings />,
     },
   ],
   {
