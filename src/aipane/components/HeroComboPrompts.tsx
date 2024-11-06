@@ -93,12 +93,13 @@ const HeroComboPrompts: React.FC<HeroComboPromptsProps> = ({ onChange, standalon
         console.error("ResizeObserver loop error in HeroComboPrompts");
         e.stopImmediatePropagation();
         e.stopPropagation();
+        e.preventDefault();
       }
     };
     window.addEventListener("error", resizeObserverErr);
-    return () => {
-      window.removeEventListener("error", resizeObserverErr);
-    };
+    // return () => {
+    //   window.removeEventListener("error", resizeObserverErr);
+    // };
   }, []);
 
   return (

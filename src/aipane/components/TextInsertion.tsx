@@ -150,12 +150,13 @@ const TextInsertion: React.FC<TextInsertionProps> = (props: TextInsertionProps):
         console.error("ResizeObserver loop error in TextInsertion");
         e.stopImmediatePropagation();
         e.stopPropagation();
+        e.preventDefault();
       }
     };
     window.addEventListener("error", resizeObserverErr);
-    return () => {
-      window.removeEventListener("error", resizeObserverErr);
-    };
+    // return () => {
+    //   window.removeEventListener("error", resizeObserverErr);
+    // };
   }, []);
 
   return (

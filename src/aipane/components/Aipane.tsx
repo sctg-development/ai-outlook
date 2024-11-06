@@ -219,12 +219,13 @@ const Aipane: React.FC<AipaneProps> = (props: AipaneProps): React.JSX.Element =>
         console.error("ResizeObserver loop error in Aipane");
         e.stopImmediatePropagation();
         e.stopPropagation();
+        e.preventDefault();
       }
     };
     window.addEventListener("error", resizeObserverErr);
-    return () => {
-      window.removeEventListener("error", resizeObserverErr);
-    };
+    // return () => {
+    //   window.removeEventListener("error", resizeObserverErr);
+    // };
   }, []);
 
   return (

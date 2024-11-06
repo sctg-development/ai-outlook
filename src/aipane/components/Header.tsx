@@ -39,12 +39,13 @@ const Header: React.FC<HeaderProps> = (props: HeaderProps) => {
         console.error("ResizeObserver loop error in Header");
         e.stopImmediatePropagation();
         e.stopPropagation();
+        e.preventDefault();
       }
     };
     window.addEventListener("error", resizeObserverErr);
-    return () => {
-      window.removeEventListener("error", resizeObserverErr);
-    };
+    // return () => {
+    //   window.removeEventListener("error", resizeObserverErr);
+    // };
   }, []);
 
   return (

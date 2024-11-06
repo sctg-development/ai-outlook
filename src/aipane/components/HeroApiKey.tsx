@@ -40,12 +40,13 @@ const HeroApiKey: React.FC<HeroApiKeyProps> = ({ apiKey, onApiKeyChange, onApiKe
         console.error("ResizeObserver loop error in HeroApiKey");
         e.stopImmediatePropagation();
         e.stopPropagation();
+        e.preventDefault();
       }
     };
     window.addEventListener("error", resizeObserverErr);
-    return () => {
-      window.removeEventListener("error", resizeObserverErr);
-    };
+    // return () => {
+    //   window.removeEventListener("error", resizeObserverErr);
+    // };
   }, []);
 
   return (

@@ -44,12 +44,13 @@ const HeroProviders: React.FC<HeroProvidersProps> = ({ onChange }) => {
         console.error("ResizeObserver loop error in HeroProviders");
         e.stopImmediatePropagation();
         e.stopPropagation();
+        e.preventDefault();
       }
     };
     window.addEventListener("error", resizeObserverErr);
-    return () => {
-      window.removeEventListener("error", resizeObserverErr);
-    };
+    // return () => {
+    //   window.removeEventListener("error", resizeObserverErr);
+    // };
   }, []);
 
   const handleChange = React.useCallback(

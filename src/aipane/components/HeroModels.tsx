@@ -54,12 +54,13 @@ const HeroModels: React.FC<HeroModelsProps> = ({ onChange, provider }) => {
         console.error("ResizeObserver loop error in HeroModels");
         e.stopImmediatePropagation();
         e.stopPropagation();
+        e.preventDefault();
       }
     };
     window.addEventListener("error", resizeObserverErr);
-    return () => {
-      window.removeEventListener("error", resizeObserverErr);
-    };
+    // return () => {
+    //   window.removeEventListener("error", resizeObserverErr);
+    // };
   }, []);
 
   return (
