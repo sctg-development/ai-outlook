@@ -48,6 +48,17 @@ const router = createBrowserRouter(
 
 /* Render application after Office initializes */
 Office.onReady(() => {
+  const resizeObserver = new ResizeObserver((entries) => {
+    // We wrap it in requestAnimationFrame to avoid this error - ResizeObserver loop limit exceeded
+    window.requestAnimationFrame(() => {
+      if (!Array.isArray(entries) || !entries.length) {
+        return;
+      }
+      // your code
+    });
+  });
+  resizeObserver.observe(document.body);
+
   root?.render(
     <FluentProvider theme={webLightTheme}>
       <React.StrictMode>
