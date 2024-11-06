@@ -29,11 +29,7 @@ const router = createBrowserRouter(
       element: <AIPane title={title} />,
     },
     {
-      path: "/aipane",
-      element: <AIPane title={title} />,
-    },
-    {
-      path: "settings",
+      path: "/settings",
       element: <Settings />,
     },
   ],

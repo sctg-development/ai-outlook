@@ -85,6 +85,12 @@ const Aipane: React.FC<AipaneProps> = (props: AipaneProps): React.JSX.Element =>
   const [showApiKeyInput, setShowApiKeyInput] = useState(false);
 
   /**
+   * @state isOutlook
+   * @description Whether the application is running in Outlook.
+   */
+  const [isOutlook, setIsOutlook] = useState(false);
+
+  /**
    * @constant listItems
    * @description The list items are static and won't change at runtime,
    * so this should be an ordinary const, not a part of state.
@@ -179,9 +185,10 @@ const Aipane: React.FC<AipaneProps> = (props: AipaneProps): React.JSX.Element =>
 
   // Show the version number, the build date and the target use in the console
   // eslint-disable-next-line no-console
-  isOutlookClient().then((isOutlook) =>
-    console.log(`Version: ${versionInfo.commit} Date: ${versionInfo.date} Runs on Outlook: ${isOutlook}`)
-  );
+  isOutlookClient().then((isOutlook) => {
+    setIsOutlook(isOutlook);
+    console.log(`Version: ${versionInfo.commit} Date: ${versionInfo.date} Runs on Outlook: ${isOutlook}`);
+  });
 
   return (
     <div className={styles.root}>
@@ -202,7 +209,7 @@ const Aipane: React.FC<AipaneProps> = (props: AipaneProps): React.JSX.Element =>
           <TextInsertion getAIAnswer={handlePromptSubmit} basePrompt={""} />
         </>
       )}
-      <Link to="settings">Settings</Link>
+      {isOutlook ? <p>Clean the keys</p> : <Link to="settings">Settings</Link>}
     </div>
   );
 };
