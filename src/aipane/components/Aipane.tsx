@@ -91,10 +91,10 @@ const Aipane: React.FC<AipaneProps> = (props: AipaneProps): React.JSX.Element =>
   const [showApiKeyInput, setShowApiKeyInput] = useState(false);
 
   /**
-   * @state isOutlook
-   * @description Whether the application is running in Outlook.
+   * @state isStandalone
+   * @description Whether the client is NOT Outlook.
    */
-  const [isOutlook, setIsOutlook] = useState(null as boolean | null);
+  const [isStandalone, setIsStandalone] = useState(null as boolean | null);
 
   /**
    * @constant listItems
@@ -204,13 +204,12 @@ const Aipane: React.FC<AipaneProps> = (props: AipaneProps): React.JSX.Element =>
 
   // Show the version number, the build date and the target use in the console
   // eslint-disable-next-line no-console
-  if (isOutlook == null) {
+  if (isStandalone == null) {
     isOutlookClient().then((isOutlook) => {
-      setIsOutlook(isOutlook);
       console.log(`Version: ${versionInfo.commit} Date: ${versionInfo.date} Runs on Outlook: ${isOutlook}`);
+      setIsStandalone(!isOutlook);
     });
   }
-
   return (
     <div className={styles.root}>
       <Header logo="assets/logo-filled.png" title={props.title} message="AI emailer" />
@@ -226,11 +225,11 @@ const Aipane: React.FC<AipaneProps> = (props: AipaneProps): React.JSX.Element =>
           {/* <HeroList message="Ask Llama" items={listItems} /> */}
           <HeroProviders onChange={handleProviderChange} />
           <HeroModels onChange={handleModelChange} provider={provider} />
-          <HeroComboPrompts onChange={handlePromptChange} standalone={!isOutlook} />
+          <HeroComboPrompts onChange={handlePromptChange} standalone={isStandalone} />
           <TextInsertion getAIAnswer={handlePromptSubmit} basePrompt={""} />
         </>
       )}
-      {isOutlook ? (
+      {!isStandalone ? (
         <span className={styles.fakeLink} onClick={clearKeys}>
           Clean the keys
         </span>
