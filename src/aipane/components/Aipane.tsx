@@ -94,7 +94,7 @@ const Aipane: React.FC<AipaneProps> = (props: AipaneProps): React.JSX.Element =>
    * @state isOutlook
    * @description Whether the application is running in Outlook.
    */
-  const [isOutlook, setIsOutlook] = useState(false);
+  const [isOutlook, setIsOutlook] = useState(null as boolean | null);
 
   /**
    * @constant listItems
@@ -204,10 +204,12 @@ const Aipane: React.FC<AipaneProps> = (props: AipaneProps): React.JSX.Element =>
 
   // Show the version number, the build date and the target use in the console
   // eslint-disable-next-line no-console
-  isOutlookClient().then((isOutlook) => {
-    setIsOutlook(isOutlook);
-    console.log(`Version: ${versionInfo.commit} Date: ${versionInfo.date} Runs on Outlook: ${isOutlook}`);
-  });
+  if (isOutlook == null) {
+    isOutlookClient().then((isOutlook) => {
+      setIsOutlook(isOutlook);
+      console.log(`Version: ${versionInfo.commit} Date: ${versionInfo.date} Runs on Outlook: ${isOutlook}`);
+    });
+  }
 
   return (
     <div className={styles.root}>
