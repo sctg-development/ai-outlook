@@ -43,7 +43,7 @@ const HeroComboPrompts: React.FC<HeroComboPromptsProps> = ({ onChange, standalon
     // } else {
     //   console.error("Standalone mode not set");
     // }
-  }, []);
+  }, [standalone]);
 
   const handleChange = React.useCallback(
     (event: React.FormEvent<HTMLButtonElement>, option?: any) => {
