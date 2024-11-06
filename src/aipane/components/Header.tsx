@@ -5,7 +5,6 @@
 */
 import * as React from "react";
 import { Image, tokens, makeStyles } from "@fluentui/react-components";
-import { useEffect } from "react";
 
 export interface HeaderProps {
   title: string;
@@ -32,21 +31,6 @@ const useStyles = makeStyles({
 const Header: React.FC<HeaderProps> = (props: HeaderProps) => {
   const { title, logo, message } = props;
   const styles = useStyles();
-
-  useEffect(() => {
-    const resizeObserverErr = (e: ErrorEvent) => {
-      if (e.message === "ResizeObserver loop completed with undelivered notifications.") {
-        console.error("ResizeObserver loop error in Header");
-        e.stopImmediatePropagation();
-        e.stopPropagation();
-        e.preventDefault();
-      }
-    };
-    window.addEventListener("error", resizeObserverErr);
-    // return () => {
-    //   window.removeEventListener("error", resizeObserverErr);
-    // };
-  }, []);
 
   return (
     <section className={styles.welcome__header}>

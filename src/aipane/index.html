@@ -11,14 +11,22 @@
     <link rel="shortcut icon" type="image/x-icon" href="../../assets/favicon.ico">
     <title>SCTG AI Emailer Add-in</title>
 
-    <!-- Office JavaScript API -->
     <script type="text/javascript">
         // Backup history functions to prevent Office.js from breaking it
         globalThis.backupHistoryFunctions = {
             pushState: window.history.pushState,
             replaceState: window.history.replaceState,
         };
+        // Workaround for "ResizeObserver loop completed with undelivered notifications."
+        globalThis.backupResizeObserver = { ResizeObserver: window.ResizeObserver };
+        window.ResizeObserver = class ResizeObserver {
+            ResizeObserver() { };
+            observe() { };
+            unobserve() { };
+            disconnect() { };
+        };
     </script>
+    <!-- Office JavaScript API -->
     <script type="text/javascript" src="https://appsforoffice.microsoft.com/lib/1.1/hosted/office.js"></script>
 </head>
 

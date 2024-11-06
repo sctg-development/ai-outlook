@@ -213,21 +213,6 @@ const Aipane: React.FC<AipaneProps> = (props: AipaneProps): React.JSX.Element =>
     }
   }, []);
 
-  useEffect(() => {
-    const resizeObserverErr = (e: ErrorEvent) => {
-      if (e.message === "ResizeObserver loop completed with undelivered notifications.") {
-        console.error("ResizeObserver loop error in Aipane");
-        e.stopImmediatePropagation();
-        e.stopPropagation();
-        e.preventDefault();
-      }
-    };
-    window.addEventListener("error", resizeObserverErr);
-    // return () => {
-    //   window.removeEventListener("error", resizeObserverErr);
-    // };
-  }, []);
-
   return (
     <div className={styles.root}>
       <Header logo="assets/logo-filled.png" title={props.title} message="AI emailer" />

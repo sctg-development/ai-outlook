@@ -6,7 +6,6 @@
 import * as React from "react";
 import { makeStyles, useId, Button, Input, Label } from "@fluentui/react-components";
 import { AIProvider } from "../AIPrompt";
-import { useEffect } from "react";
 
 interface HeroApiKeyProps {
   provider: AIProvider;
@@ -33,21 +32,6 @@ const useStyles = makeStyles({
 const HeroApiKey: React.FC<HeroApiKeyProps> = ({ apiKey, onApiKeyChange, onApiKeySubmit, provider }) => {
   const styles = useStyles();
   const inputId = useId("input");
-
-  useEffect(() => {
-    const resizeObserverErr = (e: ErrorEvent) => {
-      if (e.message === "ResizeObserver loop completed with undelivered notifications.") {
-        console.error("ResizeObserver loop error in HeroApiKey");
-        e.stopImmediatePropagation();
-        e.stopPropagation();
-        e.preventDefault();
-      }
-    };
-    window.addEventListener("error", resizeObserverErr);
-    // return () => {
-    //   window.removeEventListener("error", resizeObserverErr);
-    // };
-  }, []);
 
   return (
     <div className={styles.root}>

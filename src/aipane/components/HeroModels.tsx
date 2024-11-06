@@ -48,21 +48,6 @@ const HeroModels: React.FC<HeroModelsProps> = ({ onChange, provider }) => {
     onChange(selectedValue);
   }, [selectedValue, onChange]);
 
-  useEffect(() => {
-    const resizeObserverErr = (e: ErrorEvent) => {
-      if (e.message === "ResizeObserver loop completed with undelivered notifications.") {
-        console.error("ResizeObserver loop error in HeroModels");
-        e.stopImmediatePropagation();
-        e.stopPropagation();
-        e.preventDefault();
-      }
-    };
-    window.addEventListener("error", resizeObserverErr);
-    // return () => {
-    //   window.removeEventListener("error", resizeObserverErr);
-    // };
-  }, []);
-
   return (
     <div className={styles.root}>
       <Label htmlFor={selectId} size="large">
