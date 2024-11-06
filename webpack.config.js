@@ -59,7 +59,7 @@ export default async (env, options) => {
     },
     resolve: {
       extensions: [".ts", ".tsx", ".html", ".js"],
-      fallback: { url: false, fs: false, module: false },
+      fallback: { url: false, fs: false, module: false, ResizeObserver: false },
     },
     module: {
       rules: [
