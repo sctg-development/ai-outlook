@@ -5,10 +5,11 @@
 */
 import * as React from "react";
 import { Dropdown, Label, makeStyles, Option, useId } from "@fluentui/react-components";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { getPrompts, type AIPrompt } from "../AIPrompt";
 import { config } from "../config";
 import { isOutlookClient } from "../aipane";
+
 interface HeroComboPromptsProps {
   onChange: (selectedValue: string) => void;
 }
@@ -44,10 +45,10 @@ const HeroComboPrompts: React.FC<HeroComboPromptsProps> = ({ onChange }) => {
     loadPrompts();
   }, []);
 
-  const handleChange = React.useCallback(
+  const handleChange = useCallback(
     (event: React.FormEvent<HTMLButtonElement>, option?: any) => {
       event.preventDefault();
-      const newValue = option?.nextOption.value || config.prompts[0].id;
+      const newValue = option?.value || config.prompts[0].id;
       setSelectedValue(newValue);
       onChange(newValue);
     },
