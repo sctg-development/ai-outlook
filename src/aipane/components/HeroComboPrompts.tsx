@@ -1,15 +1,28 @@
-/*
-=========================================================
-* © 2024 Ronan LE MEILLAT for SCTG Development
-=========================================================
-*/
+/**
+ * =========================================================
+ * © 2024 Ronan LE MEILLAT for SCTG Development
+ * =========================================================
+ * @file HeroComboPrompts.tsx
+ * @description The HeroComboPrompts component for the AI pane.
+ * @author Ronan LE MEILLAT
+ * @copyright 2024 Ronan LE MEILLAT for SCTG Development
+ * @license AGPLv3
+ * This component is part of the AI pane module for the Outlook add-in.
+ */
 import * as React from "react";
 import { Dropdown, Label, makeStyles, Option, SelectionEvents, useId } from "@fluentui/react-components";
 import { useState, useEffect, useCallback, useMemo } from "react";
 import { getPrompts, type AIPrompt } from "../AIPrompt";
 import { config } from "../config";
 interface HeroComboPromptsProps {
+  /**
+   * Callback function to notify the parent component of the selected value.
+   * @param selectedValue The selected value.
+   */
   onChange: (selectedValue: string) => void;
+  /**
+   * Flag indicating whether the component is running in standalone mode (ie not running inside Outlook).
+   */
   standalone: boolean | null;
 }
 
@@ -40,16 +53,20 @@ const HeroComboPrompts: React.FC<HeroComboPromptsProps> = ({ onChange, standalon
       console.log(`Retrieving prompts with: standalone=${standalone}`);
       return getPrompts(standalone || false);
     } else {
-      console.error("Standalone mode not set");
+      // console.error("Standalone mode not set");
       return [];
     }
   }, [standalone]);
 
+  // Compute the default value for the dropdown
   const defaultValue = useMemo(() => {
+    // Use the summary and user properties of the first prompt as the default value
     return (config.prompts[0].summary || config.prompts[0].system) + " " + config.prompts[0].user;
   }, [config.prompts[0]]);
 
+  // Compute the options for the dropdown
   const options = useMemo(() => {
+    // Map each prompt to an Option component
     return prompts.map((prompt: AIPrompt) => (
       <Option value={prompt.id} key={prompt.id}>
         {(prompt.summary || prompt.system) + " " + prompt.user}
