@@ -197,6 +197,7 @@ const Aipane: React.FC<AipaneProps> = (props: AipaneProps): React.JSX.Element =>
   const clearKeys = (): void => {
     Object.keys(config.providers).map((key) => {
       const provider = config.providers[key] as AIProvider;
+      console.log(`Clearing key for ${provider.apiKey}`);
       localStorage.removeItem(provider.apiKey);
     });
   };
@@ -228,9 +229,9 @@ const Aipane: React.FC<AipaneProps> = (props: AipaneProps): React.JSX.Element =>
         </>
       )}
       {isOutlook ? (
-        <p className={styles.fakeLink} onClick={clearKeys}>
+        <span className={styles.fakeLink} onClick={clearKeys}>
           Clean the keys
-        </p>
+        </span>
       ) : (
         <Link to="settings">Settings</Link>
       )}
