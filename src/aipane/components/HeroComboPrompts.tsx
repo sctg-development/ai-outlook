@@ -10,7 +10,7 @@ import { getPrompts, type AIPrompt } from "../AIPrompt";
 import { config } from "../config";
 interface HeroComboPromptsProps {
   onChange: (selectedValue: string) => void;
-  standalone: boolean;
+  standalone: boolean | null;
 }
 
 const useStyles = makeStyles({
@@ -37,12 +37,12 @@ const HeroComboPrompts: React.FC<HeroComboPromptsProps> = ({ onChange, standalon
   // Filter out standalone prompts if the client is Outlook
   // Standalone prompts should be used in standalone mode only
   useEffect(() => {
-    if (standalone !== null) {
-      console.log(`Retrieving prompts with: standalone=${standalone}`);
-      setPrompts(getPrompts(standalone));
-    } else {
-      console.error("Standalone mode not set");
-    }
+    // if (standalone !== null) {
+    console.log(`Retrieving prompts with: standalone=${standalone}`);
+    setPrompts(getPrompts(standalone || false));
+    // } else {
+    //   console.error("Standalone mode not set");
+    // }
   }, []);
 
   const handleChange = React.useCallback(
