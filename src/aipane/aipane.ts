@@ -255,7 +255,7 @@ export async function getAIModels(provider: AIProvider, apiKey: string, filter: 
 let officeLoaded = false;
 if (typeof Office !== "undefined") {
   Office.onReady((info) => {
-    console.log(`Office SDK ready running ${info.host ? "in" + info.host : "outside office"}`);
+    console.log(`Office SDK ready running ${info.host ? "in " + info.host : "outside office"}`);
     officeLoaded = true;
   });
 }
