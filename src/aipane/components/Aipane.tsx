@@ -41,7 +41,7 @@ interface AipaneProps {
  */
 const useStyles = makeStyles({
   root: {
-    minHeight: "100vh",
+    minHeight: "95vh",
   },
   fakeLink: {
     cursor: "pointer",
