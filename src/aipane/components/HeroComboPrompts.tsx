@@ -90,6 +90,7 @@ const HeroComboPrompts: React.FC<HeroComboPromptsProps> = ({ onChange, standalon
   useEffect(() => {
     const resizeObserverErr = (e: any) => {
       if (e.message === "ResizeObserver loop completed with undelivered notifications.") {
+        console.error("ResizeObserver loop error in HeroComboPrompts");
         e.stopImmediatePropagation();
       }
     };
