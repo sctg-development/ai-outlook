@@ -225,7 +225,7 @@ const Aipane: React.FC<AipaneProps> = (props: AipaneProps): React.JSX.Element =>
           {/* <HeroList message="Ask Llama" items={listItems} /> */}
           <HeroProviders onChange={handleProviderChange} />
           <HeroModels onChange={handleModelChange} provider={provider} />
-          <HeroComboPrompts onChange={handlePromptChange} />
+          <HeroComboPrompts onChange={handlePromptChange} standalone={!isOutlook} />
           <TextInsertion getAIAnswer={handlePromptSubmit} basePrompt={""} />
         </>
       )}

@@ -8,10 +8,10 @@ import { Dropdown, Label, makeStyles, Option, useId } from "@fluentui/react-comp
 import { useState, useEffect, useCallback } from "react";
 import { getPrompts, type AIPrompt } from "../AIPrompt";
 import { config } from "../config";
-import { isOutlookClient } from "../aipane";
 
 interface HeroComboPromptsProps {
   onChange: (selectedValue: string) => void;
+  standalone: boolean;
 }
 
 const useStyles = makeStyles({
@@ -29,20 +29,17 @@ const useStyles = makeStyles({
   },
 });
 
-const HeroComboPrompts: React.FC<HeroComboPromptsProps> = ({ onChange }) => {
+const HeroComboPrompts: React.FC<HeroComboPromptsProps> = ({ onChange, standalone }) => {
   const styles = useStyles();
   const inputId = useId("input");
   const [selectedValue, setSelectedValue] = useState<string>(config.prompts[0].id);
   const [prompts, setPrompts] = useState<AIPrompt[]>([]);
-  const [isOutlook, setIsOutlook] = useState<boolean>(false);
+  const [, setIsOutlook] = useState<boolean>(false);
 
-  // Filter out standalone prompts if the client is Outlook
   // Standalone prompts should be used in standalone mode only
   useEffect(() => {
-    isOutlookClient().then((_isOutlook) => {
-      setIsOutlook(_isOutlook);
-      setPrompts(getPrompts(!isOutlook));
-    });
+    setIsOutlook(!standalone);
+    setPrompts(getPrompts(standalone));
   }, []);
 
   const handleChange = useCallback(
