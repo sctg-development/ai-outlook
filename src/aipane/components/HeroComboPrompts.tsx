@@ -34,15 +34,15 @@ const HeroComboPrompts: React.FC<HeroComboPromptsProps> = ({ onChange }) => {
   const inputId = useId("input");
   const [selectedValue, setSelectedValue] = useState<string>(config.prompts[0].id);
   const [prompts, setPrompts] = useState<AIPrompt[]>([]);
+  const [isOutlook, setIsOutlook] = useState<boolean>(false);
 
   // Filter out standalone prompts if the client is Outlook
   // Standalone prompts should be used in standalone mode only
   useEffect(() => {
-    const loadPrompts = async () => {
-      const isOutlook = await isOutlookClient();
+    isOutlookClient().then((_isOutlook) => {
+      setIsOutlook(_isOutlook);
       setPrompts(getPrompts(!isOutlook));
-    };
-    loadPrompts();
+    });
   }, []);
 
   const handleChange = useCallback(

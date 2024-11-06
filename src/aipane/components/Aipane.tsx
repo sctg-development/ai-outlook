@@ -9,8 +9,7 @@
 import * as React from "react";
 import { useState, useEffect } from "react";
 import Header from "./Header";
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import HeroList, { HeroListItem } from "./HeroList";
+import { HeroListItem } from "./HeroList";
 import TextInsertion from "./TextInsertion";
 import { makeStyles } from "@fluentui/react-components";
 import { BrainCircuit20Regular } from "@fluentui/react-icons";
