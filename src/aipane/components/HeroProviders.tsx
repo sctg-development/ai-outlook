@@ -38,6 +38,20 @@ const HeroProviders: React.FC<HeroProvidersProps> = ({ onChange }) => {
     setProviders(config.providers);
   }, []);
 
+  useEffect(() => {
+    const resizeObserverErr = (e: ErrorEvent) => {
+      if (e.message === "ResizeObserver loop completed with undelivered notifications.") {
+        console.error("ResizeObserver loop error in HeroProviders");
+        e.stopImmediatePropagation();
+        e.stopPropagation();
+      }
+    };
+    window.addEventListener("error", resizeObserverErr);
+    return () => {
+      window.removeEventListener("error", resizeObserverErr);
+    };
+  }, []);
+
   const handleChange = React.useCallback(
     (event: React.FormEvent<HTMLButtonElement>, option?: any) => {
       event.preventDefault();

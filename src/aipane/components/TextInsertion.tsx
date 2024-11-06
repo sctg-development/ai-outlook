@@ -144,6 +144,20 @@ const TextInsertion: React.FC<TextInsertionProps> = (props: TextInsertionProps):
     });
   }, []);
 
+  useEffect(() => {
+    const resizeObserverErr = (e: ErrorEvent) => {
+      if (e.message === "ResizeObserver loop completed with undelivered notifications.") {
+        console.error("ResizeObserver loop error in TextInsertion");
+        e.stopImmediatePropagation();
+        e.stopPropagation();
+      }
+    };
+    window.addEventListener("error", resizeObserverErr);
+    return () => {
+      window.removeEventListener("error", resizeObserverErr);
+    };
+  }, []);
+
   return (
     <div className={styles.textPromptAndInsertion}>
       <Field className={styles.textAreaField} size="large" label="Enter your message.">
