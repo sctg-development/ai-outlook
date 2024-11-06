@@ -4,8 +4,8 @@
 =========================================================
 */
 import * as React from "react";
-import { Dropdown, Label, makeStyles, Option, useId } from "@fluentui/react-components";
-import { useState, useEffect } from "react";
+import { Dropdown, Label, makeStyles, Option, SelectionEvents, useId } from "@fluentui/react-components";
+import { useState, useEffect, useCallback } from "react";
 import { getPrompts, type AIPrompt } from "../AIPrompt";
 import { config } from "../config";
 interface HeroComboPromptsProps {
@@ -45,10 +45,9 @@ const HeroComboPrompts: React.FC<HeroComboPromptsProps> = ({ onChange, standalon
     }
   }, [standalone]);
 
-  const handleChange = React.useCallback(
-    (event: React.FormEvent<HTMLButtonElement>, option?: any) => {
-      event.preventDefault();
-      const newValue = option?.nextOption.value || config.prompts[0].id;
+  const handleChange = useCallback(
+    (_event: SelectionEvents, data: { optionValue: string }) => {
+      const newValue = data.optionValue || config.prompts[0].id;
       setSelectedValue(newValue);
       onChange(newValue);
     },
@@ -67,7 +66,7 @@ const HeroComboPrompts: React.FC<HeroComboPromptsProps> = ({ onChange, standalon
       <Dropdown
         className={styles.combobox}
         id={inputId}
-        onActiveOptionChange={handleChange}
+        onOptionSelect={handleChange}
         defaultSelectedOptions={[config.prompts[0].id]}
         defaultValue={(config.prompts[0].summary || config.prompts[0].system) + " " + config.prompts[0].user}
       >
