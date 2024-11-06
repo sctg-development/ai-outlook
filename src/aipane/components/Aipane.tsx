@@ -22,6 +22,7 @@ import { AIAnswer, AIModel, AIProvider, getDefaultProvider, getModel } from "../
 import HeroProviders from "./HeroProviders";
 import { versionInfo } from "../../version";
 import { Link } from "react-router-dom";
+import { config } from "../config";
 
 /**
  * @interface AppProps
@@ -42,6 +43,11 @@ interface AipaneProps {
 const useStyles = makeStyles({
   root: {
     minHeight: "100vh",
+  },
+  fakeLink: {
+    cursor: "pointer",
+    color: "blue",
+    fontSize: "0.5em",
   },
 });
 
@@ -183,6 +189,18 @@ const Aipane: React.FC<AipaneProps> = (props: AipaneProps): React.JSX.Element =>
     }
   };
 
+  /**
+   * Clear the API keys from local storage.
+   * for all providers.
+   * @returns {void}
+   */
+  const clearKeys = (): void => {
+    Object.keys(config.providers).map((key) => {
+      const provider = config.providers[key] as AIProvider;
+      localStorage.removeItem(provider.apiKey);
+    });
+  };
+
   // Show the version number, the build date and the target use in the console
   // eslint-disable-next-line no-console
   isOutlookClient().then((isOutlook) => {
@@ -209,7 +227,13 @@ const Aipane: React.FC<AipaneProps> = (props: AipaneProps): React.JSX.Element =>
           <TextInsertion getAIAnswer={handlePromptSubmit} basePrompt={""} />
         </>
       )}
-      {isOutlook ? <p>Clean the keys</p> : <Link to="settings">Settings</Link>}
+      {isOutlook ? (
+        <p className={styles.fakeLink} onClick={clearKeys}>
+          Clean the keys
+        </p>
+      ) : (
+        <Link to="settings">Settings</Link>
+      )}
     </div>
   );
 };
