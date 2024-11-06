@@ -21,6 +21,7 @@ import HeroModels from "./HeroModels";
 import { AIAnswer, AIModel, AIProvider, getDefaultProvider, getModel } from "../AIPrompt";
 import HeroProviders from "./HeroProviders";
 import { versionInfo } from "../../version";
+import { Link } from "react-router-dom";
 
 /**
  * @interface AppProps
@@ -201,6 +202,7 @@ const Aipane: React.FC<AipaneProps> = (props: AipaneProps): React.JSX.Element =>
           <TextInsertion getAIAnswer={handlePromptSubmit} basePrompt={""} />
         </>
       )}
+      <Link to="settings">Settings</Link>
     </div>
   );
 };
