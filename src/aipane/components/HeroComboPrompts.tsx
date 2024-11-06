@@ -40,6 +40,8 @@ const HeroComboPrompts: React.FC<HeroComboPromptsProps> = ({ onChange, standalon
     if (standalone !== null) {
       console.log(`Retrieving prompts with: standalone=${standalone}`);
       setPrompts(getPrompts(standalone));
+    } else {
+      console.error("Standalone mode not set");
     }
   }, []);
 
