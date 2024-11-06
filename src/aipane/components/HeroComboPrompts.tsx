@@ -37,12 +37,12 @@ const HeroComboPrompts: React.FC<HeroComboPromptsProps> = ({ onChange, standalon
   // Filter out standalone prompts if the client is Outlook
   // Standalone prompts should be used in standalone mode only
   useEffect(() => {
-    // if (standalone !== null) {
-    console.log(`Retrieving prompts with: standalone=${standalone}`);
-    setPrompts(getPrompts(standalone || false));
-    // } else {
-    //   console.error("Standalone mode not set");
-    // }
+    if (standalone !== null) {
+      console.log(`Retrieving prompts with: standalone=${standalone}`);
+      setPrompts(getPrompts(standalone || false));
+    } else {
+      console.error("Standalone mode not set");
+    }
   }, [standalone]);
 
   const handleChange = React.useCallback(
