@@ -2,3 +2,4 @@ node_modules
 dist
 api.key
 .DS_Store
+config.json

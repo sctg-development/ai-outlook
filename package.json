@@ -13,11 +13,12 @@
     "dev_server_port": 3000
   },
   "scripts": {
-    "build": "npm run getGroqModels && npx webpack --mode production",
+    "build": "npm run getPrompts && npm run getGroqModels && npx webpack --mode production",
     "build:github-pages": "npm run getGroqModels && npx webpack --env website=GITHUB_PAGES --mode production",
     "build:dev": "webpack --mode development",
     "dev-server": "webpack serve --mode development",
     "getGroqModels": "tsx utils/initModels.ts",
+    "getPrompts": "tsx utils/getPrompts.ts",
     "_getGroqModels": "node --import 'data:text/javascript,import { register } from \"node:module\"; import { pathToFileURL } from \"node:url\"; register(\"ts-node/esm\", pathToFileURL(\"./\"));' ./utils/initModels.ts",
     "lint": "office-addin-lint check",
     "lint:fix": "office-addin-lint fix",
