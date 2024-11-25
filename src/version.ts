@@ -1,4 +1,4 @@
 export const versionInfo = {
-  commit: "a859828ce077447711338df714a4ea6a0b0236f2",
-  date: "2024-11-06 17:40:45 +0100",
+  commit: "2369128cbbe9c07131dc96a7b34247c2c3e61954",
+  date: "2024-11-13 10:38:49 +0100",
 };
