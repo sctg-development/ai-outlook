@@ -13,16 +13,16 @@ export const config: AIConfig = {
       aiproxied: true,
       models: [
         {
-          id: "llama-3.2-90b-text-preview",
-          name: "Llama 3.2 (90b Text Preview)",
+          id: "llama-3.3-70b-specdec",
+          name: "Llama 3.3 (70b Specdec)",
           default: true,
           max_tokens: 8192,
         },
         {
-          id: "llama-3.2-11b-text-preview",
-          name: "Llama 3.2 (11b Text Preview)",
+          id: "llama-3.3-70b-versatile",
+          name: "Llama 3.3 (70b Versatile)",
           default: false,
-          max_tokens: 8192,
+          max_tokens: 32768,
         },
         {
           id: "llama-3.2-90b-vision-preview",
@@ -49,16 +49,16 @@ export const config: AIConfig = {
           max_tokens: 8192,
         },
         {
-          id: "llama-3.1-70b-versatile",
-          name: "Llama 3.1 (70b Versatile)",
-          default: false,
-          max_tokens: 32768,
-        },
-        {
           id: "llama3-70b-8192",
           name: "Llama3 70b (8192)",
           default: false,
           max_tokens: 8192,
+        },
+        {
+          id: "llama-3.1-70b-versatile",
+          name: "Llama 3.1 (70b Versatile)",
+          default: false,
+          max_tokens: 32768,
         },
         {
           id: "llama-3.1-8b-instant",
@@ -73,12 +73,6 @@ export const config: AIConfig = {
           max_tokens: 8192,
         },
         {
-          id: "llama3-groq-70b-8192-tool-use-preview",
-          name: "Llama3 Groq (70b 8192 Tool Use)",
-          default: false,
-          max_tokens: 8192,
-        },
-        {
           id: "llama-guard-3-8b",
           name: "Llama Guard (3 8b)",
           default: false,
@@ -87,6 +81,12 @@ export const config: AIConfig = {
         {
           id: "llama3-8b-8192",
           name: "Llama3 8b (8192)",
+          default: false,
+          max_tokens: 8192,
+        },
+        {
+          id: "llama3-groq-70b-8192-tool-use-preview",
+          name: "Llama3 Groq (70b 8192 Tool Use)",
           default: false,
           max_tokens: 8192,
         },
