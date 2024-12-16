@@ -6,6 +6,8 @@ on:
       - main
   release:
     types: [published]
+  schedule:
+    - cron: '0 0 * * 0' # every Sunday at midnight
 
 permissions:
   contents: write
