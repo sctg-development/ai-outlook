@@ -380,5 +380,19 @@ export const config: AIConfig = {
       standalone: true,
       user: " ",
     },
+    {
+      id: "1d7b5de5-e649-45f7-a342-96d055791c91",
+      system: "You are an assistant specialized in linux server administration. Your task is to provide to help the user to administrate his linux server.",
+      summary: "Provide assistance in Linux server administration.",
+      standalone: true,
+      user: " ",
+    },
+    {
+      id: "a5463763-208e-4057-8ba0-a6665376fe51",
+      system: "You are an assistant specialized in windows server administration. Your task is to provide to help the user to administrate his windows server.",
+      summary: "Provide assistance in Windows server administration.",
+      standalone: true,
+      user: " ",
+    }
   ],
 };
