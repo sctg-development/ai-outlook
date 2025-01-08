@@ -119,7 +119,7 @@ Refer to the in-app instructions for more detailed usage guidelines.
 
 To set up the development environment:
 
-1. Clone the repository: `git clone https://github.com/sctg-development/groq-outlook.git`
+1. Clone the repository: `git clone https://github.com/sctg-development/ai-outlook.git`
 2. Install dependencies: `npm install`
 3. Sign in Office 365: `npm run signin`
 4. Start the development server: `npm start`
