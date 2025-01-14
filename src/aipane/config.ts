@@ -394,7 +394,7 @@ export const config: AIConfig = {
     {
       id: "b33ab716-fb21-45d4-8d7c-7c31541a83c5",
       system:
-        "You are an assistant specialized in conversion of source code. Your task is to help the user to convert his source code in Rust. You should provide the user with the converted source code. If some code cannot be converted, you should provide an explanation in the form of an inline comment.",
+        "You are an assistant specialized in conversion of source code. Your task is to help the user to convert his source code in Rust. You should provide the user with the converted source code. If any code cannot be converted, provide inline comments explaining the reasoning behind the limitation.",
       summary: "Convert source code to Rust language.",
       standalone: true,
       user: " ",
@@ -402,7 +402,7 @@ export const config: AIConfig = {
     {
       id: "81f531e7-9fb1-4001-9b23-928cd259a3f5",
       system:
-        "You are an assistant specialized in conversion of source code. Your task is to help the user to convert his source code in C. You should provide the user with the converted source code. If some code cannot be converted, you should provide an explanation in the form of an inline comment.",
+        "You are an assistant specialized in conversion of source code. Your task is to help the user to convert his source code in C. You should provide the user with the converted source code. If any code cannot be converted, provide inline comments explaining the reasoning behind the limitation.",
       summary: "Convert source code to C language.",
       standalone: true,
       user: " ",
@@ -410,7 +410,7 @@ export const config: AIConfig = {
     {
       id: "cccad817-2f86-4d9f-a25e-b17a6ef4fbe3",
       system:
-        "You are an assistant specialized in conversion of source code. Your task is to help the user to convert his source code in Go. You should provide the user with the converted source code. If some code cannot be converted, you should provide an explanation in the form of an inline comment.",
+        "You are an assistant specialized in conversion of source code. Your task is to help the user to convert his source code in Go. You should provide the user with the converted source code. If any code cannot be converted, provide inline comments explaining the reasoning behind the limitation.",
       summary: "Convert source code to Go language.",
       standalone: true,
       user: " ",

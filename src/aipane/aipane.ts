@@ -65,6 +65,9 @@ async function aiRequest(
   console.log(`Token count: ${tokenCount}`);
 
   // Create a chat completion request
+  const max_tokens: number = model.max_tokens - tokenCount - TOKEN_MARGIN;
+  console.log(`Max tokens: ${max_tokens}`);
+
   const chatCompletion = await ai.chat.completions.create({
     messages: [
       {
@@ -78,7 +81,7 @@ async function aiRequest(
     ],
     model: model.id,
     temperature: 1,
-    max_tokens: model.max_tokens - tokenCount - TOKEN_MARGIN,
+    max_tokens: max_tokens,
     top_p: 1,
     stream: true,
     stop: null,
