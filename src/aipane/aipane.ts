@@ -81,7 +81,7 @@ async function aiRequest(
     ],
     model: model.id,
     temperature: 1,
-    max_tokens: max_tokens,
+    max_tokens: model.max_tokens,
     top_p: 1,
     stream: true,
     stop: null,
