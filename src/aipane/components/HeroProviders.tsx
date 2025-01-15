@@ -34,6 +34,11 @@ const HeroProviders: React.FC<HeroProvidersProps> = ({ onChange }) => {
   const [selectedValue, setSelectedValue] = useState<string>(getDefaultProvider().name);
   const [providers, setProviders] = useState<AIProvider[]>([]);
 
+  let storedProviderName = localStorage.getItem("provider");
+  if (storedProviderName === null) {
+    storedProviderName = getDefaultProvider().name;
+  }
+
   useEffect(() => {
     setProviders(config.providers);
   }, []);
@@ -42,6 +47,7 @@ const HeroProviders: React.FC<HeroProvidersProps> = ({ onChange }) => {
     (event: React.FormEvent<HTMLButtonElement>, option?: any) => {
       event.preventDefault();
       const newValue = option?.nextOption.value || getDefaultProvider().name;
+      localStorage.setItem("provider", newValue);
       setSelectedValue(newValue);
       onChange(getProvider(newValue));
     },
@@ -60,8 +66,8 @@ const HeroProviders: React.FC<HeroProvidersProps> = ({ onChange }) => {
       <Dropdown
         className={styles.combobox}
         id={selectId}
-        defaultSelectedOptions={[getDefaultProvider().name]}
-        defaultValue={getDefaultProvider().name}
+        defaultSelectedOptions={[storedProviderName]}
+        defaultValue={storedProviderName}
         onActiveOptionChange={handleChange}
         onChange={handleChange}
       >

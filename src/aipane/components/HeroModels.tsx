@@ -34,10 +34,19 @@ const HeroModels: React.FC<HeroModelsProps> = ({ onChange, provider }) => {
   const selectId = useId("select");
   const [selectedValue, setSelectedValue] = useState<string>(getDefaultModel(provider).id);
 
+  let storedModelId = localStorage.getItem("model");
+  if (storedModelId === null) {
+    storedModelId = getDefaultModel(provider).id;
+  }
+  let storeModelName = provider.models.find((model) => model.id === storedModelId)?.name;
+  if (storeModelName === undefined) {
+    storeModelName = getDefaultModel(provider).name;
+  }
   const handleChange = React.useCallback(
     (event: React.FormEvent<HTMLButtonElement>, option?: any) => {
       event.preventDefault();
       const newValue = option?.nextOption.value || getDefaultModel(provider).id;
+      localStorage.setItem("model", newValue);
       setSelectedValue(newValue);
       onChange(newValue);
     },
@@ -56,8 +65,8 @@ const HeroModels: React.FC<HeroModelsProps> = ({ onChange, provider }) => {
       <Dropdown
         className={styles.combobox}
         id={selectId}
-        defaultSelectedOptions={[getDefaultModel(provider).id]}
-        defaultValue={getDefaultModel(provider).name}
+        defaultSelectedOptions={[storedModelId]}
+        defaultValue={storeModelName}
         onActiveOptionChange={handleChange}
         onChange={handleChange}
       >
