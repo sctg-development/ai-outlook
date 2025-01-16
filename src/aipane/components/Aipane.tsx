@@ -97,6 +97,12 @@ const Aipane: React.FC<AipaneProps> = (props: AipaneProps): React.JSX.Element =>
   const [isStandalone, setIsStandalone] = useState(null as boolean | null);
 
   /**
+   * @state pageTitle
+   * @description The title of the page.
+   */
+  const [pageTitle, setPageTitle] = useState("AI Emailer");
+
+  /**
    * @constant listItems
    * @description The list items are static and won't change at runtime,
    * so this should be an ordinary const, not a part of state.
@@ -209,13 +215,14 @@ const Aipane: React.FC<AipaneProps> = (props: AipaneProps): React.JSX.Element =>
       isOutlookClient().then((isOutlook) => {
         console.log(`Version: ${versionInfo.commit} Date: ${versionInfo.date} Runs on Outlook: ${isOutlook}`);
         setIsStandalone(!isOutlook);
+        setPageTitle(isOutlook ? "AI Emailer" : "AI Standalone");
       });
     }
   }, []);
 
   return (
     <div className={styles.root}>
-      <Header logo="assets/logo-filled.png" title={props.title} message="AI emailer" />
+      <Header logo="assets/logo-filled.png" title={props.title} message={pageTitle} />
       {showApiKeyInput ? (
         <HeroApiKey
           apiKey={apiKey}
