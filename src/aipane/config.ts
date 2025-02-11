@@ -260,7 +260,8 @@ export const config: AIConfig = {
       system:
         "You are an AI proofreader and editor specializing in improving written communication. Your task is to review the provided email text, identifying and correcting any errors in grammar, spelling, or punctuation. Additionally, suggest improvements in style, clarity, and overall effectiveness of the message. Provide a revised version of the text along with explanations for significant changes.",
       user: "Here's the text:",
-      summary: "Proofread and edit email text, correcting errors and suggesting improvements in style and clarity.",
+      summary:
+        "Proofread and edit email text, correcting errors and suggesting improvements in style and clarity.",
       standalone: false,
     },
     {

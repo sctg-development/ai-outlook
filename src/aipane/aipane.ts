@@ -103,7 +103,9 @@ async function aiRequest(
 async function getPrompt(id: string): Promise<AIPrompt> {
   const prompts: AIPrompt[] = config.prompts;
   const isOutlook = await isOutlookClient();
-  const prompt: AIPrompt | undefined = prompts.find((prompt) => prompt.id === id && (!prompt.standalone || !isOutlook));
+  const prompt: AIPrompt | undefined = prompts.find(
+    (prompt) => prompt.id === id && (!prompt.standalone || !isOutlook)
+  );
   if (!prompt) {
     console.error("getPrompt: Prompt not found");
     throw new Error("Prompt not found");
@@ -214,7 +216,11 @@ export async function insertAIAnswer(
  * @param {string} filter - The filter for the model list.
  * @returns {Promise<AIModel[]>} - The list of AI models.
  */
-export async function getAIModels(provider: AIProvider, apiKey: string, filter: string): Promise<AIModel[]> {
+export async function getAIModels(
+  provider: AIProvider,
+  apiKey: string,
+  filter: string
+): Promise<AIModel[]> {
   interface ExtendedModel extends Model {
     context_window?: number;
     active?: boolean;
