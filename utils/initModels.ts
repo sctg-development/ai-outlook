@@ -38,8 +38,10 @@ if (apiKey !== "") {
     //console.log(JSON.stringify(newConfig, null, 2));
     const jsonText = JSON.stringify(newConfig, null, 2);
     const configTs = `import { AIConfig } from "./AIPrompt";\nexport const config: AIConfig = ${jsonText};`;
-    format(configTs, { parser: "typescript", plugins: ["eslint-plugin-office-addins"] }).then((formatted) => {
-      writeFileSync("./src/aipane/config.ts", formatted);
-    });
+    format(configTs, { parser: "typescript", plugins: ["eslint-plugin-office-addins"] }).then(
+      (formatted) => {
+        writeFileSync("./src/aipane/config.ts", formatted);
+      }
+    );
   });
 }

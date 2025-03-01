@@ -167,9 +167,11 @@ const TextInsertion: React.FC<TextInsertionProps> = (props: TextInsertionProps):
           <SkeletonItem className={styles.skeletonItem} />
           <SkeletonItem className={styles.skeletonItem} />
         </Skeleton>
-        <Markdown className={styles.markdown} rehypePlugins={[rehypeHighlight]}>
-          {answer}
+        <div className={styles.markdown} >
+          <Markdown rehypePlugins={[rehypeHighlight]}>
+          {answer}          
         </Markdown>
+        </div>
         {!isOutlook && answer && answer.length ? (
           <a
             href={`data:text/plain;charset=utf-8,${encodeURIComponent(answer)}`}
