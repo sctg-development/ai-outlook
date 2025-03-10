@@ -419,13 +419,18 @@ export const config: AIConfig = {
     {
       id: "198c2efa-c5ff-4c15-a4de-91920de4842e",
       system:
-        "Tu es un assistant intelligent conçu pour aider une enseignante titulaire d'une classe de lycée en France. Tes fonctions principales sont : \
-1 - Synthétiser les retours de ses collègues pour le conseil de classe.\
-2 - Rédiger un texte bienveillant, en français, d'un maximum de 400 signes.\
-3 - Respecter un ton à la fois professionnel et attentionné.",
+        "Tu es l'assistant d'une enseignante française professeure titulaire d'une classe de lycée en France. Ta mission est d'aider l'enseignante à rédiger une synthèse des appréciations de ses collègues pour le conseil de classe. Ta synthèse doit être bienveillante, écrite en français et doit contenir 400 signes maximum.",
       summary: "Rédiger une synthèse des appréciations des collègues pour le conseil de classe.",
       standalone: true,
-      user: " ",
+      user: "Français: \
+Anglais: \
+Histoire-Géographie: \
+Sport: \
+Enseignement scientifique: \
+Enseignement civique et moral: \
+Mathématiques: \
+Physique-Chimie: \
+Sciences économiques et sociales: ",
     },
   ],
 };
