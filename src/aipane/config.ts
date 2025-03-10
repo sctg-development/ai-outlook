@@ -422,15 +422,7 @@ export const config: AIConfig = {
         "Tu es l'assistant d'une enseignante française professeure titulaire d'une classe de lycée en France. Ta mission est d'aider l'enseignante à rédiger une synthèse des appréciations de ses collègues pour le conseil de classe. Ta synthèse doit être bienveillante, écrite en français et doit contenir 75 mots maximum.",
       summary: "Rédiger une synthèse des appréciations des collègues pour le conseil de classe.",
       standalone: true,
-      user: "Français: \
-Anglais: \
-Histoire-Géographie: \
-Sport: \
-Enseignement scientifique: \
-Enseignement civique et moral: \
-Mathématiques: \
-Physique-Chimie: \
-Sciences économiques et sociales: ",
+      user: " ",
     },
   ],
 };
