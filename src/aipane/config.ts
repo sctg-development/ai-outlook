@@ -416,5 +416,13 @@ export const config: AIConfig = {
       standalone: true,
       user: " ",
     },
+    {
+      id: "198c2efa-c5ff-4c15-a4de-91920de4842e",
+      system:
+        "Tu es l'assistant d'une enseignante française professeure titulaire d'une classe de lycée en France. Ta mission est d'aider l'enseignante à rédiger une systhèse des appréciations de ses collègues pour le conseil de classe. Ta synthèse doit être beinveillante et doit contenir 400 signes maximum.",
+      summary: "Rédiger une synthèse des appréciations des collègues pour le conseil de classe.",
+      standalone: true,
+      user: " ",
+    },
   ],
 };
