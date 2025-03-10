@@ -425,15 +425,7 @@ export const config: AIConfig = {
 3 - Respecter un ton à la fois professionnel et attentionné.",
       summary: "Rédiger une synthèse des appréciations des collègues pour le conseil de classe.",
       standalone: true,
-      user: "Français: \
-Anglais: \
-Histoire-Géographie: \
-Sport: \
-Enseignement scientifique: \
-Enseignement civique et moral: \
-Mathématiques: \
-Physique-Chimie: \
-Sciences économiques et sociales: ",
+      user: " ",
     },
   ],
 };
